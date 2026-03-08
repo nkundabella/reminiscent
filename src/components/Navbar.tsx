@@ -5,37 +5,67 @@ import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 
 const links = [
-  { href: "/", label: "Home" },
-  { href: "/blog", label: "Log" },
-  { href: "/now", label: "Now" },
+  { href: "/", label: "HME" },
+  { href: "/blog", label: "LOG" },
+  { href: "/guestbook", label: "GBK" },
 ];
 
 export function Navbar() {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-40 bg-aura-background/80 backdrop-blur-md border-2 border-aura-foreground rounded-full px-8 py-3 shadow-[4px_4px_0px_#1e1e24] flex gap-2">
-      <ul className="flex items-center gap-8">
-        {links.map((link) => (
-          <li key={link.href} className="relative">
-            <Link
-              href={link.href}
-              className={`font-sans font-bold text-lg hover:text-aura-pink transition-colors relative z-10 ${
-                pathname === link.href ? "text-aura-foreground" : "text-aura-foreground/70"
-              }`}
+    <>
+      {/* Editorial Logo - Fixed Top Left */}
+      <div className="fixed top-8 left-8 z-50 mix-blend-difference pointer-events-auto">
+        <Link href="/" className="group block">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <h2 className="font-serif text-3xl font-bold tracking-tighter text-aura-cream leading-none group-hover:text-aura-pink transition-colors">
+              I Z <br/> Z Y
+            </h2>
+            <motion.div 
+              className="h-0.5 bg-aura-pink mt-1"
+              initial={{ width: 0 }}
+              whileHover={{ width: "100%" }}
+              transition={{ duration: 0.3 }}
+            />
+          </motion.div>
+        </Link>
+      </div>
+
+      {/* Sophisticated Side Menu - Fixed Top Right */}
+      <nav className="fixed top-8 right-8 z-50">
+        <ul className="flex flex-col items-end gap-3">
+          {links.map((link, i) => (
+            <motion.li 
+              key={link.href}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.1 * i, duration: 0.5 }}
+              className="group relative pr-4"
             >
-              {link.label}
-            </Link>
-            {pathname === link.href && (
-              <motion.div
-                layoutId="nav-indicator"
-                className="absolute -bottom-2 -left-2 -right-2 h-2 bg-aura-green transform -rotate-2 z-0 mix-blend-multiply opacity-50"
-                transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              />
-            )}
-          </li>
-        ))}
-      </ul>
-    </nav>
+              <Link
+                href={link.href}
+                className={`font-sans font-black text-[10px] tracking-[0.3em] transition-all duration-300 hover:text-aura-pink flex items-center gap-2 ${
+                  pathname === link.href ? "text-aura-pink" : "text-aura-foreground"
+                }`}
+              >
+                {link.label}
+              </Link>
+              {pathname === link.href && (
+                <motion.div
+                  layoutId="nav-dot"
+                  className="absolute right-0 top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-aura-pink rounded-full"
+                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                />
+              )}
+            </motion.li>
+          ))}
+        </ul>
+      </nav>
+    </>
   );
 }
