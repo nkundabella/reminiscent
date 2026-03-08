@@ -2,16 +2,20 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { Home, Notebook, BookHeart, User, Bell } from "lucide-react";
+import { useState } from "react";
 
 const links = [
-  { href: "/", label: "HME" },
-  { href: "/blog", label: "LOG" },
-  { href: "/guestbook", label: "GBK" },
+  { href: "/", label: "Home", icon: Home },
+  { href: "/blog", label: "Blog", icon: Notebook },
+  { href: "/guestbook", label: "Guestbook", icon: BookHeart },
+  { href: "/studio", label: "Studio", icon: User },
 ];
 
 export function Navbar() {
   const pathname = usePathname();
+  const [hoveredPath, setHoveredPath] = useState<string | null>(null);
 
   return (
     <>
@@ -36,36 +40,72 @@ export function Navbar() {
         </Link>
       </div>
 
-      {/* Sophisticated Side Menu - Fixed Top Right */}
-      <nav className="fixed top-8 right-8 z-50">
-        <ul className="flex flex-col items-end gap-3">
-          {links.map((link, i) => (
-            <motion.li 
-              key={link.href}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.1 * i, duration: 0.5 }}
-              className="group relative pr-4"
-            >
+      <div className="fixed bottom-10 left-1/2 -translate-x-1/2 z-[100]">
+        <div className="relative bg-[#1a1a1a]/90 rounded-2xl px-4 py-3 flex items-center gap-8 shadow-2xl border border-white/5 backdrop-blur-xl">
+          {links.map((link) => {
+            // Match exactly for home, or start with for others (e.g. /studio/...)
+            const isActive = link.href === "/" 
+              ? pathname === "/" 
+              : pathname.startsWith(link.href);
+            
+            const isHovered = hoveredPath === link.href;
+            const showSpotlight = isActive || isHovered;
+
+            return (
               <Link
+                key={link.href}
                 href={link.href}
-                className={`font-sans font-black text-[10px] tracking-[0.3em] transition-all duration-300 hover:text-aura-pink flex items-center gap-2 ${
-                  pathname === link.href ? "text-aura-pink" : "text-aura-foreground"
-                }`}
+                className="relative p-2 rounded-xl transition-colors duration-300 group"
+                onMouseEnter={() => setHoveredPath(link.href)}
+                onMouseLeave={() => setHoveredPath(null)}
               >
-                {link.label}
-              </Link>
-              {pathname === link.href && (
-                <motion.div
-                  layoutId="nav-dot"
-                  className="absolute right-0 top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-aura-pink rounded-full"
-                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                {/* Spotlight Beam - Persistent on Active or visible on Hover */}
+                {showSpotlight && (
+                  <>
+                    {/* The Spotlight Glow */}
+                    <motion.div
+                      layoutId="spotlight-beam"
+                      className="absolute inset-x-0 bottom-[-12px] h-32 pointer-events-none z-0"
+                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                    >
+                      <div 
+                        className="w-full h-full"
+                        style={{
+                          background: `conic-gradient(from 180deg at 50% 0%, transparent 42%, rgba(255, 107, 179, 0.2) 50%, transparent 58%)`,
+                          filter: 'blur(12px)',
+                          transform: 'perspective(100px) rotateX(45deg)'
+                        }}
+                      />
+                    </motion.div>
+
+                    {/* The "Laser" Line at the Top */}
+                    <motion.div
+                      layoutId="spotlight-line"
+                      className="absolute top-[-14px] left-1/2 -translate-x-1/2 w-8 h-[3px] bg-aura-pink rounded-full shadow-[0_0_15px_#ff6bb3]"
+                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                    />
+                  </>
+                )}
+
+                <link.icon 
+                  className={`w-6 h-6 relative z-10 transition-all duration-300 ${
+                    isActive ? "text-white scale-110 shadow-[0_0_10px_rgba(255,255,255,0.3)]" : "text-white/40 group-hover:text-white/80"
+                  }`}
                 />
-              )}
-            </motion.li>
-          ))}
-        </ul>
-      </nav>
+                
+                {/* Active Underglow */}
+                {isActive && (
+                  <motion.div 
+                    layoutId="active-glow"
+                    className="absolute inset-0 bg-aura-pink/20 blur-lg rounded-full -z-10"
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                  />
+                )}
+              </Link>
+            );
+          })}
+        </div>
+      </div>
     </>
   );
 }
