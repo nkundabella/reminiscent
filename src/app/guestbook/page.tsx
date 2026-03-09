@@ -29,11 +29,11 @@ export default function GuestbookPage() {
         >
           <textarea 
             placeholder="Type something iconic..."
-            className="w-full h-32 bg-transparent border-b-2 border-aura-foreground/10 focus:border-aura-pink outline-none font-sans text-xl py-4 resize-none transition-colors"
+            className="w-full h-32 bg-transparent border-b-2 border-aura-foreground/10 focus:border-aura-blue outline-none font-sans text-xl py-4 resize-none transition-colors"
           />
           <div className="flex justify-between items-center mt-8">
              <span className="text-xs font-black tracking-widest uppercase opacity-30">Stay creative.</span>
-             <button className="bg-aura-foreground text-aura-cream px-8 py-3 font-bold hover:bg-aura-pink hover:text-aura-dark transition-all duration-300 flex items-center gap-2 group">
+             <button className="bg-aura-foreground text-aura-cream px-8 py-3 font-bold hover:bg-aura-blue hover:text-aura-dark transition-all duration-300 flex items-center gap-2 group">
                SIGN <Send className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
              </button>
           </div>
@@ -57,8 +57,8 @@ export default function GuestbookPage() {
       </div>
 
       {/* Background Decor */}
-      <div className="absolute top-1/4 -right-20 w-80 h-80 bg-aura-blue/20 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-1/4 -left-20 w-80 h-80 bg-aura-pink/10 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-1/4 -right-20 w-80 h-80 bg-aura-blue/10 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-1/4 -left-20 w-80 h-80 bg-aura-blue/5 rounded-full blur-[100px] pointer-events-none" />
     </main>
   );
 }

@@ -81,14 +81,14 @@ export default function BlogPage() {
               }`}
             >
               <Link href={`/blog/${post.slug}`} className="group block">
-                <div className="bg-aura-background border-2 border-aura-foreground p-8 shadow-[8px_8px_0px_#1e1e24] group-hover:shadow-[12px_12px_0px_#ff6bb3] transition-all duration-300">
+                <div className="bg-aura-background border-2 border-aura-foreground p-8 shadow-[8px_8px_0px_var(--aura-foreground)] group-hover:shadow-[12px_12px_0px_var(--aura-blue)] transition-all duration-300">
                   <div className="flex justify-between items-start mb-4">
-                    <span className="font-sans text-xs font-black tracking-widest text-aura-pink uppercase">
+                    <span className="font-sans text-xs font-black tracking-widest text-aura-blue uppercase">
                       {new Date(post.publishedAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
                     </span>
                     <ArrowUpRight className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                   </div>
-                  <h2 className="font-serif text-4xl font-bold mb-4 leading-tight group-hover:text-aura-pink transition-colors">
+                  <h2 className="font-serif text-4xl font-bold mb-4 leading-tight group-hover:text-aura-blue transition-colors">
                     {post.title}
                   </h2>
                   <p className="font-sans text-lg text-aura-foreground/70 line-clamp-2">

@@ -19,43 +19,48 @@ export function Navbar() {
 
   return (
     <>
-      {/* Editorial Logo - Fixed Top Left */}
       <div className="fixed top-8 left-8 z-50 mix-blend-difference pointer-events-auto">
-        <Link href="/" className="group block">
+        <Link href="/" className="group block relative">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
+            className="flex flex-col items-start"
           >
-            <h2 className="font-serif text-3xl font-bold tracking-tighter text-aura-cream leading-none group-hover:text-aura-pink transition-colors">
-              I Z <br/> Z Y
-            </h2>
+            <span className="font-serif text-5xl font-black tracking-tighter text-aura-cream leading-[0.8] mb-1">
+              IZZY.
+            </span>
+            <div className="flex items-center gap-2">
+              <div className="h-[1px] w-8 bg-aura-cream/30" />
+              <span className="font-sans text-[10px] uppercase tracking-[0.3em] text-aura-cream/50">
+                Alter Ego
+              </span>
+            </div>
+            
+            {/* Signature Underline */}
             <motion.div 
-              className="h-0.5 bg-aura-pink mt-1"
-              initial={{ width: 0 }}
-              whileHover={{ width: "100%" }}
-              transition={{ duration: 0.3 }}
+              className="absolute -bottom-2 -left-1 h-3 w-0 bg-[var(--aura-blue)]/20 -skew-x-12 -z-10"
+              whileHover={{ width: "110%" }}
+              transition={{ duration: 0.4 }}
             />
           </motion.div>
         </Link>
       </div>
 
       <div className="fixed bottom-10 left-1/2 -translate-x-1/2 z-[100]">
-        <div className="relative bg-[#1a1a1a]/90 rounded-2xl px-4 py-3 flex items-center gap-8 shadow-2xl border border-white/5 backdrop-blur-xl">
+        <div className="relative bg-[#0d0d0f]/95 rounded-2xl px-5 py-3.5 flex items-center gap-10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/5 backdrop-blur-2xl">
           {links.map((link) => {
-            // Match exactly for home, or start with for others (e.g. /studio/...)
             const isActive = link.href === "/" 
               ? pathname === "/" 
               : pathname.startsWith(link.href);
             
             const isHovered = hoveredPath === link.href;
-            const showSpotlight = isActive || isHovered;
 
             return (
               <Link
                 key={link.href}
                 href={link.href}
-                className="relative p-2 rounded-xl transition-colors duration-300 group"
+                className="relative p-2 rounded-xl transition-all duration-300 group"
                 onMouseEnter={() => setHoveredPath(link.href)}
                 onMouseLeave={() => setHoveredPath(null)}
               >
@@ -71,27 +76,20 @@ export function Navbar() {
                       {/* The "Laser" Line at the Top */}
                       <motion.div
                         layoutId="spotlight-line"
-                        className="absolute top-[-14px] left-1/2 -translate-x-1/2 w-10 h-[3px] bg-aura-pink rounded-full shadow-[0_0_20px_#ff6bb3,0_0_10px_#ff6bb3]"
-                        transition={{ type: "spring", stiffness: 350, damping: 25 }}
+                        className="absolute top-[-15px] left-1/2 -translate-x-1/2 w-12 h-[2px] bg-aura-blue rounded-full shadow-[0_0_20px_#7dd3fc,0_0_10px_#7dd3fc]"
+                        transition={{ type: "spring", stiffness: 400, damping: 30 }}
                       />
 
                       {/* The Spotlight Cone (Light Beam) */}
                       <motion.div
                         layoutId="spotlight-cone"
-                        className="absolute top-[-12px] left-1/2 -translate-x-1/2 w-24 h-40 origin-top z-0"
+                        className="absolute top-[-14px] left-1/2 -translate-x-1/2 w-32 h-44 origin-top z-0"
                         style={{
-                          background: `linear-gradient(to bottom, rgba(255, 107, 179, 0.15) 0%, rgba(255, 107, 179, 0.05) 40%, transparent 100%)`,
-                          clipPath: 'polygon(40% 0%, 60% 0%, 100% 100%, 0% 100%)',
-                          filter: 'blur(8px)',
+                          background: `linear-gradient(to bottom, rgba(125, 211, 252, 0.1) 0%, rgba(125, 211, 252, 0.03) 40%, transparent 100%)`,
+                          clipPath: 'polygon(45% 0%, 55% 0%, 100% 100%, 0% 100%)',
+                          filter: 'blur(10px)',
                         }}
-                        transition={{ type: "spring", stiffness: 350, damping: 25 }}
-                      />
-
-                      {/* Targeted Icon Glow */}
-                      <motion.div
-                        layoutId="icon-glow"
-                        className="absolute inset-0 bg-aura-pink/10 blur-xl rounded-full"
-                        transition={{ type: "spring", stiffness: 350, damping: 25 }}
+                        transition={{ type: "spring", stiffness: 400, damping: 30 }}
                       />
                     </motion.div>
                   )}
@@ -100,10 +98,10 @@ export function Navbar() {
                 <link.icon 
                   className={`w-6 h-6 relative z-10 transition-all duration-500 ${
                     isActive 
-                      ? "text-aura-pink scale-110 drop-shadow-[0_0_8px_rgba(255,107,179,0.8)]" 
+                      ? "text-aura-blue scale-110 drop-shadow-[0_0_10px_rgba(125,211,252,0.6)]" 
                       : isHovered 
-                        ? "text-aura-pink/80 scale-110 drop-shadow-[0_0_5px_rgba(255,107,179,0.4)]" 
-                        : "text-white/30"
+                        ? "text-aura-blue/60 scale-110 drop-shadow-[0_0_5px_rgba(125,211,252,0.3)]" 
+                        : "text-white/20"
                   }`}
                 />
               </Link>

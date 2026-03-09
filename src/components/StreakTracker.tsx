@@ -1,5 +1,4 @@
-"use client";
-
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Flame } from "lucide-react";
 
@@ -18,19 +17,26 @@ const generateMockData = () => {
   return data;
 };
 
-const streakData = generateMockData();
-
-// Helper to determine color based on intensity
-const getColor = (intensity: number) => {
-  if (intensity === 0) return "bg-aura-background/50 border border-aura-foreground/10";
-  if (intensity === 1) return "bg-aura-pink/40 border border-aura-pink";
-  if (intensity === 2) return "bg-aura-pink/70 border border-aura-pink";
-  if (intensity === 3) return "bg-aura-pink border border-aura-pink shadow-sm";
-  return "bg-[var(--aura-green)] border border-[var(--aura-green)] shadow-sm"; // Max intensity gets the green accent
-};
-
 export function StreakTracker() {
+  const [streakData, setStreakData] = useState<{date: Date, intensity: number}[]>([]);
+  const [mounted, setMounted] = useState(false);
   const currentStreak = 12; // MOCK value
+  
+  useEffect(() => {
+    setStreakData(generateMockData());
+    setMounted(true);
+  }, []);
+
+  // Helper to determine color based on intensity
+  const getColor = (intensity: number) => {
+    if (intensity === 0) return "bg-aura-background/50 border border-aura-foreground/10";
+    if (intensity === 1) return "bg-aura-pink/40 border border-aura-pink";
+    if (intensity === 2) return "bg-aura-pink/70 border border-aura-pink";
+    if (intensity === 3) return "bg-aura-pink border border-aura-pink shadow-sm";
+    return "bg-[var(--aura-green)] border border-[var(--aura-green)] shadow-sm"; // Max intensity gets the green accent
+  };
+
+  if (!mounted) return <div className="h-[300px] w-full bg-aura-background/20 animate-pulse border-2 border-aura-foreground/10" />;
   
   return (
     <motion.div

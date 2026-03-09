@@ -5,15 +5,20 @@
 @layer base {
   :root {
     --background: #fbf8f1;
-    --foreground: #1e1e24;
+    --foreground: #0d0d0f;
     --aura-background: #fbf8f1; /* cream */
-    --aura-foreground: #1e1e24; /* dark */
+    --aura-foreground: #0d0d0f; /* charcoal */
+    --aura-pink: #ec4899;
+    --aura-blue: #0ea5e9;
+    --aura-green: #10b981;
+    --aura-cream: #fbf8f1;
+    --aura-dark: #0d0d0f;
   }
 
   .dark {
-    --background: #1e1e24;
+    --background: #0d0d0f;
     --foreground: #fbf8f1;
-    --aura-background: #1e1e24;
+    --aura-background: #0d0d0f;
     --aura-foreground: #fbf8f1;
   }
 }
@@ -24,8 +29,8 @@ body {
 }
 
 ::selection {
-  background: var(--aura-pink);
-  color: var(--aura-dark);
+  background: var(--aura-blue);
+  color: white;
 }
 
 @layer utilities {
