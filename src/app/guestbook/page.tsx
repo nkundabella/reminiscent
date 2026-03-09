@@ -47,7 +47,7 @@ export default function GuestbookPage() {
                initial={{ opacity: 0, x: i % 2 === 0 ? 20 : -20 }}
                whileInView={{ opacity: 1, x: 0 }}
                viewport={{ once: true }}
-               className={`p-6 border-l-4 border-aura-pink bg-aura-foreground/5 max-w-md ${i % 2 === 0 ? "ml-auto" : ""}`}
+               className={`p-6 border-l-4 border-aura-blue bg-aura-foreground/5 max-w-md ${i % 2 === 0 ? "ml-auto" : ""}`}
              >
                 <p className="font-sans text-lg mb-2 italic">"Loving the vibe here! Looking forward to more posts."</p>
                 <span className="text-xs font-black uppercase tracking-widest opacity-50">— Anonymous Visitor</span>

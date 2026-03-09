@@ -10,8 +10,13 @@ const generateMockData = () => {
   for (let i = 59; i >= 0; i--) {
     const date = new Date(today);
     date.setDate(date.getDate() - i);
-    // Randomly assign 0 to 4 commits/posts per day
-    const intensity = Math.random() > 0.6 ? 0 : Math.floor(Math.random() * 5);
+    
+    // Join day (60 days ago) and Today (index 0) get activity
+    let intensity = 0;
+    if (i === 59 || i === 0) {
+      intensity = 3;
+    }
+    
     data.push({ date, intensity });
   }
   return data;
