@@ -59,48 +59,53 @@ export function Navbar() {
                 onMouseEnter={() => setHoveredPath(link.href)}
                 onMouseLeave={() => setHoveredPath(null)}
               >
-                {/* Spotlight Beam - Persistent on Active or visible on Hover */}
-                {showSpotlight && (
-                  <>
-                    {/* The Spotlight Glow */}
+                {/* Spotlight Beam - Locked to Active Page */}
+                <AnimatePresence>
+                  {isActive && (
                     <motion.div
-                      layoutId="spotlight-beam"
-                      className="absolute inset-x-0 bottom-[-12px] h-32 pointer-events-none z-0"
-                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      className="absolute inset-0 pointer-events-none"
                     >
-                      <div 
-                        className="w-full h-full"
+                      {/* The "Laser" Line at the Top */}
+                      <motion.div
+                        layoutId="spotlight-line"
+                        className="absolute top-[-14px] left-1/2 -translate-x-1/2 w-10 h-[3px] bg-aura-pink rounded-full shadow-[0_0_20px_#ff6bb3,0_0_10px_#ff6bb3]"
+                        transition={{ type: "spring", stiffness: 350, damping: 25 }}
+                      />
+
+                      {/* The Spotlight Cone (Light Beam) */}
+                      <motion.div
+                        layoutId="spotlight-cone"
+                        className="absolute top-[-12px] left-1/2 -translate-x-1/2 w-24 h-40 origin-top z-0"
                         style={{
-                          background: `conic-gradient(from 180deg at 50% 0%, transparent 42%, rgba(255, 107, 179, 0.2) 50%, transparent 58%)`,
-                          filter: 'blur(12px)',
-                          transform: 'perspective(100px) rotateX(45deg)'
+                          background: `linear-gradient(to bottom, rgba(255, 107, 179, 0.15) 0%, rgba(255, 107, 179, 0.05) 40%, transparent 100%)`,
+                          clipPath: 'polygon(40% 0%, 60% 0%, 100% 100%, 0% 100%)',
+                          filter: 'blur(8px)',
                         }}
+                        transition={{ type: "spring", stiffness: 350, damping: 25 }}
+                      />
+
+                      {/* Targeted Icon Glow */}
+                      <motion.div
+                        layoutId="icon-glow"
+                        className="absolute inset-0 bg-aura-pink/10 blur-xl rounded-full"
+                        transition={{ type: "spring", stiffness: 350, damping: 25 }}
                       />
                     </motion.div>
-
-                    {/* The "Laser" Line at the Top */}
-                    <motion.div
-                      layoutId="spotlight-line"
-                      className="absolute top-[-14px] left-1/2 -translate-x-1/2 w-8 h-[3px] bg-aura-pink rounded-full shadow-[0_0_15px_#ff6bb3]"
-                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                    />
-                  </>
-                )}
+                  )}
+                </AnimatePresence>
 
                 <link.icon 
-                  className={`w-6 h-6 relative z-10 transition-all duration-300 ${
-                    isActive ? "text-white scale-110 shadow-[0_0_10px_rgba(255,255,255,0.3)]" : "text-white/40 group-hover:text-white/80"
+                  className={`w-6 h-6 relative z-10 transition-all duration-500 ${
+                    isActive 
+                      ? "text-aura-pink scale-110 drop-shadow-[0_0_8px_rgba(255,107,179,0.8)]" 
+                      : isHovered 
+                        ? "text-aura-pink/80 scale-110 drop-shadow-[0_0_5px_rgba(255,107,179,0.4)]" 
+                        : "text-white/30"
                   }`}
                 />
-                
-                {/* Active Underglow */}
-                {isActive && (
-                  <motion.div 
-                    layoutId="active-glow"
-                    className="absolute inset-0 bg-aura-pink/20 blur-lg rounded-full -z-10"
-                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                  />
-                )}
               </Link>
             );
           })}
