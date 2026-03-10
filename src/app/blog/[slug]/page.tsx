@@ -27,8 +27,9 @@ const POST_QUERY = `*[_type == "post" && slug.current == $slug][0] {
   mainImage
 }`;
 
-export default async function PostPage({ params }: { params: { slug: string } }) {
-  const post = await client.fetch<Post>(POST_QUERY, { slug: params.slug });
+export default async function PostPage(props: { params: Promise<{ slug: string }> }) {
+  const { slug } = await props.params;
+  const post = await client.fetch<Post>(POST_QUERY, { slug });
 
   if (!post) {
     notFound();
