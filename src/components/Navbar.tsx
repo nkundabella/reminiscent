@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Home, Notebook, BookHeart, User, Bell } from "lucide-react";
 import { useState } from "react";
+import { Montserrat } from "next/font/google";
 
 const links = [
   { href: "/", label: "Home", icon: Home },
@@ -12,6 +13,11 @@ const links = [
   { href: "/guestbook", label: "Guestbook", icon: BookHeart },
   { href: "/studio", label: "Studio", icon: User },
 ];
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  weight: ["800", "900"],
+});
 
 export function Navbar({ showLogo = true }: { showLogo?: boolean }) {
   const pathname = usePathname();
@@ -25,25 +31,24 @@ export function Navbar({ showLogo = true }: { showLogo?: boolean }) {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="fixed top-8 left-8 z-50 mix-blend-difference pointer-events-auto"
+            className={`fixed top-8 left-8 z-50 transition-colors duration-500 pointer-events-auto mix-blend-difference ${montserrat.className}`}
           >
             <Link href="/" className="group block relative">
-              <motion.div
-                className="flex flex-col items-start"
-              >
-                <span className="font-serif text-5xl font-black tracking-tighter text-aura-cream leading-[0.8] mb-1">
-                  IZZY.
-                </span>
-                <div className="flex items-center gap-2">
-                  <div className="h-[1px] w-8 bg-aura-cream/30" />
-                  <span className="font-sans text-[10px] uppercase tracking-[0.3em] text-aura-cream/50">
-                    Alter Ego
-                  </span>
+              <motion.div className="flex flex-col items-start scale-[0.45] origin-top-left">
+                <div className="flex flex-col gap-0">
+                  <div className="paper-cut text-[10rem] font-black leading-none paper-cut-peel -translate-y-[15px]" data-text="ALTER">
+                    ALTER
+                    <div className="paper-cut-line" />
+                  </div>
+                  <div className="paper-cut text-[10rem] font-black italic text-aura-blue leading-none paper-cut-peel translate-y-[15px]" data-text="EGO">
+                    EGO
+                    <div className="paper-cut-line" />
+                  </div>
                 </div>
                 
                 {/* Signature Underline */}
                 <motion.div 
-                  className="absolute -bottom-2 -left-1 h-3 w-0 bg-[var(--aura-blue)]/20 -skew-x-12 -z-10"
+                  className="absolute -bottom-10 -left-4 h-6 w-0 bg-aura-blue/20 -skew-x-12 -z-10"
                   whileHover={{ width: "110%" }}
                   transition={{ duration: 0.4 }}
                 />

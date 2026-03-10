@@ -1,151 +1,171 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Montserrat } from "next/font/google";
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  weight: ["800", "900"],
+});
+
+gsap.registerPlugin(ScrollTrigger);
+
+const PaperCutLetter = ({ char }: { char: string }) => {
+  return (
+    <span className="paper-cut-letter">
+      <span className="paper-cut-top">{char}</span>
+      <span className="paper-cut-bottom">{char}</span>
+    </span>
+  );
+};
+
+const PaperCutWord = ({ word, isBlue = false }: { word: string; isBlue?: boolean }) => {
+  return (
+    <div className={`paper-cut-word ${isBlue ? 'text-aura-blue' : ''}`}>
+      {word.split("").map((char, i) => (char === " " ? <span key={i} className="w-4 md:w-8" /> : <PaperCutLetter key={i} char={char} />))}
+      <div className="paper-cut-line-overlay" />
+    </div>
+  );
+};
 
 export function IntroAnimation({ onComplete }: { onComplete: () => void }) {
-  const [isVisible, setIsVisible] = useState(true);
+  const [mounted, setMounted] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const unfilteredRef = useRef<HTMLDivElement>(null);
+  const mainTextRef = useRef<HTMLDivElement>(null);
+  const bgRef = useRef<HTMLDivElement>(null);
+  const scrollPromptRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Total animation duration before calling onComplete
-    const timer = setTimeout(() => {
-      setIsVisible(false);
-      setTimeout(onComplete, 1200); // Wait for exit animation
-    }, 4500);
+    setMounted(true);
+  }, []);
 
-    return () => clearTimeout(timer);
-  }, [onComplete]);
+  useEffect(() => {
+    if (!mounted || !containerRef.current) return;
+
+    const ctx = gsap.context(() => {
+      // 1. Initial State
+      gsap.set(containerRef.current, {
+        position: "fixed",
+        top: "50%",
+        left: "50%",
+        xPercent: -50,
+        yPercent: -50,
+        scale: 1, // Start at 1, maybe scale up in entry
+        zIndex: 1000,
+        force3D: true,
+      });
+
+      gsap.set([unfilteredRef.current, ".paper-cut-word"], {
+        opacity: 0,
+        y: 60,
+      });
+
+      // 2. Entry Animation
+      const entryTl = gsap.timeline();
+      entryTl.to(containerRef.current, { scale: 1.5, duration: 1.5, ease: "expo.out" })
+      .to([unfilteredRef.current, ".paper-cut-word"], {
+        opacity: 1,
+        y: 0,
+        duration: 1.2,
+        stagger: 0.2,
+        ease: "expo.out",
+      }, 0)
+      .to(".paper-cut-word", {
+        className: "+=paper-cut-active",
+        duration: 0.8,
+        stagger: 0.1,
+        ease: "power2.inOut",
+      }, "-=0.5")
+      .to(scrollPromptRef.current, {
+        opacity: 0.6,
+        duration: 1,
+      });
+
+      // 3. Scroll Controlled Migration
+      ScrollTrigger.create({
+        trigger: "body",
+        start: "top top",
+        end: "+=500",
+        scrub: 1,
+        onUpdate: (self) => {
+          // Calculate values manually for maximum control
+          const p = self.progress;
+          
+          gsap.set(containerRef.current, {
+            top: `${50 - p * 44}%`,
+            left: `${50 - p * 44}%`,
+            scale: 1.5 - p * 1.05,
+            xPercent: -50 + p * 50,
+            yPercent: -50 + p * 50,
+          });
+
+          gsap.set(unfilteredRef.current, { opacity: 1 - p * 2 });
+          gsap.set(scrollPromptRef.current, { opacity: 0.6 - p * 2 });
+
+          // Background fade
+          gsap.set(bgRef.current, { opacity: 1 - p * 1.5 });
+
+          // Interlock threshold
+          if (p > 0.8) {
+            containerRef.current?.classList.add("logo-mode", "branding-interlock");
+          } else {
+            containerRef.current?.classList.remove("logo-mode", "branding-interlock");
+          }
+
+          // Complete signal
+          if (p >= 1) {
+             onComplete();
+          }
+        }
+      });
+
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, [mounted, onComplete]);
+
+  if (!mounted) return null;
 
   return (
-    <AnimatePresence>
-      {isVisible && (
-        <motion.div
-          initial={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[200] bg-aura-background flex flex-col items-center justify-center overflow-hidden"
+    <>
+      <div 
+        ref={bgRef}
+        className="fixed inset-0 bg-aura-background z-[998] pointer-events-none"
+      />
+      
+      <div 
+        ref={containerRef} 
+        className={`pointer-events-none select-none flex flex-col items-center justify-center ${montserrat.className}`}
+        style={{ willChange: "transform, opacity, top, left" }}
+      >
+        <div 
+          ref={unfilteredRef}
+          className="text-[10px] md:text-sm uppercase tracking-[1.5em] text-aura-foreground/60 mb-16 font-black"
         >
-          {/* Grainy Texture Overlay */}
-          <div className="absolute inset-0 pointer-events-none opacity-20 mix-blend-overlay noise-overlay" />
-
-          {/* Background Grid - subtle and precise */}
-          <div 
-            className="absolute inset-0 opacity-[0.03] pointer-events-none"
-            style={{ 
-              backgroundImage: 'radial-gradient(circle, var(--aura-foreground) 1px, transparent 1px)',
-              backgroundSize: '40px 40px'
-            }}
-          />
-
-          <div className="relative flex flex-col items-center">
-            {/* "MY" - Small, elegant, visible */}
-            <motion.div
-              initial={{ opacity: 0, letterSpacing: "1em", y: 20 }}
-              animate={{ opacity: 1, letterSpacing: "0.5em", y: 0 }}
-              transition={{ duration: 1.2, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className="font-sans text-[10px] md:text-sm uppercase font-black text-aura-foreground/60 mb-8 border-y border-aura-foreground/10 py-1"
-            >
-              MY
-            </motion.div>
-
-            {/* "ALTER EGO" - Stenciled/Layered Style like the reference */}
-            <div className="relative flex flex-col items-center">
-              {/* Main Text Layer */}
-              <div className="relative scale-110 md:scale-[1.8] flex flex-col items-center">
-                
-                {/* ALTER */}
-                <motion.div
-                  initial={{ y: 100, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ duration: 1.5, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                  className="relative group"
-                >
-                  <h1 className="font-serif text-[10rem] md:text-[14rem] font-black tracking-[-0.08em] text-aura-foreground leading-none select-none relative z-10">
-                    ALTE
-                    <span className="text-aura-blue">R</span>
-                  </h1>
-                  {/* Stenciled Cut-out Effect Simulation */}
-                  <motion.div 
-                    className="absolute inset-0 bg-aura-background z-20 mix-blend-difference"
-                    initial={{ scaleX: 1 }}
-                    animate={{ scaleX: 0 }}
-                    transition={{ duration: 1.5, delay: 1, ease: [0.76, 0, 0.24, 1] }}
-                    style={{ originX: 0 }}
-                  />
-                </motion.div>
-
-                {/* EGO */}
-                <motion.div
-                  initial={{ y: -100, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ duration: 1.5, delay: 1, ease: [0.16, 1, 0.3, 1] }}
-                  className="relative -mt-12 md:-mt-24"
-                >
-                   <h1 className="font-serif text-[10rem] md:text-[14rem] font-black tracking-[-0.1em] text-aura-foreground leading-none select-none italic flex">
-                      E
-                      <span className="relative">
-                        G
-                        <motion.div 
-                          className="absolute bottom-4 left-0 w-full h-2 bg-aura-blue/40 -z-10"
-                          initial={{ width: 0 }}
-                          animate={{ width: "100%" }}
-                          transition={{ delay: 2.5, duration: 1 }}
-                        />
-                      </span>
-                      O
-                   </h1>
-                   {/* Ghost Shadow Layer */}
-                   <motion.h1 
-                     initial={{ opacity: 0, x: 20 }}
-                     animate={{ opacity: 0.05, x: 0 }}
-                     transition={{ delay: 2, duration: 2 }}
-                     className="absolute inset-0 font-serif text-[10rem] md:text-[14rem] font-black tracking-[-0.1em] text-aura-foreground leading-none pointer-events-none -z-10 translate-x-4 translate-y-4"
-                   >
-                     EGO
-                   </motion.h1>
-                </motion.div>
-              </div>
-
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 0.4 }}
-                transition={{ delay: 2.2, duration: 1 }}
-                className="font-sans text-[8px] md:text-[10px] uppercase tracking-[0.8em] text-aura-foreground/80 mt-12 mb-4"
-              >
-                S I N G U L A R &nbsp; A U R A
-              </motion.div>
-              
-              <motion.div
-                initial={{ width: 0 }}
-                animate={{ width: "120px" }}
-                transition={{ delay: 2.4, duration: 1 }}
-                className="h-[2px] bg-aura-foreground"
-              />
-            </div>
+          UNFILTERED
+        </div>
+        
+        <div ref={mainTextRef} className="flex paper-cut-container items-center gap-8 md:gap-16">
+          <PaperCutWord word="MY" />
+          <div className="flex flex-col md:flex-row items-center gap-0 md:gap-4 paper-cut-interlock-group">
+            <PaperCutWord word="ALTER" />
+            <PaperCutWord word="EGO" isBlue />
           </div>
+        </div>
 
-          {/* Master Shrink Transition: Move directly to Fixed Logo position (top-8 left-8) */}
-          <motion.div
-            initial={{ scale: 1, x: 0, y: 0, opacity: 1 }}
-            animate={{ 
-               scale: 0.05, 
-               x: "-42vw", 
-               y: "-42vh", 
-               opacity: 0 
-            }}
-            transition={{ 
-               duration: 1.2, 
-               delay: 3.8, 
-               ease: [0.76, 0, 0.24, 1] 
-            }}
-            className="absolute inset-0 pointer-events-none border-[40px] border-aura-foreground/5 p-40"
-          >
-            {/* Mirroring the center content for the shrink effect */}
-            <div className="w-full h-full flex flex-col items-center justify-center">
-               <div className="font-serif text-[15rem] font-black tracking-tighter">ALTER EGO</div>
-            </div>
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+        <div 
+          ref={scrollPromptRef}
+          className="absolute -bottom-48 opacity-0 text-[10px] tracking-[0.8em] uppercase text-aura-foreground font-bold"
+        >
+          Scroll to explore
+        </div>
+      </div>
+      
+      {/* Spacer to allow scrolling */}
+      <div className="h-[200vh] pointer-events-none z-0" />
+    </>
   );
 }

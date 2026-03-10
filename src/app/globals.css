@@ -42,3 +42,82 @@ body {
 .noise-overlay {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
+
+/* High-End 3D Paper Cut Typography */
+.paper-cut-container {
+  display: inline-flex;
+  flex-direction: column;
+  position: relative;
+  line-height: 0.75;
+}
+
+.paper-cut-word {
+  display: flex;
+  position: relative;
+  transition: transform 1.2s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.8s ease;
+}
+
+.paper-cut-letter {
+  position: relative;
+  display: inline-block;
+}
+
+.paper-cut-top, .paper-cut-bottom {
+  display: block;
+  overflow: hidden;
+  color: inherit;
+  transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.paper-cut-top {
+  height: 50%;
+  clip-path: inset(0 0 0 0);
+}
+
+.paper-cut-bottom {
+  height: 50%;
+  clip-path: inset(0 0 0 0);
+  filter: drop-shadow(0 -2px 2px rgba(0,0,0,0.1));
+  transform-origin: top;
+}
+
+/* The Peeling/Slicing Effect */
+.paper-cut-active .paper-cut-bottom {
+  transform: rotateX(-25deg) skewX(2deg) translateY(2px);
+  filter: drop-shadow(0 20px 15px rgba(0,0,0,0.4));
+}
+
+.paper-cut-line-overlay {
+  position: absolute;
+  top: 50%;
+  left: -2px;
+  right: -2px;
+  height: 1.5px;
+  background: rgba(0,0,0,0.15);
+  z-index: 20;
+  transform: translateY(-50%);
+  box-shadow: 0 1px 2px rgba(255,255,255,0.1);
+}
+
+/* Interlock (Nesting) Logic */
+.branding-interlock .paper-cut-word:nth-child(2) {
+  transform: translateY(-20px); /* ALTER shifts up slightly */
+}
+
+.branding-interlock .paper-cut-word:nth-child(3) {
+  transform: translateY(-50px) translateX(-10px); /* EGO shifts up and left to nest into ALTER */
+}
+
+/* Logo Mode - Force Legibility and Correct Colors */
+.logo-mode .paper-cut-word {
+  color: var(--aura-dark) !important;
+}
+
+.logo-mode .text-aura-blue {
+  color: var(--aura-blue) !important;
+}
+
+.logo-mode .paper-cut-top, 
+.logo-mode .paper-cut-bottom {
+  color: inherit !important;
+}
