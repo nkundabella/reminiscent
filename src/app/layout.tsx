@@ -15,8 +15,8 @@ const instrument = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-  title: "Izzy's Creative Aura",
-  description: "A personal creative blog",
+  title: "Izzy's Singular Aura",
+  description: "A personal editorial archive",
 };
 
 export default function RootLayout({

@@ -48,7 +48,7 @@ export default function Home() {
               </h1>
               <p className="font-sans text-lg md:text-2xl font-bold max-w-2xl text-aura-foreground/60 leading-snug mx-auto">
                 A curated digital archive of scattered thoughts, <br className="hidden md:block" /> 
-                vivid expressions, and <span className="text-aura-foreground italic underline decoration-aura-blue">creative echoes</span>.
+                vivid expressions, and <span className="text-aura-foreground italic underline decoration-aura-blue">singular echoes</span>.
               </p>
             </div>
 

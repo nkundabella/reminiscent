@@ -32,7 +32,7 @@ export default function GuestbookPage() {
             className="w-full h-32 bg-transparent border-b-2 border-aura-foreground/10 focus:border-aura-blue outline-none font-sans text-xl py-4 resize-none transition-colors"
           />
           <div className="flex justify-between items-center mt-8">
-             <span className="text-xs font-black tracking-widest uppercase opacity-30">Stay creative.</span>
+             <span className="text-xs font-black tracking-widest uppercase opacity-30">Keep expressing.</span>
              <button className="bg-aura-foreground text-aura-cream px-8 py-3 font-bold hover:bg-aura-blue hover:text-aura-dark transition-all duration-300 flex items-center gap-2 group">
                SIGN <Send className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
              </button>

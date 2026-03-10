@@ -55,7 +55,7 @@ export function StreakTracker() {
     >
       <div className="flex justify-between items-center mb-8">
         <h2 className="font-serif text-3xl font-bold flex items-center gap-2 text-aura-foreground">
-          Creative Output
+          Expressive Output
         </h2>
         <div className="flex items-center gap-2 bg-aura-pink/10 px-4 py-2 rounded-full border border-aura-pink/30">
           <Flame className="w-5 h-5 text-aura-pink fill-aura-pink/20" />

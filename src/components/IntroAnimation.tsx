@@ -105,14 +105,13 @@ export function IntroAnimation({ onComplete }: { onComplete: () => void }) {
                 </motion.div>
               </div>
 
-              {/* Decorative Reference Text (Small architecture style) */}
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 0.4 }}
                 transition={{ delay: 2.2, duration: 1 }}
                 className="font-sans text-[8px] md:text-[10px] uppercase tracking-[0.8em] text-aura-foreground/80 mt-12 mb-4"
               >
-                C R E A T I V E &nbsp; A U R A
+                S I N G U L A R &nbsp; A U R A
               </motion.div>
               
               <motion.div
