@@ -3,32 +3,31 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight, PenTool, Bookmark, Sparkles, MapPin } from "lucide-react";
 import Link from "next/link";
-import { StreakTracker } from "@/components/StreakTracker";
 
 export default function Home() {
   return (
     <main className="relative min-h-screen overflow-x-hidden flex flex-col items-center bg-aura-background">
       {/* Halftone / Grid Background Elements */}
-      <div className="absolute top-[20%] right-[15%] w-64 h-64 opacity-10 pointer-events-none" 
-           style={{ 
-             backgroundImage: 'radial-gradient(circle, var(--aura-foreground) 4px, transparent 4px)',
-             backgroundSize: '16px 16px',
-             maskImage: 'radial-gradient(circle, black, transparent 70%)'
-           }} />
-      
-      <div className="absolute bottom-[10%] left-[5%] w-96 h-96 opacity-10 pointer-events-none rotate-12" 
-           style={{ 
-             backgroundImage: 'radial-gradient(circle, var(--aura-blue) 2px, transparent 2px)',
-             backgroundSize: '10px 10px',
-             maskImage: 'linear-gradient(to top right, black, transparent)'
-           }} />
+      <div className="absolute top-[20%] right-[15%] w-64 h-64 opacity-10 pointer-events-none"
+        style={{
+          backgroundImage: 'radial-gradient(circle, var(--aura-foreground) 4px, transparent 4px)',
+          backgroundSize: '16px 16px',
+          maskImage: 'radial-gradient(circle, black, transparent 70%)'
+        }} />
+
+      <div className="absolute bottom-[10%] left-[5%] w-96 h-96 opacity-10 pointer-events-none rotate-12"
+        style={{
+          backgroundImage: 'radial-gradient(circle, var(--aura-blue) 2px, transparent 2px)',
+          backgroundSize: '10px 10px',
+          maskImage: 'linear-gradient(to top right, black, transparent)'
+        }} />
 
       {/* Main Content Container - Balanced & Editorial */}
       <div className="relative z-10 w-full max-w-7xl min-h-screen flex flex-col pt-32 pb-40 px-8 gap-24 items-center">
-        
+
         {/* Top Section: Branding (Centred & Clean) */}
         <div className="relative z-20 w-full flex flex-col items-center gap-12 mt-10">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2 }}
@@ -40,14 +39,14 @@ export default function Home() {
             <div className="relative inline-block border-y-4 border-aura-foreground py-10 px-6 md:px-20 group">
               <div className="absolute top-0 right-0 w-4 h-4 bg-aura-foreground" />
               <div className="absolute bottom-0 left-0 w-4 h-4 bg-aura-foreground" />
-              
+
               <h1 className="font-serif text-6xl md:text-[10rem] font-black tracking-[-0.05em] text-aura-foreground leading-[0.8] mb-8">
-                THE<br/>
-                <span className="text-aura-blue italic">IZZY</span><br/>
+                THE<br />
+                <span className="text-aura-blue italic">IZZY</span><br />
                 CHRONICLES
               </h1>
               <p className="font-sans text-lg md:text-2xl font-bold max-w-2xl text-aura-foreground/60 leading-snug mx-auto">
-                A curated digital archive of scattered thoughts, <br className="hidden md:block" /> 
+                A curated digital archive of scattered thoughts, <br className="hidden md:block" />
                 vivid expressions, and <span className="text-aura-foreground italic underline decoration-aura-blue">singular echoes</span>.
               </p>
             </div>
@@ -83,7 +82,7 @@ export default function Home() {
 
         {/* Floating Interactive Desk Section - Spaced out & Balanced */}
         <div className="relative w-full max-w-6xl h-[500px] mt-20 flex items-center justify-center">
-          
+
           {/* Polaroid 01 - Far Left */}
           <motion.div
             drag
@@ -114,7 +113,7 @@ export default function Home() {
           >
             <div className="absolute top-[-10px] left-1/4 w-16 h-10 bg-aura-blue/10 backdrop-blur-sm rotate-6 border-x border-black/5" />
             <div className="w-full h-full bg-aura-dark/10 flex items-center justify-center border border-black/5">
-               <div className="w-full h-full opacity-10" style={{ backgroundImage: 'radial-gradient(circle, #000 2px, transparent 2px)', backgroundSize: '16px 16px' }} />
+              <div className="w-full h-full opacity-10" style={{ backgroundImage: 'radial-gradient(circle, #000 2px, transparent 2px)', backgroundSize: '16px 16px' }} />
             </div>
             <p className="font-serif italic font-black text-2xl mt-4 text-center text-aura-dark/40 tracking-tighter">Fragment #09.</p>
           </motion.div>
@@ -129,46 +128,17 @@ export default function Home() {
             whileDrag={{ zIndex: 100, scale: 1.1 }}
             className="absolute w-72 h-72 bg-[#fef08a] p-10 shadow-xl border border-black/5 cursor-grab active:cursor-grabbing flex flex-col justify-between z-20"
           >
-             <div className="w-10 h-10 rounded-full bg-aura-blue/10 absolute -top-5 -left-5 border border-black/5 flex items-center justify-center text-aura-blue">
-                <Bookmark className="w-5 h-5 fill-current" />
-             </div>
-             <p className="font-serif text-3xl text-aura-dark italic leading-[0.95] font-black mb-4">
-               "Creativity is the greatest expression of freedom."
-             </p>
-             <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.3em] text-aura-dark/40 border-t border-black/5 pt-4">
-                <PenTool className="w-3 h-3" /> Izzy's Jotting
-             </div>
+            <div className="w-10 h-10 rounded-full bg-aura-blue/10 absolute -top-5 -left-5 border border-black/5 flex items-center justify-center text-aura-blue">
+              <Bookmark className="w-5 h-5 fill-current" />
+            </div>
+            <p className="font-serif text-3xl text-aura-dark italic leading-[0.95] font-black mb-4">
+              "Creativity is the greatest expression of freedom."
+            </p>
+            <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.3em] text-aura-dark/40 border-t border-black/5 pt-4">
+              <PenTool className="w-3 h-3" /> Izzy's Jotting
+            </div>
           </motion.div>
         </div>
-      </div>
-
-      {/* Trigger-based Streak Tracker - Hidden by default */}
-      <div className="fixed bottom-10 right-10 z-[110]">
-         <motion.div
-           initial={false}
-           className="relative group"
-         >
-           <motion.button
-             whileHover={{ scale: 1.1 }}
-             whileTap={{ scale: 0.9 }}
-             className="bg-aura-dark text-aura-cream w-16 h-16 rounded-full flex items-center justify-center shadow-2xl border border-white/5 relative z-10 overflow-hidden"
-           >
-             <Sparkles className="w-6 h-6 text-aura-blue" />
-             {/* Glowing Pulse */}
-             <motion.div 
-               animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.3, 0.1] }}
-               transition={{ duration: 2, repeat: Infinity }}
-               className="absolute inset-0 bg-aura-blue"
-             />
-           </motion.button>
-           
-           {/* The Streak Tracker Popover */}
-           <div className="absolute bottom-[100%] right-0 mb-6 w-[450px] opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-500 pointer-events-none group-hover:pointer-events-auto">
-             <div className="p-8 bg-aura-background/95 backdrop-blur-xl border border-white/10 rounded-3xl shadow-[0_30px_60px_rgba(0,0,0,0.4)]">
-                <StreakTracker />
-             </div>
-           </div>
-         </motion.div>
       </div>
     </main>
   );
