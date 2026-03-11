@@ -5,19 +5,12 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Home, Notebook, BookHeart, User, Bell } from "lucide-react";
 import { useState } from "react";
-import { Montserrat } from "next/font/google";
-
 const links = [
   { href: "/", label: "Home", icon: Home },
   { href: "/blog", label: "Blog", icon: Notebook },
   { href: "/guestbook", label: "Guestbook", icon: BookHeart },
   { href: "/studio", label: "Studio", icon: User },
 ];
-
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  weight: ["800", "900"],
-});
 
 export function Navbar({ showLogo = true }: { showLogo?: boolean }) {
   const pathname = usePathname();
@@ -27,32 +20,26 @@ export function Navbar({ showLogo = true }: { showLogo?: boolean }) {
     <>
       <AnimatePresence>
         {showLogo && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className={`fixed top-8 left-8 z-50 transition-colors duration-500 pointer-events-auto mix-blend-difference ${montserrat.className}`}
+            className={`fixed top-8 left-8 z-50 transition-colors duration-500 pointer-events-auto`}
           >
-            <Link href="/" className="group block relative">
-              <motion.div className="flex flex-col items-start scale-[0.45] origin-top-left">
-                <div className="flex flex-col gap-0">
-                  <div className="paper-cut text-[10rem] font-black leading-none paper-cut-peel -translate-y-[15px]" data-text="ALTER">
-                    ALTER
-                    <div className="paper-cut-line" />
-                  </div>
-                  <div className="paper-cut text-[10rem] font-black italic text-aura-blue leading-none paper-cut-peel translate-y-[15px]" data-text="EGO">
-                    EGO
-                    <div className="paper-cut-line" />
-                  </div>
+            <Link href="/" className="group block relative hover:opacity-80 transition-opacity p-2 md:p-4 scale-[0.45] md:scale-50 origin-top-left">
+              <div className="flex flex-col relative w-fit">
+                {/* The cursive text, positioned top-left, slightly angled */}
+                <span className="absolute -top-3 -left-3 font-[family-name:var(--font-great-vibes)] text-4xl text-aura-foreground rotate-[-12deg] z-10 leading-none">
+                  My
+                </span>
+
+                {/* The bold serif text, stacked neatly with tight line-height */}
+                <div className="font-[family-name:var(--font-instrument)] font-serif text-[4.5rem] font-bold leading-[0.85] text-aura-foreground tracking-[-0.03em] flex flex-col pt-2">
+                  <span>Alter</span>
+                  {/* Indented to align under the stem of 'l' in 'Alter' (much like 'Club' under 'Girls') */}
+                  <span className="ml-[0.9em]">Ego</span>
                 </div>
-                
-                {/* Signature Underline */}
-                <motion.div 
-                  className="absolute -bottom-10 -left-4 h-6 w-0 bg-aura-blue/20 -skew-x-12 -z-10"
-                  whileHover={{ width: "110%" }}
-                  transition={{ duration: 0.4 }}
-                />
-              </motion.div>
+              </div>
             </Link>
           </motion.div>
         )}
@@ -94,14 +81,13 @@ export function Navbar({ showLogo = true }: { showLogo?: boolean }) {
                   </motion.div>
                 )}
 
-                <link.icon 
-                  className={`w-6 h-6 relative z-10 transition-all duration-500 ${
-                    isActive 
-                      ? "text-aura-blue scale-110 drop-shadow-[0_0_15px_rgba(125,211,252,0.8)]" 
-                      : isHovered 
-                        ? "text-aura-blue/60 scale-110" 
-                        : "text-white/20"
-                  }`}
+                <link.icon
+                  className={`w-6 h-6 relative z-10 transition-all duration-500 ${isActive
+                    ? "text-aura-blue scale-110 drop-shadow-[0_0_15px_rgba(125,211,252,0.8)]"
+                    : isHovered
+                      ? "text-aura-blue/60 scale-110"
+                      : "text-white/20"
+                    }`}
                 />
               </Link>
             );

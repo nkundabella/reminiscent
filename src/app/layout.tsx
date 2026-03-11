@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Instrument_Serif } from "next/font/google";
+import { Inter, Instrument_Serif, Great_Vibes } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Navbar } from "@/components/Navbar";
@@ -8,10 +8,15 @@ import { Footer } from "@/components/Footer";
 import { ClientLayout } from "@/components/ClientLayout";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const instrument = Instrument_Serif({ 
-  weight: "400", 
-  subsets: ["latin"], 
-  variable: "--font-instrument" 
+const instrument = Instrument_Serif({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-instrument"
+});
+const greatVibes = Great_Vibes({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-great-vibes"
 });
 
 export const metadata: Metadata = {
@@ -27,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${inter.variable} ${instrument.variable} font-sans antialiased text-aura-foreground bg-aura-background`}
+        className={`${inter.variable} ${instrument.variable} ${greatVibes.variable} font-sans antialiased text-aura-foreground bg-aura-background`}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <div className="noise-overlay pointer-events-none fixed inset-0 z-50 h-full w-full opacity-40 mix-blend-overlay"></div>
