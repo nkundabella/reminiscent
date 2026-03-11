@@ -23,6 +23,7 @@ export const post = {
       name: "publishedAt",
       title: "Published At",
       type: "datetime",
+      initialValue: () => new Date().toISOString(),
       validation: (Rule: any) => Rule.required(),
     },
     {
