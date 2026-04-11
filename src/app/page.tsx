@@ -41,10 +41,10 @@ export default function Home() {
               <div className="absolute top-0 right-0 w-4 h-4 bg-aura-foreground" />
               <div className="absolute bottom-0 left-0 w-4 h-4 bg-aura-foreground" />
 
-              <h1 className="font-serif text-6xl md:text-[10rem] font-black tracking-[-0.05em] text-aura-foreground leading-[0.8] mb-8">
+              <h1 className="font-serif text-6xl md:text-[10rem] font-black tracking-[-0.05em] text-aura-foreground leading-[0.8] mb-8 uppercase">
                 THE<br />
-                <span className="text-aura-blue italic">IZZY</span><br />
-                CHRONICLES
+                CHRONICLES<br />
+                OF <span className="text-aura-blue italic">IZZY</span>
               </h1>
               <p className="font-sans text-lg md:text-2xl font-bold max-w-2xl text-aura-foreground/60 leading-snug mx-auto">
                 A curated digital archive of scattered thoughts, <br className="hidden md:block" />
@@ -55,15 +55,15 @@ export default function Home() {
             {/* Pinned Memo - Cleanly positioned */}
             <motion.div
               initial={{ rotate: -15, opacity: 0, x: -100 }}
-              animate={{ rotate: -5, opacity: 1, x: -280, y: -80 }}
+              animate={{ rotate: -3, opacity: 1, x: -220, y: -70 }}
               transition={{ delay: 1, duration: 0.8 }}
-              className="absolute hidden xl:flex flex-col gap-2 w-52 bg-white p-6 shadow-2xl border border-black/5 z-30 transform hover:scale-110 transition-transform cursor-pointer"
+              className="absolute hidden xl:flex flex-col gap-2 w-56 bg-white p-6 shadow-2xl border border-black/5 z-30 transform hover:scale-110 transition-transform cursor-pointer"
             >
               <div className="absolute -top-4 right-4 w-12 h-6 bg-aura-blue/20 backdrop-blur-sm rotate-3" />
               <div className="flex items-center gap-2 text-[10px] uppercase tracking-widest font-black text-aura-blue">
-                <MapPin className="w-3 h-3" /> Reading Now
+                <MapPin className="w-3 h-3" /> Listening To
               </div>
-              <p className="font-serif text-sm italic leading-tight text-aura-dark">"Steal Like An Artist" by Austin Kleon</p>
+              <p className="font-serif text-sm italic leading-tight text-aura-dark">"The Story I'll Tell" by Naomi Raine</p>
             </motion.div>
           </motion.div>
 

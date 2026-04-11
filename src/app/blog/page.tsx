@@ -24,7 +24,7 @@ export default async function BlogPage() {
   return (
     <main className="min-h-screen pt-40 pb-20 px-8 relative overflow-hidden bg-aura-background">
       <div className="max-w-4xl mx-auto relative">
-        <h1 className="font-serif text-7xl md:text-9xl font-bold mb-20 text-aura-foreground/10 absolute -top-10 -left-10 pointer-events-none select-none uppercase tracking-tighter">
+        <h1 className="font-serif text-[10rem] md:text-[15rem] font-bold text-aura-foreground/5 absolute -top-24 -left-20 pointer-events-none select-none uppercase tracking-tighter z-0">
           Archive
         </h1>
 
@@ -43,7 +43,7 @@ export default async function BlogPage() {
         </div>
 
         {/* Blog Posts List */}
-        <div className="relative z-10 space-y-32 flex flex-col items-center">
+        <div className="relative z-10 space-y-32 flex flex-col items-center mt-20">
           {posts.map((post, index) => (
             <div
               key={post._id}
