@@ -3,12 +3,12 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Home, Notebook, BookHeart, User, Bell } from "lucide-react";
+import { Home, Notebook, Activity, User, Bell } from "lucide-react";
 import { useState } from "react";
 const links = [
   { href: "/", label: "Home", icon: Home },
   { href: "/blog", label: "Blog", icon: Notebook },
-  { href: "/guestbook", label: "Guestbook", icon: BookHeart },
+  { href: "/pulse", label: "Pulse", icon: Activity },
   { href: "/studio", label: "Studio", icon: User },
 ];
 

@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight, PenTool, Bookmark, Sparkles, MapPin } from "lucide-react";
 import Link from "next/link";
-import { StreakTracker } from "@/components/StreakTracker";
 
 export default function Home() {
   return (
@@ -54,8 +53,8 @@ export default function Home() {
 
             {/* Pinned Memo - Cleanly positioned */}
             <motion.div
-              initial={{ rotate: -15, opacity: 0, x: -100 }}
-              animate={{ rotate: -3, opacity: 1, x: -220, y: -70 }}
+              initial={{ rotate: -15, opacity: 0, x: -600 }}
+              animate={{ rotate: -12, opacity: 1, x: -180, y: 150 }}
               transition={{ delay: 1, duration: 0.8 }}
               className="absolute hidden xl:flex flex-col gap-2 w-56 bg-white p-6 shadow-2xl border border-black/5 z-30 transform hover:scale-110 transition-transform cursor-pointer"
             >
@@ -141,23 +140,6 @@ export default function Home() {
           </motion.div>
         </div>
       </div>
-
-      {/* Full-width Activity Archive Section */}
-      <section className="w-full border-y-2 border-aura-foreground/10 bg-aura-background/50 py-24 px-4 md:px-8 mt-10 z-10 relative flex flex-col items-center">
-        <div className="max-w-6xl w-full flex flex-col gap-10">
-          <div className="flex flex-col gap-2">
-            <h2 className="font-serif text-5xl font-black text-aura-foreground tracking-tighter uppercase relative inline-block">
-              Activity Archive
-              <div className="absolute -bottom-4 left-0 w-24 h-2 bg-aura-blue/80 rounded-full" />
-            </h2>
-            <p className="font-sans text-lg text-aura-foreground/60 font-medium mt-2">Tracking echoes and digital footprints left behind.</p>
-          </div>
-          
-          <div className="w-full h-96">
-            <StreakTracker />
-          </div>
-        </div>
-      </section>
     </main>
   );
 }
