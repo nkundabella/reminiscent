@@ -16,7 +16,17 @@ interface Post {
   title: string;
   publishedAt: string;
   body: any[];
-  mainImage?: any;
+  mainImage?: {
+    asset: {
+      metadata: {
+        dimensions: {
+          aspectRatio: number;
+          width: number;
+          height: number;
+        };
+      };
+    };
+  };
 }
 
 const POST_QUERY = `*[_type == "post" && slug.current == $slug][0] {
@@ -24,7 +34,14 @@ const POST_QUERY = `*[_type == "post" && slug.current == $slug][0] {
   title,
   publishedAt,
   body,
-  mainImage
+  mainImage {
+    ...,
+    asset->{
+      metadata {
+        dimensions
+      }
+    }
+  }
 }`;
 
 export default async function PostPage(props: { params: Promise<{ slug: string }> }) {
@@ -53,6 +70,8 @@ export default async function PostPage(props: { params: Promise<{ slug: string }
     },
   };
 
+  const isPortrait = post.mainImage?.asset?.metadata?.dimensions?.aspectRatio && post.mainImage.asset.metadata.dimensions.aspectRatio < 1;
+
   return (
     <main className="min-h-screen pt-40 pb-20 px-8 relative bg-aura-background">
       {/* Background Decor */}
@@ -68,51 +87,101 @@ export default async function PostPage(props: { params: Promise<{ slug: string }
           <span className="font-sans font-black uppercase tracking-widest text-xs">Back to Archive</span>
         </Link>
 
-        {/* Post Header */}
-        <header className="mb-16 relative">
-          <div className="flex items-center gap-6 mb-6 opacity-60">
-            <div className="flex items-center gap-2">
-              <Calendar className="w-4 h-4" />
-              <span className="text-xs font-black uppercase tracking-widest">
-                {new Date(post.publishedAt).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
-              </span>
+        {isPortrait ? (
+          <div className="relative">
+            {/* Portrait Layout: Floating Image with words on the right */}
+            <div className="mb-8">
+              <Link 
+                href={`/studio/intent/edit/id=${post._id};type=post`}
+                className="inline-flex items-center gap-2 bg-aura-dark text-aura-cream px-6 py-3 rounded-full border border-aura-foreground/20 hover:scale-105 transition-all shadow-xl font-bold text-sm mb-12"
+              >
+                <Edit3 className="w-4 h-4" /> EDIT THIS POST
+              </Link>
             </div>
-            <div className="h-1 w-1 rounded-full bg-aura-foreground/20" />
-            <div className="flex items-center gap-2">
-              <Clock className="w-4 h-4" />
-              <span className="text-xs font-black uppercase tracking-widest">5 min read</span>
+
+            <div className="flow-root">
+              <div className="md:float-left md:mr-12 mb-8 w-full md:w-[45%] relative aspect-[3/4] shadow-2xl overflow-hidden border-2 border-aura-foreground/10">
+                <Image
+                  src={urlFor(post.mainImage).width(800).url()}
+                  alt={post.title}
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              </div>
+
+              {/* metadata and title wrapped */}
+              <div className="flex items-center gap-6 mb-6 opacity-60">
+                <div className="flex items-center gap-2">
+                  <Calendar className="w-4 h-4" />
+                  <span className="text-xs font-black uppercase tracking-widest">
+                    {new Date(post.publishedAt).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
+                  </span>
+                </div>
+                <div className="h-1 w-1 rounded-full bg-aura-foreground/20" />
+                <div className="flex items-center gap-2">
+                  <Clock className="w-4 h-4" />
+                  <span className="text-xs font-black uppercase tracking-widest">5 min read</span>
+                </div>
+              </div>
+
+              <h1 className="font-serif text-4xl md:text-6xl font-black tracking-tighter leading-[0.9] mb-8 text-aura-foreground">
+                {post.title}
+              </h1>
+
+              <article className="prose prose-lg max-w-none text-aura-foreground font-sans">
+                <PortableText value={post.body} components={components} />
+              </article>
             </div>
           </div>
-          
-          <h1 className="font-serif text-5xl md:text-7xl font-black tracking-tighter leading-[0.9] mb-8 text-aura-foreground">
-            {post.title}
-          </h1>
+        ) : (
+          <>
+            {/* Standard Landscape Layout */}
+            <header className="mb-16 relative">
+              <div className="flex items-center gap-6 mb-6 opacity-60">
+                <div className="flex items-center gap-2">
+                  <Calendar className="w-4 h-4" />
+                  <span className="text-xs font-black uppercase tracking-widest">
+                    {new Date(post.publishedAt).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
+                  </span>
+                </div>
+                <div className="h-1 w-1 rounded-full bg-aura-foreground/20" />
+                <div className="flex items-center gap-2">
+                  <Clock className="w-4 h-4" />
+                  <span className="text-xs font-black uppercase tracking-widest">5 min read</span>
+                </div>
+              </div>
+              
+              <h1 className="font-serif text-5xl md:text-7xl font-black tracking-tighter leading-[0.9] mb-8 text-aura-foreground">
+                {post.title}
+              </h1>
 
-          {/* Edit Button for the post */}
-          <Link 
-            href={`/studio/intent/edit/id=${post._id};type=post`}
-            className="inline-flex items-center gap-2 bg-aura-dark text-aura-cream px-6 py-3 rounded-full border border-aura-foreground/20 hover:scale-105 transition-all shadow-xl font-bold text-sm mb-12"
-          >
-            <Edit3 className="w-4 h-4" /> EDIT THIS POST
-          </Link>
+              {/* Edit Button for the post */}
+              <Link 
+                href={`/studio/intent/edit/id=${post._id};type=post`}
+                className="inline-flex items-center gap-2 bg-aura-dark text-aura-cream px-6 py-3 rounded-full border border-aura-foreground/20 hover:scale-105 transition-all shadow-xl font-bold text-sm mb-12"
+              >
+                <Edit3 className="w-4 h-4" /> EDIT THIS POST
+              </Link>
 
-          {post.mainImage && (
-            <div className="relative w-full aspect-[16/9] mb-16 shadow-2xl overflow-hidden border-2 border-aura-foreground/10">
-              <Image
-                src={urlFor(post.mainImage).width(1200).url()}
-                alt={post.title}
-                fill
-                className="object-cover"
-                priority
-              />
-            </div>
-          )}
-        </header>
+              {post.mainImage && (
+                <div className="relative w-full aspect-[16/9] mb-16 shadow-2xl overflow-hidden border-2 border-aura-foreground/10">
+                  <Image
+                    src={urlFor(post.mainImage).width(1200).url()}
+                    alt={post.title}
+                    fill
+                    className="object-cover"
+                    priority
+                  />
+                </div>
+              )}
+            </header>
 
-        {/* Content Section */}
-        <article className="prose prose-lg max-w-none text-aura-foreground font-sans">
-          <PortableText value={post.body} components={components} />
-        </article>
+            <article className="prose prose-lg max-w-none text-aura-foreground font-sans">
+              <PortableText value={post.body} components={components} />
+            </article>
+          </>
+        )}
 
         {/* Footer separator */}
         <div className="mt-20 pt-10 border-t border-aura-foreground/10 flex flex-col items-center gap-6">
