@@ -71,7 +71,7 @@ export default async function BlogPage() {
                 
                 {/* IZ Edit Button - Only visible in Dev/Izzy mode */}
                 <Link 
-                  href={`/studio/structure/intent/edit,id=${post._id},type=post`}
+                  href={`/studio/intent/edit/id=${post._id};type=post`}
                   className="absolute -top-4 -right-4 bg-aura-dark text-aura-cream p-2 rounded-full border border-aura-foreground/20 opacity-0 group-hover:opacity-100 transition-all hover:scale-110 z-20 shadow-xl"
                   title="Edit in Studio"
                 >

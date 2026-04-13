@@ -90,7 +90,7 @@ export default async function PostPage(props: { params: Promise<{ slug: string }
 
           {/* Edit Button for the post */}
           <Link 
-            href={`/studio/structure/intent/edit,id=${post._id},type=post`}
+            href={`/studio/intent/edit/id=${post._id};type=post`}
             className="inline-flex items-center gap-2 bg-aura-dark text-aura-cream px-6 py-3 rounded-full border border-aura-foreground/20 hover:scale-105 transition-all shadow-xl font-bold text-sm mb-12"
           >
             <Edit3 className="w-4 h-4" /> EDIT THIS POST
