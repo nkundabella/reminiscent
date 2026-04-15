@@ -41,6 +41,7 @@ function BasicFooter() {
 }
 
 function ReceiptFooter() {
+  const pathname = usePathname();
   const [today, setToday] = useState(new Date());
   const [transId, setTransId] = useState("");
 
@@ -48,6 +49,8 @@ function ReceiptFooter() {
     setToday(new Date());
     setTransId(Math.random().toString(36).substring(2, 10).toUpperCase());
   }, []);
+
+  const filteredLinks = links.filter(link => link.href !== pathname);
 
   return (
     <footer className="w-full pt-40 pb-20 px-4 flex flex-col items-center overflow-hidden relative z-20">
@@ -77,7 +80,7 @@ function ReceiptFooter() {
             </div>
             
             <div className="flex flex-col gap-3">
-              {links.map((link) => (
+              {filteredLinks.map((link) => (
                 <Link key={link.href} href={link.href} className="group flex justify-between items-baseline hover:bg-[#0d0d0f]/5 px-2 -mx-2 py-1 transition-all rounded-sm">
                   <span className="uppercase font-black text-sm tracking-tight group-hover:pl-1 transition-all">{link.label}</span>
                   <div className="flex-1 border-b border-dotted border-[#0d0d0f]/30 mx-3 mb-1" />
@@ -127,6 +130,9 @@ function ReceiptFooter() {
 }
 
 function DesktopRevealFooter() {
+  const pathname = usePathname();
+  const filteredLinks = links.filter(link => link.href !== pathname);
+
   return (
     <div className="relative mt-40">
       {/* The sticky container that sits behind the content */}
@@ -142,21 +148,22 @@ function DesktopRevealFooter() {
 
             {/* Scattered Notes (Links) */}
             <div className="flex flex-wrap justify-center gap-6 md:gap-16 relative w-full px-4">
-              {links.map((link, i) => (
-                <motion.div
-                  key={link.href}
-                  initial={{ rotate: i % 2 === 0 ? -3 : 3, y: 0 }}
-                  whileHover={{ y: -15, rotate: 0, scale: 1.05, zIndex: 50 }}
-                  className="scattered-note w-36 h-36 md:w-52 md:h-52 flex flex-col items-center justify-center text-center cursor-pointer group shrink-0"
-                >
-                  <div className="note-pin" />
-                  <Link href={link.href} className="flex flex-col items-center px-4">
-                    <span className="font-serif text-xl md:text-3xl font-black mb-1 group-hover:text-aura-pink transition-colors leading-tight">
-                      {link.label}
-                    </span>
-                    <span className="text-[8px] md:text-[9px] font-black uppercase tracking-[0.2em] opacity-30">Navigate to</span>
-                  </Link>
-                </motion.div>
+              {filteredLinks.map((link, i) => (
+                <Link key={link.href} href={link.href} className="block group">
+                  <motion.div
+                    initial={{ rotate: i % 2 === 0 ? -3 : 3, y: 0 }}
+                    whileHover={{ y: -15, rotate: 0, scale: 1.05, zIndex: 50 }}
+                    className="scattered-note w-36 h-36 md:w-52 md:h-52 flex flex-col items-center justify-center text-center cursor-pointer group-hover:bg-[#fef9c3] transition-colors shrink-0"
+                  >
+                    <div className="note-pin" />
+                    <div className="flex flex-col items-center px-4">
+                      <span className="font-serif text-xl md:text-3xl font-black mb-1 group-hover:text-aura-pink transition-colors leading-tight">
+                        {link.label}
+                      </span>
+                      <span className="text-[8px] md:text-[9px] font-black uppercase tracking-[0.2em] opacity-30">Navigate to</span>
+                    </div>
+                  </motion.div>
+                </Link>
               ))}
               
               {/* Artistic Scribble/Note */}
