@@ -60,7 +60,7 @@ export default async function PostPage(props: { params: Promise<{ slug: string }
       h3: ({ children }: any) => <h3 className="text-2xl font-serif font-bold mt-8 mb-4">{children}</h3>,
       normal: ({ children }: any) => <p className="text-lg leading-relaxed mb-6 opacity-80">{children}</p>,
       blockquote: ({ children }: any) => (
-        <blockquote className="border-l-4 border-aura-blue pl-6 py-2 my-8 italic text-xl opacity-90 bg-aura-blue/5">
+        <blockquote className="border-l-4 border-essence-blue pl-6 py-2 my-8 italic text-xl opacity-90 bg-essence-blue/5">
           {children}
         </blockquote>
       ),
@@ -74,15 +74,15 @@ export default async function PostPage(props: { params: Promise<{ slug: string }
   const isPortrait = post.mainImage?.asset?.metadata?.dimensions?.aspectRatio && post.mainImage.asset.metadata.dimensions.aspectRatio < 1;
 
   return (
-    <main className="min-h-screen pt-40 pb-20 px-8 relative bg-aura-background">
+    <main className="min-h-screen pt-40 pb-20 px-8 relative bg-essence-background">
       {/* Background Decor */}
-      <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-aura-blue/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-essence-blue/5 rounded-full blur-[120px] pointer-events-none" />
       
       <div className="max-w-3xl mx-auto relative z-10">
         {/* Back Link */}
         <Link 
           href="/blog" 
-          className="group flex items-center gap-2 text-aura-foreground/50 hover:text-aura-blue transition-colors mb-12"
+          className="group flex items-center gap-2 text-essence-foreground/50 hover:text-essence-blue transition-colors mb-12"
         >
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
           <span className="font-sans font-black uppercase tracking-widest text-xs">Back to Archive</span>
@@ -94,14 +94,14 @@ export default async function PostPage(props: { params: Promise<{ slug: string }
             <div className="mb-8">
               <Link 
                 href={`/studio/intent/edit/id=${post._id};type=post`}
-                className="inline-flex items-center gap-2 bg-aura-dark text-aura-cream px-6 py-3 rounded-full border border-aura-foreground/20 hover:scale-105 transition-all shadow-xl font-bold text-sm mb-12"
+                className="inline-flex items-center gap-2 bg-essence-dark text-essence-cream px-6 py-3 rounded-full border border-essence-foreground/20 hover:scale-105 transition-all shadow-xl font-bold text-sm mb-12"
               >
                 <Edit3 className="w-4 h-4" /> EDIT THIS POST
               </Link>
             </div>
 
             <div className="flow-root">
-              <div className="md:float-left md:mr-12 mb-8 w-full md:w-[45%] relative aspect-[3/4] shadow-2xl overflow-hidden border-2 border-aura-foreground/10">
+              <div className="md:float-left md:mr-12 mb-8 w-full md:w-[45%] relative aspect-[3/4] shadow-2xl overflow-hidden border-2 border-essence-foreground/10">
                 <Image
                   src={urlFor(post.mainImage).width(800).url()}
                   alt={post.title}
@@ -119,18 +119,18 @@ export default async function PostPage(props: { params: Promise<{ slug: string }
                     {new Date(post.publishedAt).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
                   </span>
                 </div>
-                <div className="h-1 w-1 rounded-full bg-aura-foreground/20" />
+                <div className="h-1 w-1 rounded-full bg-essence-foreground/20" />
                 <div className="flex items-center gap-2">
                   <Clock className="w-4 h-4" />
                   <span className="text-xs font-black uppercase tracking-widest">5 min read</span>
                 </div>
               </div>
 
-              <h1 className="font-serif text-4xl md:text-6xl font-black tracking-tighter leading-[0.9] mb-8 text-aura-foreground">
+              <h1 className="font-serif text-4xl md:text-6xl font-black tracking-tighter leading-[0.9] mb-8 text-essence-foreground">
                 {post.title}
               </h1>
 
-              <article className="prose prose-lg max-w-none text-aura-foreground font-sans">
+              <article className="prose prose-lg max-w-none text-essence-foreground font-sans">
                 <PortableText value={post.body} components={components} />
               </article>
             </div>
@@ -146,27 +146,27 @@ export default async function PostPage(props: { params: Promise<{ slug: string }
                     {new Date(post.publishedAt).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
                   </span>
                 </div>
-                <div className="h-1 w-1 rounded-full bg-aura-foreground/20" />
+                <div className="h-1 w-1 rounded-full bg-essence-foreground/20" />
                 <div className="flex items-center gap-2">
                   <Clock className="w-4 h-4" />
                   <span className="text-xs font-black uppercase tracking-widest">5 min read</span>
                 </div>
               </div>
               
-              <h1 className="font-serif text-5xl md:text-7xl font-black tracking-tighter leading-[0.9] mb-8 text-aura-foreground">
+              <h1 className="font-serif text-5xl md:text-7xl font-black tracking-tighter leading-[0.9] mb-8 text-essence-foreground">
                 {post.title}
               </h1>
 
               {/* Edit Button for the post */}
               <Link 
                 href={`/studio/intent/edit/id=${post._id};type=post`}
-                className="inline-flex items-center gap-2 bg-aura-dark text-aura-cream px-6 py-3 rounded-full border border-aura-foreground/20 hover:scale-105 transition-all shadow-xl font-bold text-sm mb-12"
+                className="inline-flex items-center gap-2 bg-essence-dark text-essence-cream px-6 py-3 rounded-full border border-essence-foreground/20 hover:scale-105 transition-all shadow-xl font-bold text-sm mb-12"
               >
                 <Edit3 className="w-4 h-4" /> EDIT THIS POST
               </Link>
 
               {post.mainImage && (
-                <div className="relative w-full aspect-[16/9] mb-16 shadow-2xl overflow-hidden border-2 border-aura-foreground/10">
+                <div className="relative w-full aspect-[16/9] mb-16 shadow-2xl overflow-hidden border-2 border-essence-foreground/10">
                   <Image
                     src={urlFor(post.mainImage).width(1200).url()}
                     alt={post.title}
@@ -178,18 +178,18 @@ export default async function PostPage(props: { params: Promise<{ slug: string }
               )}
             </header>
 
-            <article className="prose prose-lg max-w-none text-aura-foreground font-sans">
+            <article className="prose prose-lg max-w-none text-essence-foreground font-sans">
               <PortableText value={post.body} components={components} />
             </article>
           </>
         )}
 
         {/* Footer separator */}
-        <div className="mt-20 pt-10 border-t border-aura-foreground/10 flex flex-col items-center gap-6">
+        <div className="mt-20 pt-10 border-t border-essence-foreground/10 flex flex-col items-center gap-6">
            <p className="font-serif italic text-xl opacity-40">End of Entry.</p>
            <Link 
             href="/blog" 
-            className="group flex items-center gap-2 text-aura-blue font-bold px-8 py-4 border-2 border-aura-blue shadow-[6px_6px_0px_var(--aura-blue)] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all"
+            className="group flex items-center gap-2 text-essence-blue font-bold px-8 py-4 border-2 border-essence-blue shadow-[6px_6px_0px_var(--essence-blue)] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all"
            >
              Return to the Archive
            </Link>

@@ -6,20 +6,20 @@
   :root {
     --background: #fbf8f1;
     --foreground: #0d0d0f;
-    --aura-background: #fbf8f1; /* cream */
-    --aura-foreground: #0d0d0f; /* charcoal */
-    --aura-pink: #ec4899;
-    --aura-blue: #0ea5e9;
-    --aura-green: #10b981;
-    --aura-cream: #fbf8f1;
-    --aura-dark: #0d0d0f;
+    --essence-background: #fbf8f1; /* cream */
+    --essence-foreground: #0d0d0f; /* charcoal */
+    --essence-pink: #ec4899;
+    --essence-blue: #0ea5e9;
+    --essence-green: #10b981;
+    --essence-cream: #fbf8f1;
+    --essence-dark: #0d0d0f;
   }
 
   .dark {
     --background: #0d0d0f;
     --foreground: #fbf8f1;
-    --aura-background: #0d0d0f;
-    --aura-foreground: #fbf8f1;
+    --essence-background: #0d0d0f;
+    --essence-foreground: #fbf8f1;
   }
 }
 
@@ -29,7 +29,7 @@ body {
 }
 
 ::selection {
-  background: var(--aura-blue);
+  background: var(--essence-blue);
   color: white;
 }
 
@@ -110,11 +110,11 @@ body {
 
 /* Logo Mode - Force Legibility and Correct Colors */
 .logo-mode .paper-cut-word {
-  color: var(--aura-dark) !important;
+  color: var(--essence-dark) !important;
 }
 
-.logo-mode .text-aura-blue {
-  color: var(--aura-blue) !important;
+.logo-mode .text-essence-blue {
+  color: var(--essence-blue) !important;
 }
 
 .logo-mode .paper-cut-top, 

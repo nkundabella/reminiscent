@@ -85,7 +85,7 @@ export function StreakTracker({ publishedDates = [] }: StreakTrackerProps) {
   }, [totalWeeks]);
 
   const getColor = (intensity: number) => {
-    if (intensity === 0) return "bg-aura-foreground/[0.03] border border-aura-foreground/5";
+    if (intensity === 0) return "bg-essence-foreground/[0.03] border border-essence-foreground/5";
     if (intensity === 1) return "bg-[#ff6bb3]/20 border border-[#ff6bb3]/10";
     if (intensity === 2) return "bg-[#ff6bb3]/45 border border-[#ff6bb3]/20";
     if (intensity === 3) return "bg-[#ff6bb3]/70 border border-[#ff6bb3]/30";
@@ -95,24 +95,24 @@ export function StreakTracker({ publishedDates = [] }: StreakTrackerProps) {
   const dayLabels = ["", "Mon", "", "Wed", "", "Fri", ""];
 
   return (
-    <div className="w-full bg-aura-background/50 backdrop-blur-sm border-2 border-aura-foreground/10 p-10 shadow-2xl relative overflow-hidden group">
-      <div className="absolute top-0 right-0 w-64 h-64 bg-aura-pink/5 rounded-full blur-[80px] -z-10 group-hover:bg-aura-pink/10 transition-colors duration-1000" />
+    <div className="w-full bg-essence-background/50 backdrop-blur-sm border-2 border-essence-foreground/10 p-10 shadow-2xl relative overflow-hidden group">
+      <div className="absolute top-0 right-0 w-64 h-64 bg-essence-pink/5 rounded-full blur-[80px] -z-10 group-hover:bg-essence-pink/10 transition-colors duration-1000" />
       
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-6">
         <div>
-          <h2 className="font-serif text-4xl font-bold text-aura-foreground tracking-tight flex items-center gap-3">
+          <h2 className="font-serif text-4xl font-bold text-essence-foreground tracking-tight flex items-center gap-3">
             Creative Momentum
           </h2>
-          <p className="font-sans text-aura-foreground/50 text-sm mt-1">
+          <p className="font-sans text-essence-foreground/50 text-sm mt-1">
             Tracking contributions across {totalWeeks} weeks of expression.
           </p>
         </div>
         
-        <div className="flex items-center gap-3 bg-aura-foreground/5 px-6 py-3 rounded-2xl border border-aura-foreground/10 backdrop-blur-md">
-          <Flame className={`w-6 h-6 ${currentStreak > 0 ? "text-aura-pink fill-aura-pink/20 animate-pulse" : "text-aura-foreground/20"}`} />
+        <div className="flex items-center gap-3 bg-essence-foreground/5 px-6 py-3 rounded-2xl border border-essence-foreground/10 backdrop-blur-md">
+          <Flame className={`w-6 h-6 ${currentStreak > 0 ? "text-essence-pink fill-essence-pink/20 animate-pulse" : "text-essence-foreground/20"}`} />
           <div className="flex flex-col">
-            <span className="text-[10px] uppercase font-black tracking-widest text-aura-foreground/40 leading-none mb-1">Current Streak</span>
-            <span className="font-serif text-2xl font-black text-aura-foreground leading-none">{currentStreak} Days</span>
+            <span className="text-[10px] uppercase font-black tracking-widest text-essence-foreground/40 leading-none mb-1">Current Streak</span>
+            <span className="font-serif text-2xl font-black text-essence-foreground leading-none">{currentStreak} Days</span>
           </div>
         </div>
       </div>
@@ -123,7 +123,7 @@ export function StreakTracker({ publishedDates = [] }: StreakTrackerProps) {
       >
         <div style={{ width: `${(totalWeeks * 18)}px` }} className="min-w-full">
           {/* Month Labels row */}
-          <div className="flex mb-4 ml-10 text-[10px] font-black uppercase tracking-widest text-aura-foreground/30 relative h-4">
+          <div className="flex mb-4 ml-10 text-[10px] font-black uppercase tracking-widest text-essence-foreground/30 relative h-4">
             {monthLabels.map((l, i) => (
               <span 
                 key={i} 
@@ -137,7 +137,7 @@ export function StreakTracker({ publishedDates = [] }: StreakTrackerProps) {
 
           <div className="flex gap-1">
             {/* Day Labels column */}
-            <div className="flex flex-col gap-1 pr-4 text-[10px] font-black uppercase tracking-widest text-aura-foreground/20 justify-between py-1 h-[122px] w-8 sticky left-0 bg-aura-background/80 backdrop-blur-sm z-10">
+            <div className="flex flex-col gap-1 pr-4 text-[10px] font-black uppercase tracking-widest text-essence-foreground/20 justify-between py-1 h-[122px] w-8 sticky left-0 bg-essence-background/80 backdrop-blur-sm z-10">
               {dayLabels.map((label, i) => (
                 <span key={i} className="h-4 flex items-center">{label}</span>
               ))}
@@ -155,10 +155,10 @@ export function StreakTracker({ publishedDates = [] }: StreakTrackerProps) {
                 >
                   {!day.isFuture && (
                     <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 opacity-0 group-hover/tile:opacity-100 transition-all duration-200 pointer-events-none z-50">
-                      <div className="bg-aura-dark text-aura-cream text-[10px] px-3 py-1.5 rounded-lg whitespace-nowrap shadow-2xl border border-white/10 flex flex-col items-center">
-                        <span className="font-black text-aura-pink mb-0.5">{day.intensity} Submissions</span>
+                      <div className="bg-essence-dark text-essence-cream text-[10px] px-3 py-1.5 rounded-lg whitespace-nowrap shadow-2xl border border-white/10 flex flex-col items-center">
+                        <span className="font-black text-essence-pink mb-0.5">{day.intensity} Submissions</span>
                         <span className="opacity-60">{day.date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</span>
-                        <div className="absolute top-full left-1/2 -translate-x-1/2 border-8 border-transparent border-t-aura-dark" />
+                        <div className="absolute top-full left-1/2 -translate-x-1/2 border-8 border-transparent border-t-essence-dark" />
                       </div>
                     </div>
                   )}
@@ -169,11 +169,11 @@ export function StreakTracker({ publishedDates = [] }: StreakTrackerProps) {
         </div>
       </div>
 
-      <div className="mt-8 flex flex-col md:flex-row justify-between items-center gap-4 pt-6 border-t border-aura-foreground/5">
-        <p className="text-[10px] font-black uppercase tracking-[0.2em] text-aura-foreground/20">
+      <div className="mt-8 flex flex-col md:flex-row justify-between items-center gap-4 pt-6 border-t border-essence-foreground/5">
+        <p className="text-[10px] font-black uppercase tracking-[0.2em] text-essence-foreground/20">
           Expression is the currency of freedom.
         </p>
-        <div className="flex items-center gap-3 text-[10px] font-black uppercase tracking-widest text-aura-foreground/30">
+        <div className="flex items-center gap-3 text-[10px] font-black uppercase tracking-widest text-essence-foreground/30">
           <span>Less</span>
           <div className="flex gap-1">
             {[0, 1, 2, 3, 4].map((lvl) => (

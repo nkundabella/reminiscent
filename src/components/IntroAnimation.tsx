@@ -23,7 +23,7 @@ const PaperCutLetter = ({ char }: { char: string }) => {
 
 const PaperCutWord = ({ word, isBlue = false }: { word: string; isBlue?: boolean }) => {
   return (
-    <div className={`paper-cut-word ${isBlue ? 'text-aura-blue' : ''}`}>
+    <div className={`paper-cut-word ${isBlue ? 'text-essence-blue' : ''}`}>
       {word.split("").map((char, i) => (char === " " ? <span key={i} className="w-4 md:w-8" /> : <PaperCutLetter key={i} char={char} />))}
       <div className="paper-cut-line-overlay" />
     </div>
@@ -133,7 +133,7 @@ export function IntroAnimation({ onComplete }: { onComplete: () => void }) {
     <>
       <div 
         ref={bgRef}
-        className="fixed inset-0 bg-aura-background z-[998] pointer-events-none"
+        className="fixed inset-0 bg-essence-background z-[998] pointer-events-none"
       />
       
       <div 
@@ -143,7 +143,7 @@ export function IntroAnimation({ onComplete }: { onComplete: () => void }) {
       >
         <div 
           ref={unfilteredRef}
-          className="text-[10px] md:text-sm uppercase tracking-[1.5em] text-aura-foreground/60 mb-16 font-black"
+          className="text-[10px] md:text-sm uppercase tracking-[1.5em] text-essence-foreground/60 mb-16 font-black"
         >
           UNFILTERED
         </div>
@@ -158,7 +158,7 @@ export function IntroAnimation({ onComplete }: { onComplete: () => void }) {
 
         <div 
           ref={scrollPromptRef}
-          className="absolute -bottom-48 opacity-0 text-[10px] tracking-[0.8em] uppercase text-aura-foreground font-bold"
+          className="absolute -bottom-48 opacity-0 text-[10px] tracking-[0.8em] uppercase text-essence-foreground font-bold"
         >
           Scroll to explore
         </div>

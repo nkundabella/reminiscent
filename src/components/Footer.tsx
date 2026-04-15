@@ -32,8 +32,8 @@ export function Footer() {
 
 function BasicFooter() {
   return (
-    <footer className="w-full py-12 text-center border-t border-aura-foreground/5 mt-20 relative z-20 bg-aura-background">
-      <p className="font-sans text-[10px] font-black uppercase tracking-[0.3em] text-aura-foreground/30">
+    <footer className="w-full py-12 text-center border-t border-essence-foreground/5 mt-20 relative z-20 bg-essence-background">
+      <p className="font-sans text-[10px] font-black uppercase tracking-[0.3em] text-essence-foreground/30">
         © {new Date().getFullYear()} Izzy. Built with expressive chaos.
       </p>
     </footer>
@@ -93,13 +93,13 @@ function ReceiptFooter() {
           <div className="space-y-6 pt-6 border-t-2 border-dashed border-[#0d0d0f]/20">
             <div className="flex justify-between items-center text-lg font-black tracking-tighter uppercase">
               <span>Total Expression</span>
-              <span className="text-aura-pink">100.00%</span>
+              <span className="text-essence-pink">100.00%</span>
             </div>
             <div className="grid grid-cols-2 gap-x-8 gap-y-2 text-[10px] font-black uppercase tracking-widest text-[#0d0d0f]/50">
               <div className="flex justify-between"><span>Start:</span><span className="text-[#0d0d0f]">AESTHETIC_INIT</span></div>
               <div className="flex justify-between"><span>Mode:</span><span className="text-[#0d0d0f]">CHAOS_ONLY</span></div>
               <div className="flex justify-between"><span>Loc:</span><span className="text-[#0d0d0f]">DIGITAL_ETHER</span></div>
-              <div className="flex justify-between"><span>Ver:</span><span className="text-[#0d0d0f]">AURA.v1</span></div>
+              <div className="flex justify-between"><span>Ver:</span><span className="text-[#0d0d0f]">ESSENCE.v1</span></div>
             </div>
           </div>
 
@@ -142,8 +142,8 @@ function DesktopRevealFooter() {
           <div className="relative w-full max-w-6xl h-full flex flex-col items-center justify-center gap-12 md:gap-24 py-20">
             {/* Header / Intro */}
             <div className="text-center">
-              <span className="text-[10px] font-black uppercase tracking-[0.5em] text-aura-background/20 block mb-4">Final Perspective</span>
-              <h3 className="font-serif text-4xl md:text-7xl text-aura-background tracking-tighter">Stay a while.</h3>
+              <span className="text-[10px] font-black uppercase tracking-[0.5em] text-essence-background/20 block mb-4">Final Perspective</span>
+              <h3 className="font-serif text-4xl md:text-7xl text-essence-background tracking-tighter">Stay a while.</h3>
             </div>
 
             {/* Scattered Notes (Links) */}
@@ -157,7 +157,7 @@ function DesktopRevealFooter() {
                   >
                     <div className="note-pin" />
                     <div className="flex flex-col items-center px-4">
-                      <span className="font-serif text-xl md:text-3xl font-black mb-1 group-hover:text-aura-pink transition-colors leading-tight">
+                      <span className="font-serif text-xl md:text-3xl font-black mb-1 group-hover:text-essence-pink transition-colors leading-tight">
                         {link.label}
                       </span>
                       <span className="text-[8px] md:text-[9px] font-black uppercase tracking-[0.2em] opacity-30">Navigate to</span>
@@ -168,7 +168,7 @@ function DesktopRevealFooter() {
               
               {/* Artistic Scribble/Note */}
               <div className="absolute -top-10 -right-10 w-64 h-64 opacity-[0.03] pointer-events-none hidden lg:block">
-                <svg viewBox="0 0 200 200" className="fill-aura-background">
+                <svg viewBox="0 0 200 200" className="fill-essence-background">
                   <path d="M10,10 Q50,90 190,10 T100,190 Q10,10 10,10" fill="none" stroke="currentColor" strokeWidth="0.5" />
                 </svg>
               </div>
@@ -182,16 +182,16 @@ function DesktopRevealFooter() {
                  className="flex items-center gap-4 bg-white/[0.03] backdrop-blur-xl px-6 md:px-8 py-3 md:py-4 rounded-3xl border border-white/5 shadow-2xl"
                >
                   <div className="relative">
-                    <div className="w-2.5 h-2.5 bg-aura-pink rounded-full animate-ping absolute inset-0" />
-                    <div className="w-2.5 h-2.5 bg-aura-pink rounded-full relative shadow-[0_0_15px_#ff6bb3]" />
+                    <div className="w-2.5 h-2.5 bg-essence-pink rounded-full animate-ping absolute inset-0" />
+                    <div className="w-2.5 h-2.5 bg-essence-pink rounded-full relative shadow-[0_0_15px_#ff6bb3]" />
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-[8px] md:text-[9px] font-black uppercase tracking-[0.2em] text-aura-background/40 leading-none mb-1">Current State</span>
-                    <span className="text-[10px] md:text-[11px] font-bold text-aura-background uppercase tracking-wider whitespace-nowrap">Navigating the Void</span>
+                    <span className="text-[8px] md:text-[9px] font-black uppercase tracking-[0.2em] text-essence-background/40 leading-none mb-1">Current State</span>
+                    <span className="text-[10px] md:text-[11px] font-bold text-essence-background uppercase tracking-wider whitespace-nowrap">Navigating the Void</span>
                   </div>
                </motion.div>
                
-               <p className="font-sans text-[8px] md:text-[9px] font-black uppercase tracking-[0.5em] text-aura-background/10 text-center">
+               <p className="font-sans text-[8px] md:text-[9px] font-black uppercase tracking-[0.5em] text-essence-background/10 text-center">
                  © {new Date().getFullYear()} IZ.SYS / EXPRESSIVE CHAOS
                </p>
             </div>
