@@ -14,7 +14,7 @@ export default async function PulsePage() {
   const publishedDates = await getActivityData();
 
   return (
-    <main className="min-h-screen pt-40 pb-20 px-8 relative overflow-hidden bg-essence-background">
+    <main className="min-h-screen pt-40 pb-20 px-8 relative overflow-hidden bg-essence-background z-10">
       <div className="max-w-6xl mx-auto relative z-10 w-full">
         <div className="mb-16">
           <div className="flex items-center gap-4 mb-4">

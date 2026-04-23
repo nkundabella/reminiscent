@@ -1,9 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 const links = [
   { href: "/", label: "Home" },
@@ -24,7 +24,11 @@ export function Footer() {
     return <ReceiptFooter />;
   }
 
-  // Default to Desktop Reveal for Home, Pulse, and others
+  if (pathname === "/pulse") {
+    return <PulseFooter />;
+  }
+
+  // Default to Desktop Reveal for Home and others
   return <DesktopRevealFooter />;
 }
 
@@ -128,15 +132,213 @@ function ReceiptFooter() {
     </footer>
   );
 }
+function PulseFooter() {
+  const [isHovered, setIsHovered] = useState(false);
+  const today = new Date();
+
+  // Non-cringe, minimalist affirmations with wide intentional spacing
+  const wordsOfPower = [
+    "YOU ARE STRONG",
+    "                          ",
+    "AMBITIOUS",
+    "                          ",
+    "LOVED",
+    "                          ",
+    "ALTER EGO",
+    "                          ",
+    "SEEN",
+    "                          ",
+    "INTENTIONAL",
+    "                          ",
+    "ABSOLUTE",
+    "                          ",
+    "ALTER EGO",
+    "                          ",
+  ];
+
+  return (
+    <footer 
+      className="w-full bg-essence-background text-essence-foreground relative h-32 md:h-40 overflow-hidden flex items-center justify-center group border-t border-essence-foreground/5 shadow-[0_-1px_0_rgba(0,0,0,0.02)]"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <AnimatePresence mode="wait">
+        {!isHovered ? (
+          <motion.div
+            key="ticker"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="w-full"
+          >
+            <ActivityTicker words={wordsOfPower} />
+          </motion.div>
+        ) : (
+          <motion.div
+            key="navigation"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            className="flex flex-wrap justify-center gap-8 md:gap-16 z-10"
+          >
+            {links.map((link) => (
+              <Link 
+                key={link.href} 
+                href={link.href}
+                className="font-serif text-sm md:text-xl font-bold tracking-tight text-essence-foreground/40 hover:text-essence-pink hover:scale-105 transition-all duration-300"
+              >
+                {link.label}
+              </Link>
+            ))}
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-[8px] font-mono opacity-20 uppercase tracking-[0.3em] whitespace-nowrap">
+              © {today.getFullYear()} IZ.SYS / ABSOLUTE_ESSENCE
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Subtle Bottom Accent */}
+      <div className="absolute bottom-0 left-0 w-full h-[1px] bg-essence-foreground/5" />
+    </footer>
+  );
+}
+
+function ActivityTicker({ words }: { words: string[] }) {
+  return (
+    <div className="flex overflow-hidden whitespace-nowrap opacity-20 hover:opacity-40 transition-opacity">
+      <motion.div
+        animate={{ x: ["0%", "-50%"] }}
+        transition={{ 
+          duration: 60, // Slower, more inevitable scroll
+          repeat: Infinity, 
+          ease: "linear" 
+        }}
+        className="flex"
+      >
+        {[...Array(2)].map((_, i) => (
+          <div key={i} className="flex">
+            {words.map((word, index) => (
+              <span 
+                key={index} 
+                className={`font-mono text-[10px] md:text-xs uppercase tracking-[0.5em] flex items-center whitespace-pre ${word === "ALTER EGO" ? "text-essence-pink opacity-100" : ""}`}
+              >
+                {word}
+              </span>
+            ))}
+          </div>
+        ))}
+      </motion.div>
+    </div>
+  );
+}
+
+function IntentionalArrow({ start, end, isVisible }: { start: { x: number, y: number }, end: { x: number, y: number }, isVisible: boolean }) {
+  // Graceful cubic curve
+  const path = `M ${start.x} ${start.y} C ${start.x} ${(start.y + end.y) / 2}, ${end.x} ${(start.y + end.y) / 2.5}, ${end.x} ${end.y}`;
+
+  return (
+    <svg 
+      className="fixed inset-0 pointer-events-none z-[200]" 
+      style={{ overflow: 'visible' }}
+    >
+      <defs>
+        <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="4" result="blur" />
+          <feComposite in="SourceGraphic" in2="blur" operator="over" />
+        </filter>
+      </defs>
+      
+      <motion.path
+        d={path}
+        fill="none"
+        stroke="#ec4899"
+        strokeWidth="3.5"
+        strokeLinecap="round"
+        filter="url(#glow)"
+        initial={{ pathLength: 0, opacity: 0 }}
+        animate={{ 
+          pathLength: isVisible ? 1 : 0, 
+          opacity: isVisible ? 1 : 0 
+        }}
+        transition={{ 
+          duration: 0.875,
+          ease: [0.16, 1, 0.3, 1] // Custom intentional ease
+        }}
+      />
+      
+      {/* Arrow Head - Precise & Clean */}
+      <motion.path
+        d={`M ${end.x - 8} ${end.y - 14} L ${end.x} ${end.y} L ${end.x + 8} ${end.y - 14}`}
+        fill="none"
+        stroke="#ec4899"
+        strokeWidth="3.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        filter="url(#glow)"
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ 
+          opacity: isVisible ? 1 : 0,
+          scale: isVisible ? 1 : 0.5
+        }}
+        transition={{ delay: 0.8, duration: 0.2, ease: "easeOut" }}
+      />
+    </svg>
+  );
+}
 
 function DesktopRevealFooter() {
   const pathname = usePathname();
+  const [mounted, setMounted] = useState(false);
+  const [hoveredLabel, setHoveredLabel] = useState<string | null>(null);
+  const noteRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+  
   const filteredLinks = links.filter(link => link.href !== pathname);
+
+  // Nav icon positions (estimated relative to viewport center)
+  const getNavPos = (label: string) => {
+    if (typeof window === "undefined" || !mounted) return { x: 0, y: 0 };
+    const centerX = window.innerWidth / 2;
+    const bottomY = window.innerHeight - 80; 
+    
+    // Normalized indices: Home(0), Blog(1), Pulse(2), Studio(3)
+    const offsets: { [key: string]: number } = {
+      "Home": -96,
+      "Blog": -32,
+      "Pulse": 32,
+      "Studio": 96
+    };
+    
+    return { x: centerX + (offsets[label] || 0), y: bottomY };
+  };
+
+  const [startPos, setStartPos] = useState({ x: 0, y: 0 });
+
+  const handleMouseEnter = (label: string) => {
+    const rect = noteRefs.current[label]?.getBoundingClientRect();
+    if (rect) {
+      setStartPos({ x: rect.left + rect.width / 2, y: rect.bottom - 20 });
+      setHoveredLabel(label);
+    }
+  };
 
   return (
     <div className="relative mt-40">
+      <AnimatePresence>
+        {mounted && hoveredLabel && (
+          <IntentionalArrow 
+            start={startPos} 
+            end={getNavPos(hoveredLabel)} 
+            isVisible={!!hoveredLabel} 
+          />
+        )}
+      </AnimatePresence>
+
       {/* The sticky container that sits behind the content */}
-      <div className="sticky bottom-0 h-auto md:h-[700px] w-full overflow-hidden desk-surface flex items-center justify-center p-8 md:p-10 -z-10 bg-[#0d0d0f]">
+      <div className="sticky bottom-0 h-auto md:h-[700px] w-full overflow-hidden desk-surface flex items-center justify-center p-8 md:p-10 z-0 bg-[#0d0d0f]">
           <div className="absolute inset-0 receipt-texture opacity-10 pointer-events-none" />
           
           <div className="relative w-full max-w-6xl h-full flex flex-col items-center justify-center gap-12 md:gap-24 py-20">
@@ -149,8 +351,15 @@ function DesktopRevealFooter() {
             {/* Scattered Notes (Links) */}
             <div className="flex flex-wrap justify-center gap-6 md:gap-16 relative w-full px-4">
               {filteredLinks.map((link, i) => (
-                <Link key={link.href} href={link.href} className="block group">
+                <Link 
+                  key={link.href} 
+                  href={link.href} 
+                  className="block group"
+                  onMouseEnter={() => handleMouseEnter(link.label)}
+                  onMouseLeave={() => setHoveredLabel(null)}
+                >
                   <motion.div
+                    ref={el => { noteRefs.current[link.label] = el; }}
                     initial={{ rotate: i % 2 === 0 ? -3 : 3, y: 0 }}
                     whileHover={{ y: -15, rotate: 0, scale: 1.05, zIndex: 50 }}
                     className="scattered-note w-36 h-36 md:w-52 md:h-52 flex flex-col items-center justify-center text-center cursor-pointer group-hover:bg-[#fef9c3] transition-colors shrink-0"

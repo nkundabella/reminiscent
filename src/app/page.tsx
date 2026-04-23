@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen overflow-x-hidden flex flex-col items-center bg-essence-background">
+    <main className="relative z-10 min-h-screen overflow-x-hidden flex flex-col items-center bg-essence-background mb-[700px]">
       {/* Halftone / Grid Background Elements */}
       <div className="absolute top-[20%] right-[15%] w-64 h-64 opacity-10 pointer-events-none"
         style={{
