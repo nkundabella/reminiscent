@@ -12,14 +12,14 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
-        essence: {
+        aura: {
           pink: "#ff6bb3",
           green: "#d4ed31",
           blue: "#b2d1f7",
           cream: "#fbf8f1",
           dark: "#1e1e24",
-          background: "var(--essence-background)",
-          foreground: "var(--essence-foreground)",
+          background: "var(--aura-background)",
+          foreground: "var(--aura-foreground)",
         }
       },
       fontFamily: {

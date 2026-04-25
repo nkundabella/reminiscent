@@ -22,9 +22,9 @@ export default async function BlogPage() {
   const posts = await client.fetch<Post[]>(POSTS_QUERY);
 
   return (
-    <main className="min-h-screen pt-40 pb-20 px-8 relative overflow-hidden bg-essence-background">
+    <main className="min-h-screen pt-40 pb-20 px-8 relative overflow-hidden bg-aura-background">
       <div className="max-w-4xl mx-auto relative">
-        <h1 className="font-serif text-[8rem] md:text-[12rem] font-bold text-essence-foreground/5 absolute -top-60 -left-10 pointer-events-none select-none uppercase tracking-tighter z-0">
+        <h1 className="font-serif text-[8rem] md:text-[12rem] font-bold text-aura-foreground/5 absolute -top-60 -left-10 pointer-events-none select-none uppercase tracking-tighter z-0">
           Archive
         </h1>
 
@@ -37,7 +37,7 @@ export default async function BlogPage() {
               stroke="currentColor"
               strokeWidth="2"
               strokeDasharray="10 10"
-              className="text-essence-foreground opacity-20"
+              className="text-aura-foreground opacity-20"
             />
           </svg>
         </div>
@@ -53,17 +53,17 @@ export default async function BlogPage() {
             >
               <div className="relative group">
                 <Link href={`/blog/${post.slug.current}`} className="block">
-                  <div className="bg-essence-background border-2 border-essence-foreground p-8 shadow-[8px_8px_0px_var(--essence-foreground)] group-hover:shadow-[12px_12px_0px_var(--essence-blue)] transition-all duration-300 relative overflow-hidden">
+                  <div className="bg-aura-background border-2 border-aura-foreground p-8 shadow-[8px_8px_0px_var(--aura-foreground)] group-hover:shadow-[12px_12px_0px_var(--aura-blue)] transition-all duration-300 relative overflow-hidden">
                     <div className="flex justify-between items-start mb-4">
-                      <span className="font-sans text-xs font-black tracking-widest text-essence-blue uppercase">
+                      <span className="font-sans text-xs font-black tracking-widest text-aura-blue uppercase">
                         {new Date(post.publishedAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
                       </span>
                       <ArrowUpRight className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                     </div>
-                    <h2 className="font-serif text-4xl font-bold mb-4 leading-tight group-hover:text-essence-blue transition-colors">
+                    <h2 className="font-serif text-4xl font-bold mb-4 leading-tight group-hover:text-aura-blue transition-colors">
                       {post.title}
                     </h2>
-                    <p className="font-sans text-lg text-essence-foreground/70 line-clamp-2">
+                    <p className="font-sans text-lg text-aura-foreground/70 line-clamp-2">
                       {post.excerpt}
                     </p>
                   </div>
@@ -72,7 +72,7 @@ export default async function BlogPage() {
                 {/* IZ Edit Button - Only visible in Dev/Izzy mode */}
                 <Link 
                   href={`/studio/intent/edit/id=${post._id};type=post`}
-                  className="absolute -top-4 -right-4 bg-essence-dark text-essence-cream p-2 rounded-full border border-essence-foreground/20 opacity-0 group-hover:opacity-100 transition-all hover:scale-110 z-20 shadow-xl"
+                  className="absolute -top-4 -right-4 bg-aura-dark text-aura-cream p-2 rounded-full border border-aura-foreground/20 opacity-0 group-hover:opacity-100 transition-all hover:scale-110 z-20 shadow-xl"
                   title="Edit in Studio"
                 >
                   <Edit3 className="w-4 h-4" />
@@ -84,7 +84,7 @@ export default async function BlogPage() {
           {posts.length === 0 && (
             <div className="text-center py-20">
               <p className="font-serif text-2xl italic opacity-50">The archive is currently empty...</p>
-              <Link href="/studio" className="text-essence-blue underline mt-4 block">Go to Studio to add a post</Link>
+              <Link href="/studio" className="text-aura-blue underline mt-4 block">Go to Studio to add a post</Link>
             </div>
           )}
         </div>

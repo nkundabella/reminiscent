@@ -29,12 +29,12 @@ export function Navbar({ showLogo = true }: { showLogo?: boolean }) {
             <Link href="/" className="group block relative hover:opacity-80 transition-opacity p-2 md:p-4 scale-[0.45] md:scale-50 origin-top-left">
               <div className="flex flex-col relative w-fit">
                 {/* The cursive text, positioned top-left, slightly angled */}
-                <span className="absolute -top-3 -left-3 font-[family-name:var(--font-great-vibes)] text-4xl text-essence-foreground rotate-[-12deg] z-10 leading-none">
+                <span className="absolute -top-3 -left-3 font-[family-name:var(--font-great-vibes)] text-4xl text-aura-foreground rotate-[-12deg] z-10 leading-none">
                   My
                 </span>
 
                 {/* The bold serif text, stacked neatly with tight line-height */}
-                <div className="font-[family-name:var(--font-instrument)] font-serif text-[4.5rem] font-bold leading-[0.85] text-essence-foreground tracking-[-0.03em] flex flex-col pt-2">
+                <div className="font-[family-name:var(--font-instrument)] font-serif text-[4.5rem] font-bold leading-[0.85] text-aura-foreground tracking-[-0.03em] flex flex-col pt-2">
                   <span>Alter</span>
                   {/* Indented to align under the stem of 'l' in 'Alter' (much like 'Club' under 'Girls') */}
                   <span className="ml-[0.9em]">Ego</span>
@@ -67,7 +67,7 @@ export function Navbar({ showLogo = true }: { showLogo?: boolean }) {
                     transition={{ type: "spring", stiffness: 350, damping: 30 }}
                   >
                     {/* The "Laser" Line at the Top */}
-                    <div className="absolute top-[-15px] left-1/2 -translate-x-1/2 w-10 h-[3px] bg-essence-blue rounded-full shadow-[0_0_25px_#7dd3fc,0_0_10px_#7dd3fc] z-50" />
+                    <div className="absolute top-[-15px] left-1/2 -translate-x-1/2 w-10 h-[3px] bg-aura-blue rounded-full shadow-[0_0_25px_#7dd3fc,0_0_10px_#7dd3fc] z-50" />
 
                     {/* The Spotlight Cone (Light Beam) */}
                     <div
@@ -83,9 +83,9 @@ export function Navbar({ showLogo = true }: { showLogo?: boolean }) {
 
                 <link.icon
                   className={`w-6 h-6 relative z-10 transition-all duration-500 ${isActive
-                    ? "text-essence-blue scale-110 drop-shadow-[0_0_15px_rgba(125,211,252,0.8)]"
+                    ? "text-aura-blue scale-110 drop-shadow-[0_0_15px_rgba(125,211,252,0.8)]"
                     : isHovered
-                      ? "text-essence-blue/60 scale-110"
+                      ? "text-aura-blue/60 scale-110"
                       : "text-white/20"
                     }`}
                 />

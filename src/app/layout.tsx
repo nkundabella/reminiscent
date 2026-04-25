@@ -20,7 +20,7 @@ const greatVibes = Great_Vibes({
 });
 
 export const metadata: Metadata = {
-  title: "The Essence of Izzy",
+  title: "Izzy's Singular Aura",
   description: "A personal editorial archive",
 };
 
@@ -32,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${inter.variable} ${instrument.variable} ${greatVibes.variable} font-sans antialiased text-essence-foreground bg-essence-background`}
+        className={`${inter.variable} ${instrument.variable} ${greatVibes.variable} font-sans antialiased text-aura-foreground bg-aura-background`}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <div className="noise-overlay pointer-events-none fixed inset-0 z-50 h-full w-full opacity-40 mix-blend-overlay"></div>
