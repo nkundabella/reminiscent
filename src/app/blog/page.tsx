@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowUpRight, Edit3 } from "lucide-react";
 import { client } from "@/sanity/client";
 
@@ -8,6 +9,7 @@ interface Post {
   slug: { current: string };
   publishedAt: string;
   excerpt?: string;
+  mainImageUrl?: string;
 }
 
 const POSTS_QUERY = `*[_type == "post"] | order(publishedAt desc) {
@@ -15,6 +17,7 @@ const POSTS_QUERY = `*[_type == "post"] | order(publishedAt desc) {
   title,
   slug,
   publishedAt,
+  "mainImageUrl": mainImage.asset->url,
   "excerpt": array::join(string::split((pt::text(body)), "")[0..150], "") + "..."
 }`;
 
@@ -53,19 +56,31 @@ export default async function BlogPage() {
             >
               <div className="relative group">
                 <Link href={`/blog/${post.slug.current}`} className="block">
-                  <div className="bg-aura-background border-2 border-aura-foreground p-8 shadow-[8px_8px_0px_var(--aura-foreground)] group-hover:shadow-[12px_12px_0px_var(--aura-blue)] transition-all duration-300 relative overflow-hidden">
-                    <div className="flex justify-between items-start mb-4">
-                      <span className="font-sans text-xs font-black tracking-widest text-aura-blue uppercase">
-                        {new Date(post.publishedAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
-                      </span>
-                      <ArrowUpRight className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                  <div className="bg-aura-background border-2 border-aura-foreground shadow-[8px_8px_0px_var(--aura-foreground)] group-hover:shadow-[12px_12px_0px_var(--aura-blue)] transition-all duration-300 relative flex flex-col">
+                    {post.mainImageUrl && (
+                      <div className="w-full h-64 md:h-72 relative border-b-2 border-aura-foreground overflow-hidden">
+                        <Image 
+                          src={post.mainImageUrl} 
+                          alt={post.title} 
+                          fill 
+                          className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500 hover:scale-105"
+                        />
+                      </div>
+                    )}
+                    <div className="p-8">
+                      <div className="flex justify-between items-start mb-4">
+                        <span className="font-sans text-xs font-black tracking-widest text-aura-blue uppercase">
+                          {new Date(post.publishedAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+                        </span>
+                        <ArrowUpRight className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                      </div>
+                      <h2 className="font-serif text-4xl font-bold mb-4 leading-tight group-hover:text-aura-blue transition-colors">
+                        {post.title}
+                      </h2>
+                      <p className="font-sans text-lg text-aura-foreground/70 line-clamp-2">
+                        {post.excerpt}
+                      </p>
                     </div>
-                    <h2 className="font-serif text-4xl font-bold mb-4 leading-tight group-hover:text-aura-blue transition-colors">
-                      {post.title}
-                    </h2>
-                    <p className="font-sans text-lg text-aura-foreground/70 line-clamp-2">
-                      {post.excerpt}
-                    </p>
                   </div>
                 </Link>
                 
