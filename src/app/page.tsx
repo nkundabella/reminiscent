@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowUpRight, PenTool, Bookmark, Sparkles, MapPin } from "lucide-react";
+import { ArrowUpRight, PenTool, Bookmark, Sparkles, MapPin, Moon } from "lucide-react";
 import Link from "next/link";
 
 export default function Home() {
@@ -140,6 +140,71 @@ export default function Home() {
           </motion.div>
         </div>
       </div>
+
+      {/* Scattered Notes Section (Echoes to the Reader) */}
+      <section className="relative w-full min-h-screen bg-[#f5efe6] py-32 flex flex-col items-center overflow-hidden border-t border-black/5">
+        <div className="absolute inset-0 noise-overlay opacity-30 pointer-events-none" />
+        
+        <h2 className="font-serif text-5xl md:text-7xl italic text-aura-dark/20 font-black mb-20 relative z-10 text-center px-4">
+          Echoes to the reader.
+        </h2>
+
+        <div className="relative w-full max-w-6xl min-h-[600px]">
+          {/* Note 1 - Top Left */}
+          <motion.div
+            initial={{ opacity: 0, y: 50, rotate: -5 }}
+            whileInView={{ opacity: 1, y: 0, rotate: -2 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8 }}
+            className="absolute top-10 left-[5%] md:left-[15%] w-64 md:w-80 scattered-note z-10"
+          >
+            <div className="note-pin bg-red-500 top-3 left-1/2 -translate-x-1/2" />
+            <p className="font-sans text-sm md:text-base text-aura-dark/80 leading-relaxed font-medium mt-2">
+              "Placeholder note 1: A little thought left behind for anyone wandering through these digital halls."
+            </p>
+          </motion.div>
+
+          {/* Note 2 - Middle Right */}
+          <motion.div
+            initial={{ opacity: 0, y: 50, rotate: 5 }}
+            whileInView={{ opacity: 1, y: 0, rotate: 3 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="absolute top-48 right-[5%] md:right-[15%] w-72 md:w-96 scattered-note z-20"
+          >
+            <div className="note-pin bg-red-500 top-4 left-4" />
+            <p className="font-sans text-sm md:text-base text-aura-dark/80 leading-relaxed font-medium">
+              "Placeholder note 2: Sometimes the quietest echoes hold the most resonance. Keep exploring."
+            </p>
+          </motion.div>
+
+          {/* Note 3 - Bottom Left */}
+          <motion.div
+            initial={{ opacity: 0, y: 50, rotate: -8 }}
+            whileInView={{ opacity: 1, y: 0, rotate: -4 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="absolute bottom-10 left-[10%] md:left-[30%] w-64 md:w-80 scattered-note z-30"
+          >
+            <div className="note-pin bg-red-500 top-3 right-5" />
+            <p className="font-sans text-sm md:text-base text-aura-dark/80 leading-relaxed font-medium">
+              "Placeholder note 3: These traces are as much yours as they are mine now."
+            </p>
+          </motion.div>
+
+          {/* Decorative Element - Moon */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8, rotate: -20 }}
+            whileInView={{ opacity: 1, scale: 1, rotate: -10 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.5, delay: 0.6 }}
+            className="absolute top-20 right-[40%] text-aura-dark/10 pointer-events-none"
+          >
+            <Moon className="w-32 h-32 fill-current" strokeWidth={0.5} />
+          </motion.div>
+        </div>
+      </section>
+
     </main>
   );
 }
