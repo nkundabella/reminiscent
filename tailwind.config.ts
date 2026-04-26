@@ -18,6 +18,8 @@ const config: Config = {
           blue: "#b2d1f7",
           cream: "#fbf8f1",
           dark: "#1e1e24",
+          deepGreen: "#0f382a",
+          mutedPink: "#d8b4b4",
           background: "var(--aura-background)",
           foreground: "var(--aura-foreground)",
         }
