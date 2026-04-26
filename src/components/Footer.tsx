@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { ArrowDown } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -130,7 +131,7 @@ function DesktopRevealFooter() {
   return (
     <div className="relative mt-40">
       {/* The sticky container that sits behind the content */}
-      <div className="sticky bottom-0 h-auto md:h-[700px] w-full overflow-hidden desk-surface flex items-center justify-center p-8 md:p-10 -z-10 bg-[#0d0d0f]">
+      <div className="sticky bottom-0 h-auto md:h-[700px] w-full overflow-hidden desk-surface flex items-center justify-center p-8 md:p-10 z-10 bg-[#0d0d0f]">
           <div className="absolute inset-0 receipt-texture opacity-10 pointer-events-none" />
           
           <div className="relative w-full max-w-6xl h-full flex flex-col items-center justify-center gap-12 md:gap-24 py-20">
@@ -143,20 +144,24 @@ function DesktopRevealFooter() {
             {/* Scattered Notes (Links) */}
             <div className="flex flex-wrap justify-center gap-6 md:gap-16 relative w-full px-4">
               {links.map((link, i) => (
-                <motion.div
-                  key={link.href}
-                  initial={{ rotate: i % 2 === 0 ? -3 : 3, y: 0 }}
-                  whileHover={{ y: -15, rotate: 0, scale: 1.05, zIndex: 50 }}
-                  className="scattered-note w-36 h-36 md:w-52 md:h-52 flex flex-col items-center justify-center text-center cursor-pointer group shrink-0"
-                >
-                  <div className="note-pin" />
-                  <Link href={link.href} className="flex flex-col items-center px-4">
-                    <span className="font-serif text-xl md:text-3xl font-black mb-1 group-hover:text-aura-pink transition-colors leading-tight">
-                      {link.label}
-                    </span>
-                    <span className="text-[8px] md:text-[9px] font-black uppercase tracking-[0.2em] opacity-30">Navigate to</span>
-                  </Link>
-                </motion.div>
+                <Link key={link.href} href={link.href} className="shrink-0">
+                  <motion.div
+                    initial={{ rotate: i % 2 === 0 ? -3 : 3, y: 0 }}
+                    whileHover={{ y: -15, rotate: 0, scale: 1.05, zIndex: 50 }}
+                    className="scattered-note w-36 h-36 md:w-52 md:h-52 flex flex-col items-center justify-center text-center cursor-pointer group"
+                  >
+                    <div className="note-pin" />
+                    <div className="flex flex-col items-center px-4">
+                      <span className="font-serif text-xl md:text-3xl font-black mb-2 group-hover:text-aura-pink transition-colors leading-tight">
+                        {link.label}
+                      </span>
+                      <div className="flex items-center gap-1.5 text-aura-pink opacity-0 group-hover:opacity-100 transition-opacity translate-y-2 group-hover:translate-y-0 duration-300">
+                        <span className="text-[8px] md:text-[9px] font-black uppercase tracking-[0.2em]">Navigate</span>
+                        <ArrowDown className="w-3 h-3 animate-bounce" />
+                      </div>
+                    </div>
+                  </motion.div>
+                </Link>
               ))}
               
               {/* Artistic Scribble/Note */}
