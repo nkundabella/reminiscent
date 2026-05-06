@@ -5,7 +5,7 @@ import { ArrowLeft, Edit3, Calendar, Clock } from "lucide-react";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import imageUrlBuilder from "@sanity/image-url";
-import { CommentForm } from "@/components/CommentForm";
+import { CommentsSection } from "@/components/CommentsSection";
 
 const builder = imageUrlBuilder(client);
 function urlFor(source: any) {
@@ -31,6 +31,7 @@ interface Post {
   comments?: {
     _id: string;
     message: string;
+    authorSessionId?: string;
     _createdAt: string;
   }[];
   similarPosts?: {
@@ -59,6 +60,7 @@ const POST_QUERY = `*[_type == "post" && slug.current == $slug][0] {
   "comments": *[_type == "comment" && post._ref == ^._id && approved == true] | order(_createdAt asc) {
     _id,
     message,
+    authorSessionId,
     _createdAt
   },
   "similarPosts": *[_type == "post" && slug.current != $slug] | order(publishedAt desc)[0...3] {
@@ -228,11 +230,11 @@ export default async function PostPage(props: { params: Promise<{ slug: string }
            </Link>
         </div>
 
-        {/* Similar Posts Section */}
+        {/* Other Posts Section */}
         {post.similarPosts && post.similarPosts.length > 0 && (
           <div className="mt-32">
-            <h2 className="font-serif text-4xl font-black mb-12 text-aura-foreground text-center">Similar Blogs</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <h2 className="font-serif text-4xl font-black mb-12 text-aura-foreground text-center">Other Blogs</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {post.similarPosts.map((similarPost) => (
                 <Link key={similarPost._id} href={`/blog/${similarPost.slug.current}`} className="group block">
                   <div className="relative aspect-[4/3] mb-4 overflow-hidden border border-aura-foreground/10">
@@ -263,29 +265,7 @@ export default async function PostPage(props: { params: Promise<{ slug: string }
         )}
 
         {/* Comments Section */}
-        <div className="mt-32 pt-20 border-t border-aura-foreground/10">
-          <h2 className="font-serif text-4xl font-black mb-12 text-aura-foreground">The Void Speaks</h2>
-          
-          <div className="space-y-8">
-            {post.comments && post.comments.length > 0 ? (
-              post.comments.map((comment) => (
-                <div key={comment._id} className="bg-aura-foreground/5 p-6 border border-aura-foreground/10">
-                  <p className="font-sans text-lg mb-4 opacity-90">{comment.message}</p>
-                  <div className="flex justify-between items-center opacity-40">
-                    <span className="text-xs font-black uppercase tracking-widest">Anonymous Entity</span>
-                    <span className="text-xs font-black uppercase tracking-widest">
-                      {new Date(comment._createdAt).toLocaleDateString()}
-                    </span>
-                  </div>
-                </div>
-              ))
-            ) : (
-              <p className="text-aura-foreground/40 italic font-serif text-lg">It's quiet in the void... Be the first to speak.</p>
-            )}
-          </div>
-
-          <CommentForm postId={post._id} />
-        </div>
+        <CommentsSection postId={post._id} comments={post.comments || []} />
       </div>
     </main>
   );

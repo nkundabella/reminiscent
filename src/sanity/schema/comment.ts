@@ -17,6 +17,13 @@ export const comment = {
       validation: (Rule: any) => Rule.required(),
     },
     {
+      name: "authorSessionId",
+      title: "Author Session ID",
+      type: "string",
+      description: "Hidden ID to allow anonymous users to delete their own comments",
+      hidden: true,
+    },
+    {
       name: "approved",
       title: "Approved",
       type: "boolean",
