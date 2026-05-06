@@ -5,6 +5,7 @@ import { ArrowLeft, Edit3, Calendar, Clock } from "lucide-react";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import imageUrlBuilder from "@sanity/image-url";
+import { CommentForm } from "@/components/CommentForm";
 
 const builder = imageUrlBuilder(client);
 function urlFor(source: any) {
@@ -27,6 +28,18 @@ interface Post {
       };
     };
   };
+  comments?: {
+    _id: string;
+    message: string;
+    _createdAt: string;
+  }[];
+  similarPosts?: {
+    _id: string;
+    title: string;
+    slug: { current: string };
+    publishedAt: string;
+    mainImage?: any;
+  }[];
 }
 
 const POST_QUERY = `*[_type == "post" && slug.current == $slug][0] {
@@ -40,6 +53,26 @@ const POST_QUERY = `*[_type == "post" && slug.current == $slug][0] {
       ...,
       metadata {
         dimensions
+      }
+    }
+  },
+  "comments": *[_type == "comment" && post._ref == ^._id && approved == true] | order(_createdAt asc) {
+    _id,
+    message,
+    _createdAt
+  },
+  "similarPosts": *[_type == "post" && slug.current != $slug] | order(publishedAt desc)[0...3] {
+    _id,
+    title,
+    slug,
+    publishedAt,
+    mainImage {
+      ...,
+      asset->{
+        ...,
+        metadata {
+          dimensions
+        }
       }
     }
   }
@@ -193,6 +226,65 @@ export default async function PostPage(props: { params: Promise<{ slug: string }
            >
              Return to the Archive
            </Link>
+        </div>
+
+        {/* Similar Posts Section */}
+        {post.similarPosts && post.similarPosts.length > 0 && (
+          <div className="mt-32">
+            <h2 className="font-serif text-4xl font-black mb-12 text-aura-foreground text-center">Similar Blogs</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {post.similarPosts.map((similarPost) => (
+                <Link key={similarPost._id} href={`/blog/${similarPost.slug.current}`} className="group block">
+                  <div className="relative aspect-[4/3] mb-4 overflow-hidden border border-aura-foreground/10">
+                    {similarPost.mainImage ? (
+                      <Image
+                        src={urlFor(similarPost.mainImage).width(600).url()}
+                        alt={similarPost.title}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-700"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-aura-foreground/5" />
+                    )}
+                  </div>
+                  <h3 className="font-serif text-2xl font-bold group-hover:text-aura-blue transition-colors line-clamp-2">
+                    {similarPost.title}
+                  </h3>
+                  <div className="mt-2 flex items-center gap-2 opacity-50">
+                    <Calendar className="w-3 h-3" />
+                    <span className="text-[10px] font-black uppercase tracking-widest">
+                      {new Date(similarPost.publishedAt).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
+                    </span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Comments Section */}
+        <div className="mt-32 pt-20 border-t border-aura-foreground/10">
+          <h2 className="font-serif text-4xl font-black mb-12 text-aura-foreground">The Void Speaks</h2>
+          
+          <div className="space-y-8">
+            {post.comments && post.comments.length > 0 ? (
+              post.comments.map((comment) => (
+                <div key={comment._id} className="bg-aura-foreground/5 p-6 border border-aura-foreground/10">
+                  <p className="font-sans text-lg mb-4 opacity-90">{comment.message}</p>
+                  <div className="flex justify-between items-center opacity-40">
+                    <span className="text-xs font-black uppercase tracking-widest">Anonymous Entity</span>
+                    <span className="text-xs font-black uppercase tracking-widest">
+                      {new Date(comment._createdAt).toLocaleDateString()}
+                    </span>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p className="text-aura-foreground/40 italic font-serif text-lg">It's quiet in the void... Be the first to speak.</p>
+            )}
+          </div>
+
+          <CommentForm postId={post._id} />
         </div>
       </div>
     </main>

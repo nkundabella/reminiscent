@@ -21,8 +21,12 @@ export function Footer() {
     return <BasicFooter />;
   }
 
-  if (pathname === "/blog" || pathname?.startsWith("/blog/")) {
+  if (pathname === "/blog") {
     return <ReceiptFooter />;
+  }
+
+  if (pathname?.startsWith("/blog/")) {
+    return <BasicFooter />;
   }
 
   // Default to Desktop Reveal for Home, Pulse, and others
