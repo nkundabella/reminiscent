@@ -8,6 +8,7 @@ interface Post {
   title: string;
   slug: { current: string };
   publishedAt: string;
+  editedAt?: string;
   excerpt?: string;
   mainImageUrl?: string;
 }
@@ -17,6 +18,7 @@ const POSTS_QUERY = `*[_type == "post"] | order(publishedAt desc) {
   title,
   slug,
   publishedAt,
+  editedAt,
   "mainImageUrl": mainImage.asset->url,
   "excerpt": array::join(string::split((pt::text(body)), "")[0..150], "") + "..."
 }`;
@@ -69,9 +71,16 @@ export default async function BlogPage() {
                     )}
                     <div className="p-8">
                       <div className="flex justify-between items-start mb-4">
-                        <span className="font-sans text-xs font-black tracking-widest text-aura-blue uppercase">
-                          {new Date(post.publishedAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
-                        </span>
+                        <div className="flex items-center gap-2">
+                          <span className="font-sans text-xs font-black tracking-widest text-aura-blue uppercase">
+                            {new Date(post.publishedAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+                          </span>
+                          {post.editedAt && (
+                            <span className="font-sans text-[9px] font-black tracking-widest uppercase px-1.5 py-0.5 rounded-sm bg-aura-foreground/10 text-aura-foreground/40 border border-aura-foreground/10">
+                              edited
+                            </span>
+                          )}
+                        </div>
                         <ArrowUpRight className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                       </div>
                       <h2 className="font-serif text-4xl font-bold mb-4 leading-tight group-hover:text-aura-blue transition-colors">

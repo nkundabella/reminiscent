@@ -16,6 +16,7 @@ interface Post {
   _id: string;
   title: string;
   publishedAt: string;
+  editedAt?: string;
   body: any[];
   mainImage?: {
     asset: {
@@ -47,6 +48,7 @@ const POST_QUERY = `*[_type == "post" && slug.current == $slug][0] {
   _id,
   title,
   publishedAt,
+  editedAt,
   body,
   mainImage {
     ...,
@@ -154,6 +156,11 @@ export default async function PostPage(props: { params: Promise<{ slug: string }
                     {new Date(post.publishedAt).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
                   </span>
                 </div>
+                {post.editedAt && (
+                  <span className="text-[9px] font-black uppercase tracking-widest italic px-1.5 py-0.5 rounded-sm bg-aura-foreground/10 text-aura-foreground/50 border border-aura-foreground/10 opacity-100">
+                    edited
+                  </span>
+                )}
                 <div className="h-1 w-1 rounded-full bg-aura-foreground/20" />
                 <div className="flex items-center gap-2">
                   <Clock className="w-4 h-4" />
@@ -181,6 +188,11 @@ export default async function PostPage(props: { params: Promise<{ slug: string }
                     {new Date(post.publishedAt).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
                   </span>
                 </div>
+                {post.editedAt && (
+                  <span className="text-[9px] font-black uppercase tracking-widest italic px-1.5 py-0.5 rounded-sm bg-aura-foreground/10 text-aura-foreground/50 border border-aura-foreground/10 opacity-100">
+                    edited
+                  </span>
+                )}
                 <div className="h-1 w-1 rounded-full bg-aura-foreground/20" />
                 <div className="flex items-center gap-2">
                   <Clock className="w-4 h-4" />
