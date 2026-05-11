@@ -5,20 +5,20 @@ import { client } from "@/sanity/client";
 
 interface Post {
   _id: string;
+  _updatedAt: string;
   title: string;
   slug: { current: string };
   publishedAt: string;
-  editedAt?: string;
   excerpt?: string;
   mainImageUrl?: string;
 }
 
 const POSTS_QUERY = `*[_type == "post"] | order(publishedAt desc) {
   _id,
+  _updatedAt,
   title,
   slug,
   publishedAt,
-  editedAt,
   "mainImageUrl": mainImage.asset->url,
   "excerpt": array::join(string::split((pt::text(body)), "")[0..150], "") + "..."
 }`;
@@ -75,7 +75,8 @@ export default async function BlogPage() {
                           <span className="font-sans text-xs font-black tracking-widest text-aura-blue uppercase">
                             {new Date(post.publishedAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
                           </span>
-                          {post.editedAt && (
+                          {/* Show "edited" if _updatedAt is more than 5 minutes after publishedAt */}
+                          {(new Date(post._updatedAt).getTime() - new Date(post.publishedAt).getTime() > 5 * 60 * 1000) && (
                             <span className="font-sans text-[9px] font-black tracking-widest uppercase px-1.5 py-0.5 rounded-sm bg-aura-foreground/10 text-aura-foreground/40 border border-aura-foreground/10">
                               edited
                             </span>

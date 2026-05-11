@@ -121,7 +121,7 @@ export default function Home() {
 
         <div className="relative w-full max-w-7xl min-h-[500px] flex flex-wrap justify-center items-center gap-8 md:gap-12 z-20 px-4">
           {polaroids.map((item) => (
-            <Link key={item.id} href={`/blog/${item.id}`} className="block">
+            <Link key={item.id} href="/blog" className="block">
               <motion.div
                 initial={{ rotate: item.rotate, y: item.y, x: item.x }}
                 whileHover={{ 

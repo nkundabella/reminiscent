@@ -14,9 +14,9 @@ function urlFor(source: any) {
 
 interface Post {
   _id: string;
+  _updatedAt: string;
   title: string;
   publishedAt: string;
-  editedAt?: string;
   body: any[];
   mainImage?: {
     asset: {
@@ -46,9 +46,9 @@ interface Post {
 
 const POST_QUERY = `*[_type == "post" && slug.current == $slug][0] {
   _id,
+  _updatedAt,
   title,
   publishedAt,
-  editedAt,
   body,
   mainImage {
     ...,
@@ -156,7 +156,7 @@ export default async function PostPage(props: { params: Promise<{ slug: string }
                     {new Date(post.publishedAt).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
                   </span>
                 </div>
-                {post.editedAt && (
+                {(new Date(post._updatedAt).getTime() - new Date(post.publishedAt).getTime() > 5 * 60 * 1000) && (
                   <span className="text-[9px] font-black uppercase tracking-widest italic px-1.5 py-0.5 rounded-sm bg-aura-foreground/10 text-aura-foreground/50 border border-aura-foreground/10 opacity-100">
                     edited
                   </span>
@@ -188,7 +188,7 @@ export default async function PostPage(props: { params: Promise<{ slug: string }
                     {new Date(post.publishedAt).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
                   </span>
                 </div>
-                {post.editedAt && (
+                {(new Date(post._updatedAt).getTime() - new Date(post.publishedAt).getTime() > 5 * 60 * 1000) && (
                   <span className="text-[9px] font-black uppercase tracking-widest italic px-1.5 py-0.5 rounded-sm bg-aura-foreground/10 text-aura-foreground/50 border border-aura-foreground/10 opacity-100">
                     edited
                   </span>

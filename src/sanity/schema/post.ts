@@ -40,11 +40,5 @@ export const post = {
       type: "array",
       of: [{ type: "block" }],
     },
-    {
-      name: "editedAt",
-      title: "Edited At",
-      type: "datetime",
-      description: "Leave blank unless this post has been revised after its original publish date. Setting this will show an 'edited' badge on the post.",
-    },
   ],
 };
