@@ -15,6 +15,7 @@ export default function Home() {
         title,
         slug,
         publishedAt,
+        polaroidCaption,
         "image": mainImage.asset->url
       }`);
 
@@ -27,7 +28,7 @@ export default function Home() {
 
       const mappedPosts = posts.map((post: any, i: number) => ({
         id: post._id,
-        title: post.title,
+        title: post.polaroidCaption || post.title,
         slug: post.slug.current,
         date: new Date(post.publishedAt).toLocaleDateString("en-US", { month: "short", day: "numeric" }),
         image: post.image || "https://images.unsplash.com/photo-1518998053401-a41c1eb9133b?w=800&q=80",

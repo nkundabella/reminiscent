@@ -5,13 +5,18 @@ import { Activity } from "lucide-react";
 export const revalidate = 60; // revalidate every minute
 
 async function getActivityData() {
-  const query = `*[_type == "post"] { publishedAt }`;
-  const posts = await client.fetch<{ publishedAt: string }[]>(query);
-  return posts.map(p => p.publishedAt);
+  const query = `*[_type == "post"] { 
+    publishedAt, 
+    title, 
+    "slug": slug.current,
+    "excerpt": array::join(string::split((pt::text(body)), "")[0..150], "") + "..."
+  }`;
+  const posts = await client.fetch<any[]>(query);
+  return posts;
 }
 
 export default async function PulsePage() {
-  const publishedDates = await getActivityData();
+  const posts = await getActivityData();
 
   return (
     <main className="min-h-screen pt-40 pb-20 px-8 relative overflow-hidden bg-aura-background">
@@ -32,7 +37,7 @@ export default async function PulsePage() {
 
         {/* Main Content Area */}
         <div className="w-full">
-          <StreakTracker publishedDates={publishedDates} />
+          <StreakTracker posts={posts} />
         </div>
       </div>
 
