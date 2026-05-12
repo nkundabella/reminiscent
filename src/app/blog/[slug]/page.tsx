@@ -242,6 +242,9 @@ export default async function PostPage(props: { params: Promise<{ slug: string }
            </Link>
         </div>
 
+        {/* Comments Section */}
+        <CommentsSection postId={post._id} comments={post.comments || []} />
+
         {/* Other Posts Section */}
         {post.similarPosts && post.similarPosts.length > 0 && (
           <div className="mt-32">
@@ -275,9 +278,6 @@ export default async function PostPage(props: { params: Promise<{ slug: string }
             </div>
           </div>
         )}
-
-        {/* Comments Section */}
-        <CommentsSection postId={post._id} comments={post.comments || []} />
       </div>
     </main>
   );
