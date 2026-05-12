@@ -1,16 +1,44 @@
 "use client";
-
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Star, Sparkles } from "lucide-react";
 import Link from "next/link";
+import { client } from "@/sanity/client";
 
 export default function Home() {
-  const polaroids = [
-    { id: 1, title: "On Creative Burnout", date: "Oct 12", image: "https://images.unsplash.com/photo-1518998053401-a41c1eb9133b?w=800&q=80", rotate: -4, x: -20, y: 10 },
-    { id: 2, title: "The Art of Doing Nothing", date: "Sep 28", image: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=800&q=80", rotate: 3, x: 10, y: -10 },
-    { id: 3, title: "Finding Meaning in the Mundane", date: "Sep 15", image: "https://images.unsplash.com/photo-1505682634904-d7c8d95cdc50?w=800&q=80", rotate: -2, x: 30, y: 20 },
-    { id: 4, title: "Midnight Thoughts", date: "Aug 30", image: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=800&q=80", rotate: 5, x: -10, y: -20 },
-  ];
+  const [polaroids, setPolaroids] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const posts = await client.fetch(`*[_type == "post"] | order(publishedAt desc)[0...4] {
+        _id,
+        title,
+        slug,
+        publishedAt,
+        "image": mainImage.asset->url
+      }`);
+
+      const layouts = [
+        { rotate: -4, x: -20, y: 10 },
+        { rotate: 3, x: 10, y: -10 },
+        { rotate: -2, x: 30, y: 20 },
+        { rotate: 5, x: -10, y: -20 },
+      ];
+
+      const mappedPosts = posts.map((post: any, i: number) => ({
+        id: post._id,
+        title: post.title,
+        slug: post.slug.current,
+        date: new Date(post.publishedAt).toLocaleDateString("en-US", { month: "short", day: "numeric" }),
+        image: post.image || "https://images.unsplash.com/photo-1518998053401-a41c1eb9133b?w=800&q=80",
+        ...layouts[i % layouts.length]
+      }));
+
+      setPolaroids(mappedPosts);
+    };
+
+    fetchPosts();
+  }, []);
 
   return (
     <main className="relative min-h-screen overflow-x-hidden flex flex-col bg-aura-cream font-sans">
@@ -121,7 +149,7 @@ export default function Home() {
 
         <div className="relative w-full max-w-7xl min-h-[500px] flex flex-wrap justify-center items-center gap-8 md:gap-12 z-20 px-4">
           {polaroids.map((item) => (
-            <Link key={item.id} href="/blog" className="block">
+            <Link key={item.id} href={`/blog/${item.slug}`} className="block">
               <motion.div
                 initial={{ rotate: item.rotate, y: item.y, x: item.x }}
                 whileHover={{ 

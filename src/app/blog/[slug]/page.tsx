@@ -110,6 +110,19 @@ export default async function PostPage(props: { params: Promise<{ slug: string }
 
   const isPortrait = post.mainImage?.asset?.metadata?.dimensions?.aspectRatio && post.mainImage.asset.metadata.dimensions.aspectRatio < 1;
 
+  // Calculate reading time
+  const calculateReadingTime = (blocks: any[]) => {
+    if (!blocks) return 0;
+    const text = blocks
+      .filter(block => block._type === 'block')
+      .map(block => block.children.map((child: any) => child.text).join(' '))
+      .join(' ');
+    const words = text.trim().split(/\s+/).length;
+    return Math.ceil(words / 200); // 200 words per minute
+  };
+
+  const readingTime = calculateReadingTime(post.body);
+
   return (
     <main className="min-h-screen pt-40 pb-20 px-8 relative bg-aura-background">
       {/* Background Decor */}
@@ -164,7 +177,7 @@ export default async function PostPage(props: { params: Promise<{ slug: string }
                 <div className="h-1 w-1 rounded-full bg-aura-foreground/20" />
                 <div className="flex items-center gap-2">
                   <Clock className="w-4 h-4" />
-                  <span className="text-xs font-black uppercase tracking-widest">5 min read</span>
+                  <span className="text-xs font-black uppercase tracking-widest">{readingTime} min read</span>
                 </div>
               </div>
 
@@ -196,7 +209,7 @@ export default async function PostPage(props: { params: Promise<{ slug: string }
                 <div className="h-1 w-1 rounded-full bg-aura-foreground/20" />
                 <div className="flex items-center gap-2">
                   <Clock className="w-4 h-4" />
-                  <span className="text-xs font-black uppercase tracking-widest">5 min read</span>
+                  <span className="text-xs font-black uppercase tracking-widest">{readingTime} min read</span>
                 </div>
               </div>
               
