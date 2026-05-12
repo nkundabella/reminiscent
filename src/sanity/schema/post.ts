@@ -40,5 +40,11 @@ export const post = {
       type: "array",
       of: [{ type: "block" }],
     },
+    {
+      name: "polaroidCaption",
+      title: "Polaroid Caption",
+      type: "string",
+      description: "A short, handwritten-style caption for the homepage polaroid. If left blank, the post title will be used.",
+    },
   ],
 };
