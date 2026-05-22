@@ -17,9 +17,18 @@ async function getActivityData() {
 
 export default async function PulsePage() {
   const posts = await getActivityData();
+  const [showConfetti, setShowConfetti] = useState(false);
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
 
   return (
     <main className="min-h-screen pt-40 pb-20 px-8 relative overflow-hidden bg-aura-background">
+      {showConfetti && (
+        <Confetti
+          recycle={false}
+          numberOfPieces={500}
+          onConfettiComplete={() => setShowConfetti(false)}
+        />
+      )}
       <div className="max-w-6xl mx-auto relative z-10 w-full">
         <div className="mb-16">
           <div className="flex items-center gap-4 mb-4">

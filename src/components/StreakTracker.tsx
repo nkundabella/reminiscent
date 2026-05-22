@@ -3,6 +3,7 @@
 import { useMemo, useRef, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Flame, ArrowUpRight, Calendar } from "lucide-react";
+import Confetti from "react-confetti";
 import Link from "next/link";
 
 interface Post {
@@ -20,6 +21,16 @@ interface StreakTrackerProps {
 export function StreakTracker({ posts = [] }: StreakTrackerProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const [showConfetti, setShowConfetti] = useState(false);
+
+  // Trigger confetti when a date is selected
+  useEffect(() => {
+    if (selectedDate) {
+      setShowConfetti(true);
+      const timer = setTimeout(() => setShowConfetti(false), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [selectedDate]);
 
   const { grid, monthLabels, currentStreak, totalWeeks, postsByDate } = useMemo(() => {
     const today = new Date();
