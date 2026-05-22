@@ -46,5 +46,12 @@ export const post = {
       type: "string",
       description: "A short, handwritten-style caption for the homepage polaroid. If left blank, the post title will be used.",
     },
+    {
+      name: "tags",
+      title: "Tags",
+      type: "array",
+      of: [{ type: "string" }],
+      description: "Optional tags for filtering on the archive page.",
+    },
   ],
 };

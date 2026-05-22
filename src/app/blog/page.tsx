@@ -1,7 +1,12 @@
+// src/app/blog/page.tsx
+'use client';
+
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowUpRight, Edit3 } from "lucide-react";
 import { client } from "@/sanity/client";
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 
 interface Post {
   _id: string;
@@ -11,6 +16,7 @@ interface Post {
   publishedAt: string;
   excerpt?: string;
   mainImageUrl?: string;
+  tags?: string[];
 }
 
 const POSTS_QUERY = `*[_type == "post"] | order(publishedAt desc) {
@@ -20,11 +26,41 @@ const POSTS_QUERY = `*[_type == "post"] | order(publishedAt desc) {
   slug,
   publishedAt,
   "mainImageUrl": mainImage.asset->url,
-  "excerpt": array::join(string::split((pt::text(body)), "")[0..150], "") + "..."
+  "excerpt": array::join(string::split((pt::text(body)), "")[0..150], "") + "...",
+  tags
 }`;
 
-export default async function BlogPage() {
-  const posts = await client.fetch<Post[]>(POSTS_QUERY);
+export default function BlogPage() {
+  const [allPosts, setAllPosts] = useState<Post[]>([]);
+  const [filterTag, setFilterTag] = useState<string | null>(null);
+  const [visibleCount, setVisibleCount] = useState<number>(12);
+
+  // Fetch posts once on mount
+  useEffect(() => {
+    client.fetch<Post[]>(POSTS_QUERY).then(setAllPosts);
+  }, []);
+
+  // Derive list of unique tags for filter UI
+  const tags = Array.from(new Set(allPosts.flatMap(p => p.tags ?? [])));
+
+  // Apply tag filter
+  const filteredPosts = filterTag
+    ? allPosts.filter(p => p.tags?.includes(filterTag))
+    : allPosts;
+
+  // Slice for infinite scroll
+  const displayedPosts = filteredPosts.slice(0, visibleCount);
+
+  // Load more when scrolling near bottom
+  useEffect(() => {
+    const onScroll = () => {
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 200) {
+        setVisibleCount(prev => Math.min(prev + 6, filteredPosts.length));
+      }
+    };
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [filteredPosts]);
 
   return (
     <main className="min-h-screen pt-40 pb-20 px-8 relative overflow-hidden bg-aura-background">
@@ -33,7 +69,22 @@ export default async function BlogPage() {
           Archive
         </h1>
 
-        {/* Winding Timeline SVG Path - Keep static or move to client if needed */}
+        {/* Tag Cloud */}
+        {tags.length > 0 && (
+          <div className="flex flex-wrap gap-2 mb-6">
+            {tags.map(tag => (
+              <button
+                key={tag}
+                onClick={() => setFilterTag(tag === filterTag ? null : tag)}
+                className={`px-3 py-1 rounded-full text-sm ${tag === filterTag ? 'bg-aura-blue text-cream' : 'bg-cream text-aura-blue border border-aura-blue'}`}
+              >
+                {tag}
+              </button>
+            ))}
+          </div>
+        )}
+
+        {/* Winding Timeline SVG Path - static */}
         <div className="absolute left-1/2 -translate-x-1/2 top-0 w-full h-full pointer-events-none z-0 overflow-visible hidden md:block">
           <svg className="w-full h-full" viewBox="0 0 100 1000" preserveAspectRatio="none">
             <path
@@ -47,24 +98,24 @@ export default async function BlogPage() {
           </svg>
         </div>
 
-        
         <div className="relative z-10 space-y-32 flex flex-col items-center mt-48">
-          {posts.map((post, index) => (
+          {displayedPosts.map((post, index) => (
             <div
               key={post._id}
-              className={`w-full max-w-lg ${
-                index % 2 === 0 ? "md:self-start md:ml-[5%]" : "md:self-end md:mr-[5%]"
-              }`}
+              className={`w-full max-w-lg ${index % 2 === 0 ? "md:self-start md:ml-[5%]" : "md:self-end md:mr-[5%]"}`}
             >
-              <div className="relative group">
+              <motion.div
+                whileHover={{ rotateX: 5, rotateY: 5, scale: 1.02, boxShadow: "0px 12px 20px rgba(0,0,0,0.2)" }}
+                className="relative group"
+              >
                 <Link href={`/blog/${post.slug.current}`} className="block">
                   <div className="bg-aura-background border-2 border-aura-foreground shadow-[8px_8px_0px_var(--aura-foreground)] group-hover:shadow-[12px_12px_0px_var(--aura-blue)] transition-all duration-300 relative flex flex-col">
                     {post.mainImageUrl && (
                       <div className="w-full h-64 md:h-72 relative border-b-2 border-aura-foreground overflow-hidden">
-                        <Image 
-                          src={post.mainImageUrl} 
-                          alt={post.title} 
-                          fill 
+                        <Image
+                          src={post.mainImageUrl}
+                          alt={post.title}
+                          fill
                           className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500 hover:scale-105"
                         />
                       </div>
@@ -73,12 +124,17 @@ export default async function BlogPage() {
                       <div className="flex justify-between items-start mb-4">
                         <div className="flex items-center gap-2">
                           <span className="font-sans text-xs font-black tracking-widest text-aura-blue uppercase">
-                            {new Date(post.publishedAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+                            {new Date(post.publishedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                           </span>
-                          {/* Show "edited" if _updatedAt is more than 5 minutes after publishedAt */}
                           {(new Date(post._updatedAt).getTime() - new Date(post.publishedAt).getTime() > 5 * 60 * 1000) && (
                             <span className="font-sans text-[9px] font-black tracking-widest uppercase px-1.5 py-0.5 rounded-sm bg-aura-foreground/10 text-aura-foreground/40 border border-aura-foreground/10">
                               edited
+                            </span>
+                          )}
+                          {/* New badge */}
+                          {new Date(post.publishedAt).getTime() > Date.now() - 48 * 60 * 60 * 1000 && (
+                            <span className="animate-pulse bg-aura-blue text-cream px-2 py-0.5 rounded-full text-xs">
+                              new
                             </span>
                           )}
                         </div>
@@ -93,23 +149,25 @@ export default async function BlogPage() {
                     </div>
                   </div>
                 </Link>
-                
-                {/* IZ Edit Button - Only visible in Dev/Izzy mode */}
-                <Link 
+                {/* Edit button for dev mode */}
+                <Link
                   href={`/studio/intent/edit/id=${post._id};type=post`}
                   className="absolute -top-4 -right-4 bg-aura-dark text-aura-cream p-2 rounded-full border border-aura-foreground/20 opacity-0 group-hover:opacity-100 transition-all hover:scale-110 z-20 shadow-xl"
                   title="Edit in Studio"
                 >
                   <Edit3 className="w-4 h-4" />
                 </Link>
-              </div>
+              </motion.div>
             </div>
           ))}
 
-          {posts.length === 0 && (
+          {/* Empty state when no posts match filter */}
+          {displayedPosts.length === 0 && (
             <div className="text-center py-20">
-              <p className="font-serif text-2xl italic opacity-50">The archive is currently empty...</p>
-              <Link href="/studio" className="text-aura-blue underline mt-4 block">Go to Studio to add a post</Link>
+              <p className="font-serif text-2xl italic opacity-50">No posts match the selected tag...</p>
+              <Link href="/studio" className="text-aura-blue underline mt-4 block">
+                Go to Studio to add a post
+              </Link>
             </div>
           )}
         </div>
