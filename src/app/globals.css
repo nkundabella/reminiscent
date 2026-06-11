@@ -13,6 +13,10 @@
     --aura-green: #10b981;
     --aura-cream: #fbf8f1;
     --aura-dark: #0d0d0f;
+    /* Hero section font stacks */
+    --hero-serif: var(--font-playfair), 'Georgia', serif;
+    --hero-italic: var(--font-lora), var(--font-playfair), 'Georgia', serif;
+    --hero-sans: var(--font-inter), 'DM Sans', 'Inter', sans-serif;
   }
 
   .dark {
@@ -182,4 +186,47 @@ body {
   top: 10px;
   left: 10px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+/* ── Hero Section: Scrapbook Layout ─────────────────────────── */
+.hero-section {
+  position: relative;
+  width: 100%;
+  min-height: 480px;
+  background-color: #F5F0EB;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 56px 80px;
+  overflow: hidden;
+}
+
+.hero-card-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 900px;
+}
+
+.hero-bg-doodle {
+  position: absolute;
+  pointer-events: none;
+}
+
+@media (max-width: 767px) {
+  .hero-section {
+    padding: 40px 24px;
+    min-height: unset;
+  }
+  .hero-card-row {
+    flex-direction: column;
+    gap: 28px;
+  }
+  .hero-bg-doodle {
+    display: none !important;
+  }
 }

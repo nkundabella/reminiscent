@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Instrument_Serif, Great_Vibes } from "next/font/google";
+import { Inter, Instrument_Serif, Great_Vibes, Playfair_Display, Lora } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Navbar } from "@/components/Navbar";
@@ -18,6 +18,18 @@ const greatVibes = Great_Vibes({
   subsets: ["latin"],
   variable: "--font-great-vibes"
 });
+const playfair = Playfair_Display({
+  weight: ["400", "700", "900"],
+  style: ["normal", "italic"],
+  subsets: ["latin"],
+  variable: "--font-playfair"
+});
+const lora = Lora({
+  weight: ["400"],
+  style: ["italic"],
+  subsets: ["latin"],
+  variable: "--font-lora"
+});
 
 export const metadata: Metadata = {
   title: "Izzy's Singular Aura",
@@ -32,7 +44,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${inter.variable} ${instrument.variable} ${greatVibes.variable} font-sans antialiased text-aura-foreground bg-aura-background`}
+        className={`${inter.variable} ${instrument.variable} ${greatVibes.variable} ${playfair.variable} ${lora.variable} font-sans antialiased text-aura-foreground bg-aura-background`}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <div className="noise-overlay pointer-events-none fixed inset-0 z-50 h-full w-full opacity-40 mix-blend-overlay"></div>

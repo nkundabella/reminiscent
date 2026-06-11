@@ -1,9 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Star, Sparkles } from "lucide-react";
+import { ArrowRight, Star } from "lucide-react";
 import Link from "next/link";
 import { client } from "@/sanity/client";
+import { HeroSection } from "@/components/HeroSection";
 
 export default function Home() {
   const [polaroids, setPolaroids] = useState<any[]>([]);
@@ -44,69 +45,7 @@ export default function Home() {
   return (
     <main className="relative min-h-screen overflow-x-hidden flex flex-col bg-aura-cream font-sans">
       {/* 1. HERO SECTION */}
-      <section className="relative w-full min-h-[90vh] flex flex-col justify-center items-center pt-32 pb-40 px-8 z-20 bg-aura-cream overflow-hidden">
-        {/* Abstract Background Elements */}
-        <div className="absolute inset-0 noise-overlay opacity-30 pointer-events-none mix-blend-overlay z-10" />
-        
-        {/* Subtle Grid */}
-        <div className="absolute inset-0 pointer-events-none z-0"
-             style={{
-               backgroundImage: `linear-gradient(to right, rgba(30, 30, 36, 0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(30, 30, 36, 0.03) 1px, transparent 1px)`,
-               backgroundSize: '40px 40px'
-             }}
-        />
-
-        {/* Floating Blurred Blobs */}
-        <motion.div
-          animate={{ x: [0, 40, -20, 0], y: [0, -50, 30, 0], scale: [1, 1.15, 0.9, 1] }}
-          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-[10%] right-[15%] w-[400px] h-[400px] bg-aura-blue/10 rounded-full blur-[100px] pointer-events-none mix-blend-multiply translate-z-0"
-        />
-        <motion.div
-          animate={{ x: [0, -40, 30, 0], y: [0, 40, -40, 0], scale: [1, 0.85, 1.1, 1] }}
-          transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute bottom-[20%] left-[10%] w-[500px] h-[500px] bg-aura-blue/20 rounded-full blur-[120px] pointer-events-none mix-blend-multiply translate-z-0"
-        />
-
-        {/* Content */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="relative z-20 max-w-4xl w-full mx-auto text-center flex flex-col items-center"
-        >
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.3, duration: 1 }}
-            className="mb-8"
-          >
-            <Sparkles className="w-8 h-8 text-aura-blue/60 animate-pulse" />
-          </motion.div>
-
-          <h1 className="font-serif text-6xl md:text-8xl lg:text-[7rem] leading-[1.05] text-aura-dark font-medium tracking-tight text-balance">
-            The art of <br/>
-            <span className="italic text-aura-blue font-light pr-2">noticing</span>
-            everything.
-          </h1>
-
-          <motion.p 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.6, duration: 1 }}
-            className="font-sans text-lg md:text-xl text-aura-dark/60 max-w-lg text-balance mt-8 leading-relaxed font-light"
-          >
-            A curated digital archive of thoughts, reflections, and fragments worth keeping.
-          </motion.p>
-        </motion.div>
-        
-        {/* Organic Divider 1 (Wave) */}
-        <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-[0] transform translate-y-[1px] z-20">
-          <svg className="relative block w-[calc(100%+1.3px)] h-[80px] md:h-[120px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" shapeRendering="geometricPrecision">
-            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C59.71,118,130.42,126.38,200.71,114.49,240.89,107.72,281.33,85.61,321.39,56.44Z" fill="#f0eae0"></path>
-          </svg>
-        </div>
-      </section>
+      <HeroSection />
 
       {/* 2. ABOUT THE BLOG */}
       <section className="relative w-full py-20 px-8 bg-[#f0eae0] z-20">
