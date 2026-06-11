@@ -65,7 +65,7 @@ export default function Home() {
           <div className="flex-1 relative">
              <div className="relative w-full aspect-square md:aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl transform rotate-2 hover:rotate-0 transition-transform duration-700 border-4 border-[#faf8f5]/50">
                <div className="absolute inset-0 bg-gradient-to-br from-aura-blue/20 to-aura-blue/5 mix-blend-multiply z-10" />
-               <img src="https://images.unsplash.com/photo-1544816155-12df9643f363?w=800&q=80" alt="Abstract mood" className="w-full h-full object-cover grayscale opacity-90 mix-blend-luminosity" />
+               <img src="/intro-image.jpg" alt="The idle man tempts the devil" className="w-full h-full object-cover" />
              </div>
              {/* Decorative star */}
              <Star className="absolute -top-6 -right-6 w-12 h-12 text-aura-blue fill-aura-blue/20 animate-[spin_10s_linear_infinite]" />
