@@ -192,12 +192,12 @@ body {
 .hero-section {
   position: relative;
   width: 100%;
-  min-height: 480px;
-  background-color: #F5F0EB;
+  min-height: 520px;
+  background-color: #F9F8F6;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 56px 80px;
+  padding: 60px 100px;
   overflow: hidden;
 }
 
@@ -205,11 +205,11 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 40px;
+  gap: 56px;
   position: relative;
   z-index: 10;
   width: 100%;
-  max-width: 900px;
+  max-width: 1000px;
 }
 
 .hero-bg-doodle {

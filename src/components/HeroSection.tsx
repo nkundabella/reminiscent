@@ -62,11 +62,11 @@ const PenNibIcon = ({
 
 const CameraIcon = () => (
   <svg
-    width="40"
-    height="40"
+    width="36"
+    height="36"
     viewBox="0 0 24 24"
     fill="none"
-    stroke="#9E9B96"
+    stroke="#9A9590"
     strokeWidth="1.5"
     strokeLinecap="round"
     strokeLinejoin="round"
@@ -80,10 +80,12 @@ const Sparkle = ({
   size = 14,
   color = "#1A1A1A",
   style,
+  className,
 }: {
   size?: number;
   color?: string;
   style?: React.CSSProperties;
+  className?: string;
 }) => (
   <svg
     width={size}
@@ -91,42 +93,51 @@ const Sparkle = ({
     viewBox="0 0 16 16"
     fill={color}
     style={style}
+    className={className}
   >
     <path d="M8 0 C8 0 8.8 3.5 10.5 5.5 C12.5 7.2 16 8 16 8 C16 8 12.5 8.8 10.5 10.5 C8.8 12.5 8 16 8 16 C8 16 7.2 12.5 5.5 10.5 C3.5 8.8 0 8 0 8 C0 8 3.5 7.2 5.5 5.5 C7.2 3.5 8 0 8 0Z" />
   </svg>
 );
 
-/* ─── Key icon for Polaroid corner ─────────────────────────────── */
-const SmallKey = () => (
+/* ─── Hand-drawn dangling key for Polaroid corner ──────────────── */
+const PolaroidDanglingKey = () => (
   <svg
-    width="22"
-    height="22"
-    viewBox="0 0 24 24"
+    width="28"
+    height="50"
+    viewBox="0 0 28 50"
     fill="none"
-    stroke="#1A1A1A"
-    strokeWidth="1.8"
+    stroke="#3A3530"
+    strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
     style={{ display: "block" }}
   >
-    <circle cx="7.5" cy="15.5" r="5.5" />
-    <path d="M11.5 11.5L20 3" />
-    <path d="M18 5l2 2" />
-    <path d="M15.5 7.5l2 2" />
+    {/* Top circle loop (hanging from pin) */}
+    <circle cx="14" cy="8" r="6" />
+    {/* Connecting link */}
+    <line x1="14" y1="14" x2="14" y2="16" />
+    {/* Key bow handle */}
+    <circle cx="14" cy="23" r="7" />
+    {/* Key shaft */}
+    <line x1="14" y1="30" x2="14" y2="47" />
+    {/* Key bits / teeth */}
+    <line x1="14" y1="39" x2="20" y2="39" />
+    <line x1="14" y1="43" x2="18" y2="43" />
+    <line x1="14" y1="47" x2="20" y2="47" />
   </svg>
 );
 
 /* ─── Decorative tiny icons for Quote card ─────────────────────── */
-const TinySparkle = ({ color = "#B8AEE0" }: { color?: string }) => (
-  <svg width="12" height="12" viewBox="0 0 16 16" fill={color}>
+const TinySparkle = ({ color = "#B8AEE8", size = 14 }: { color?: string; size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 16 16" fill={color}>
     <path d="M8 0 C8 0 8.8 3.5 10.5 5.5 C12.5 7.2 16 8 16 8 C16 8 12.5 8.8 10.5 10.5 C8.8 12.5 8 16 8 16 C8 16 7.2 12.5 5.5 10.5 C3.5 8.8 0 8 0 8 C0 8 3.5 7.2 5.5 5.5 C7.2 3.5 8 0 8 0Z" />
   </svg>
 );
 
-const TinyKey = ({ color = "#C4BAE8" }: { color?: string }) => (
+const TinyKey = ({ color = "#B8AEE8" }: { color?: string }) => (
   <svg
-    width="13"
-    height="13"
+    width="16"
+    height="16"
     viewBox="0 0 24 24"
     fill="none"
     stroke={color}
@@ -134,17 +145,17 @@ const TinyKey = ({ color = "#C4BAE8" }: { color?: string }) => (
     strokeLinecap="round"
     strokeLinejoin="round"
   >
-    <circle cx="7.5" cy="15.5" r="5.5" />
+    <circle cx="7.5" cy="15.5" r="4.5" />
     <path d="M11.5 11.5L20 3" />
     <path d="M18 5l2 2" />
     <path d="M15.5 7.5l2 2" />
   </svg>
 );
 
-const TinyPen = ({ color = "#9B8FD4" }: { color?: string }) => (
+const TinyPen = ({ color = "#B8AEE8" }: { color?: string }) => (
   <svg
-    width="13"
-    height="13"
+    width="14"
+    height="14"
     viewBox="0 0 24 24"
     fill="none"
     stroke={color}
@@ -160,53 +171,49 @@ const TinyPen = ({ color = "#9B8FD4" }: { color?: string }) => (
 );
 
 /* ─── Burst tick marks around center card ───────────────────────── */
-const BurstLines = () => {
-  const count = 10;
-  const innerR = 118; // distance from center (card half-diagonal ≈ 110px)
-  const outerR = 132;
-  const cx = 150; // half of 300px wide card
-  const cy = 100; // half of 200px tall card
-  const lines = Array.from({ length: count }, (_, i) => {
-    const angle = (i / count) * 360 - 90; // start from top
-    const rad = (angle * Math.PI) / 180;
-    const x1 = cx + innerR * Math.cos(rad);
-    const y1 = cy + innerR * Math.sin(rad);
-    const x2 = cx + outerR * Math.cos(rad);
-    const y2 = cy + outerR * Math.sin(rad);
-    return { x1, y1, x2, y2 };
-  });
-  return (
-    <svg
-      viewBox="0 0 300 200"
-      style={{
-        position: "absolute",
-        inset: 0,
-        width: "100%",
-        height: "100%",
-        pointerEvents: "none",
-        overflow: "visible",
-      }}
-    >
-      {lines.map((l, i) => (
-        <line
-          key={i}
-          x1={l.x1}
-          y1={l.y1}
-          x2={l.x2}
-          y2={l.y2}
-          stroke="#1A1A1A"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-      ))}
-    </svg>
-  );
-};
+const BurstLines = () => (
+  <svg
+    viewBox="0 0 380 220"
+    style={{
+      position: "absolute",
+      inset: 0,
+      width: "100%",
+      height: "100%",
+      pointerEvents: "none",
+      overflow: "visible",
+    }}
+  >
+    {/* Top-Left Corner */}
+    <line x1="0" y1="0" x2="-12" y2="-12" stroke="#1A1A1A" strokeWidth="2.5" strokeLinecap="round" />
+    {/* Top-Middle-Left */}
+    <line x1="120" y1="-2" x2="116" y2="-15" stroke="#1A1A1A" strokeWidth="2.5" strokeLinecap="round" />
+    {/* Top-Middle-Right */}
+    <line x1="260" y1="-2" x2="264" y2="-15" stroke="#1A1A1A" strokeWidth="2.5" strokeLinecap="round" />
+    {/* Top-Right Corner */}
+    <line x1="380" y1="0" x2="392" y2="-10" stroke="#1A1A1A" strokeWidth="2.5" strokeLinecap="round" />
+    {/* Right-Top */}
+    <line x1="382" y1="65" x2="395" y2="60" stroke="#1A1A1A" strokeWidth="2.5" strokeLinecap="round" />
+    {/* Right-Bottom */}
+    <line x1="382" y1="155" x2="395" y2="160" stroke="#1A1A1A" strokeWidth="2.5" strokeLinecap="round" />
+    {/* Bottom-Right Corner */}
+    <line x1="380" y1="220" x2="392" y2="230" stroke="#1A1A1A" strokeWidth="2.5" strokeLinecap="round" />
+    {/* Bottom-Middle-Right */}
+    <line x1="260" y1="222" x2="264" y2="235" stroke="#1A1A1A" strokeWidth="2.5" strokeLinecap="round" />
+    {/* Bottom-Middle-Left */}
+    <line x1="120" y1="222" x2="116" y2="235" stroke="#1A1A1A" strokeWidth="2.5" strokeLinecap="round" />
+    {/* Bottom-Left Corner */}
+    <line x1="0" y1="220" x2="-12" y2="230" stroke="#1A1A1A" strokeWidth="2.5" strokeLinecap="round" />
+    {/* Left-Bottom */}
+    <line x1="-2" y1="155" x2="-15" y2="160" stroke="#1A1A1A" strokeWidth="2.5" strokeLinecap="round" />
+    {/* Left-Top */}
+    <line x1="-2" y1="65" x2="-15" y2="60" stroke="#1A1A1A" strokeWidth="2.5" strokeLinecap="round" />
+  </svg>
+);
 
-/* ─── Sketchy SVG border for center card ───────────────────────── */
+/* ─── Hand-Drawn sketchy SVG border for center card ─────────────── */
 const SketchyBorder = () => (
   <svg
-    viewBox="0 0 300 200"
+    viewBox="0 0 380 220"
     style={{
       position: "absolute",
       inset: 0,
@@ -216,20 +223,40 @@ const SketchyBorder = () => (
     }}
     preserveAspectRatio="none"
   >
-    <rect
-      x="4"
-      y="4"
-      width="292"
-      height="192"
-      rx="16"
-      ry="16"
+    {/* Main outline trace */}
+    <path
+      d="M 28 6 
+         C 120 4, 260 8, 352 6 
+         C 368 6, 374 12, 374 24 
+         C 372 80, 376 140, 374 196 
+         C 374 208, 368 214, 352 214 
+         C 260 212, 120 216, 28 214 
+         C 12 214, 6 208, 6 196 
+         C 8 140, 4 80, 6 24 
+         C 6 12, 12 6, 28 6 Z"
       fill="none"
       stroke="#1A1A1A"
-      strokeWidth="2.5"
+      strokeWidth="3.5"
+      strokeLinecap="round"
       strokeLinejoin="round"
-      strokeDasharray="4 1.5"
-      strokeDashoffset="2"
-      pathLength="800"
+    />
+    {/* Second wobbly outline overlap */}
+    <path
+      d="M 25 9 
+         C 110 7, 270 10, 355 8 
+         C 370 8, 372 18, 371 30 
+         C 373 95, 372 155, 371 189 
+         C 371 205, 365 211, 350 211 
+         C 275 209, 110 212, 31 211 
+         C 15 211, 9 205, 9 189 
+         C 11 145, 8 75, 9 30 
+         C 9 15, 15 9, 25 9 Z"
+      fill="none"
+      stroke="#1A1A1A"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      opacity="0.75"
     />
   </svg>
 );
@@ -243,179 +270,210 @@ export function HeroSection() {
     <section className="hero-section">
       {/* ── BACKGROUND DOODLE ICONS ─────────────────────────────── */}
 
-      {/* Top-center: Key */}
+      {/* TOP CENTER: Key */}
       <div
         className="hero-bg-doodle"
         style={{
-          top: "14%",
-          left: "50%",
-          transform: "translateX(-80px) rotate(-15deg)",
-          opacity: 0.6,
-          color: "#1A1A1A",
-        }}
-      >
-        <KeyIcon size={28} />
-      </div>
-
-      {/* Top-center: Pen Nib */}
-      <div
-        className="hero-bg-doodle"
-        style={{
-          top: "10%",
-          left: "50%",
-          transform: "translateX(30px) rotate(40deg)",
+          top: "60px",
+          left: "45%",
+          transform: "rotate(-20deg)",
           opacity: 0.65,
-          color: "#1A1A1A",
-        }}
-      >
-        <PenNibIcon size={32} />
-      </div>
-
-      {/* Bottom-left: Key */}
-      <div
-        className="hero-bg-doodle"
-        style={{
-          bottom: "14%",
-          left: "9%",
-          transform: "rotate(-30deg)",
-          opacity: 0.55,
-          color: "#1A1A1A",
+          color: "#5A5550",
         }}
       >
         <KeyIcon size={32} />
       </div>
 
-      {/* Bottom-right: Pen Nib */}
+      {/* TOP CENTER: Pen Nib (overlapping Key) */}
       <div
         className="hero-bg-doodle"
         style={{
-          bottom: "16%",
-          right: "7%",
-          transform: "rotate(-20deg)",
-          opacity: 0.6,
-          color: "#1A1A1A",
+          top: "50px",
+          left: "52%",
+          transform: "rotate(20deg)",
+          opacity: 0.65,
+          color: "#5A5550",
         }}
       >
-        <PenNibIcon size={30} />
+        <PenNibIcon size={36} />
       </div>
 
-      {/* ── SPARKLES scattered ─────────────────────────────────── */}
+      {/* LEFT SIDE: Key below/beside Polaroid */}
+      <div
+        className="hero-bg-doodle"
+        style={{
+          top: "65%",
+          left: "8%",
+          transform: "rotate(-30deg)",
+          opacity: 0.55,
+          color: "#8A8680",
+        }}
+      >
+        <KeyIcon size={38} />
+      </div>
 
-      {/* Top-right area */}
-      <div className="hero-bg-doodle" style={{ top: "12%", right: "8%", opacity: 0.7 }}>
-        <Sparkle size={16} color="#C4BAE8" />
-      </div>
-      <div className="hero-bg-doodle" style={{ top: "22%", right: "13%", opacity: 0.5 }}>
-        <Sparkle size={11} color="#1A1A1A" />
-      </div>
-      <div className="hero-bg-doodle" style={{ top: "8%", right: "19%", opacity: 0.65 }}>
-        <Sparkle size={13} color="#9B8FD4" />
+      {/* RIGHT SIDE / BOTTOM RIGHT: Pen Nib */}
+      <div
+        className="hero-bg-doodle"
+        style={{
+          top: "70%",
+          right: "6%",
+          transform: "rotate(-15deg)",
+          opacity: 0.55,
+          color: "#8A8680",
+        }}
+      >
+        <PenNibIcon size={32} />
       </div>
 
-      {/* Left of quote card */}
-      <div className="hero-bg-doodle" style={{ top: "35%", right: "22%", opacity: 0.6 }}>
+      {/* ── DUSTED SPARKLES ────────────────────────────────────── */}
+      
+      {/* 1. top:8%, left:42% - lavender, 14px */}
+      <div className="hero-bg-doodle" style={{ top: "8%", left: "42%" }}>
+        <Sparkle size={14} color="#C4BAE8" />
+      </div>
+
+      {/* 2. top:12%, right:15% - lavender, 10px */}
+      <div className="hero-bg-doodle" style={{ top: "12%", right: "15%" }}>
         <Sparkle size={10} color="#C4BAE8" />
       </div>
-      <div className="hero-bg-doodle" style={{ bottom: "30%", right: "17%", opacity: 0.55 }}>
-        <Sparkle size={14} color="#1A1A1A" />
+
+      {/* 3. top:25%, right:8% - black, 18px */}
+      <div className="hero-bg-doodle" style={{ top: "25%", right: "8%", opacity: 0.35 }}>
+        <Sparkle size={18} color="#3A3530" />
       </div>
 
-      {/* Above title card */}
-      <div className="hero-bg-doodle" style={{ top: "9%", left: "44%", opacity: 0.5 }}>
-        <Sparkle size={12} color="#9B8FD4" />
+      {/* 4. top:50%, left:5% - lavender, 12px */}
+      <div className="hero-bg-doodle" style={{ top: "50%", left: "5%" }}>
+        <Sparkle size={12} color="#C4BAE8" />
       </div>
 
-      {/* Below / right of polaroid */}
-      <div className="hero-bg-doodle" style={{ bottom: "20%", left: "14%", opacity: 0.6 }}>
+      {/* 5. top:75%, left:32% - black, 10px */}
+      <div className="hero-bg-doodle" style={{ top: "75%", left: "32%", opacity: 0.35 }}>
+        <Sparkle size={10} color="#3A3530" />
+      </div>
+
+      {/* 6. top:80%, right:22% - lavender, 16px */}
+      <div className="hero-bg-doodle" style={{ top: "80%", right: "22%" }}>
+        <Sparkle size={16} color="#C4BAE8" />
+      </div>
+
+      {/* 7. top:15%, left:18% - black, 8px */}
+      <div className="hero-bg-doodle" style={{ top: "15%", left: "18%", opacity: 0.35 }}>
+        <Sparkle size={8} color="#3A3530" />
+      </div>
+
+      {/* 8. top:65%, right:38% - lavender, 20px */}
+      <div className="hero-bg-doodle" style={{ top: "65%", right: "38%" }}>
+        <Sparkle size={20} color="#C4BAE8" />
+      </div>
+
+      {/* 9. top:30%, left:25% - lavender, 12px */}
+      <div className="hero-bg-doodle" style={{ top: "30%", left: "25%" }}>
+        <Sparkle size={12} color="#C4BAE8" />
+      </div>
+
+      {/* 10. top:85%, left:15% - black, 14px */}
+      <div className="hero-bg-doodle" style={{ top: "85%", left: "15%", opacity: 0.35 }}>
+        <Sparkle size={14} color="#3A3530" />
+      </div>
+
+      {/* 11. top:45%, right:30% - black, 9px */}
+      <div className="hero-bg-doodle" style={{ top: "45%", right: "30%", opacity: 0.35 }}>
+        <Sparkle size={9} color="#3A3530" />
+      </div>
+
+      {/* 12. top:70%, right:10% - lavender, 15px */}
+      <div className="hero-bg-doodle" style={{ top: "70%", right: "10%" }}>
         <Sparkle size={15} color="#C4BAE8" />
-      </div>
-      <div className="hero-bg-doodle" style={{ bottom: "36%", left: "8%", opacity: 0.45 }}>
-        <Sparkle size={10} color="#1A1A1A" />
       </div>
 
       {/* ── THREE-CARD LAYOUT ───────────────────────────────────── */}
       <div className="hero-card-row">
         {/* ══ LEFT: POLAROID CARD ════════════════════════════════ */}
         <motion.div
-          initial={{ opacity: 0, y: 20, rotate: -4 }}
-          animate={{ opacity: 1, y: 0, rotate: -4 }}
+          initial={{ opacity: 0, y: 20, rotate: -5 }}
+          animate={{ opacity: 1, y: 0, rotate: -5 }}
           transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          whileHover={{ rotate: -2, y: -6, transition: { type: "spring", stiffness: 300, damping: 20 } }}
+          whileHover={{ rotate: -2, y: -6, scale: 1.02, transition: { type: "spring", stiffness: 300, damping: 20 } }}
           style={{
             position: "relative",
             flexShrink: 0,
           }}
         >
-          {/* Key hanging off top-left */}
+          {/* Key dangling off top-left */}
           <div
             style={{
               position: "absolute",
-              top: "-18px",
-              left: "10px",
+              top: "-20px",
+              left: "-10px",
               zIndex: 20,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
+              transform: "rotate(15deg)",
             }}
           >
-            {/* Loop / ring */}
-            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#1A1A1A" strokeWidth="1.5">
-              <ellipse cx="5" cy="5" rx="4" ry="4" />
-            </svg>
-            <SmallKey />
+            <PolaroidDanglingKey />
           </div>
 
           {/* Polaroid body */}
           <div
             style={{
-              width: "160px",
+              width: "200px",
+              height: "240px",
               backgroundColor: "#FFFFFF",
               borderRadius: "4px",
-              padding: "8px 8px 20px 8px",
-              boxShadow: "3px 4px 12px rgba(0,0,0,0.12)",
+              padding: "12px 12px 0 12px",
+              boxShadow: "4px 6px 18px rgba(0,0,0,0.18)",
+              display: "flex",
+              flexDirection: "column",
+              boxSizing: "border-box",
             }}
           >
-            {/* Photo area */}
+            {/* Photo area (~75% of height) */}
             <div
               style={{
                 width: "100%",
-                height: "122px",
-                backgroundColor: "#D9D6D0",
+                height: "165px",
+                backgroundColor: "#C8C4BE",
                 borderRadius: "2px",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                gap: "6px",
+                boxSizing: "border-box",
               }}
             >
-              <CameraIcon />
-              <span
-                style={{
-                  color: "#9E9B96",
-                  fontSize: "20px",
-                  lineHeight: 1,
-                  fontWeight: 300,
-                  fontFamily: "Inter, sans-serif",
-                  marginTop: "-4px",
-                }}
-              >
-                +
-              </span>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "6px" }}>
+                <CameraIcon />
+                <span
+                  style={{
+                    color: "#9A9590",
+                    fontSize: "18px",
+                    lineHeight: 1,
+                    fontWeight: 300,
+                    fontFamily: "var(--hero-sans, 'Inter', sans-serif)",
+                    marginTop: "-2px",
+                  }}
+                >
+                  +
+                </span>
+              </div>
             </div>
 
-            {/* Caption area */}
+            {/* Caption area (at least 50px) */}
             <div
               style={{
-                paddingTop: "10px",
-                textAlign: "center",
+                flex: 1,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                paddingBottom: "4px",
               }}
             >
               <span
                 style={{
-                  fontFamily: "var(--hero-italic, 'Playfair Display', 'Georgia', serif)",
+                  fontFamily: "var(--hero-italic, 'Lora', 'Playfair Display', 'Georgia', serif)",
                   fontStyle: "italic",
-                  fontSize: "14px",
-                  color: "#2B2B2B",
+                  fontSize: "15px",
+                  color: "#3A3530",
                   letterSpacing: "0.02em",
                 }}
               >
@@ -427,14 +485,14 @@ export function HeroSection() {
 
         {/* ══ CENTER: MAIN TITLE CARD ════════════════════════════ */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 24, rotate: 0 }}
+          animate={{ opacity: 1, y: 0, rotate: 0 }}
           transition={{ duration: 0.9, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-          whileHover={{ y: -4, transition: { type: "spring", stiffness: 250, damping: 20 } }}
+          whileHover={{ y: -4, scale: 1.01, transition: { type: "spring", stiffness: 250, damping: 20 } }}
           style={{
             position: "relative",
-            width: "300px",
-            height: "200px",
+            width: "380px",
+            height: "220px",
             flexShrink: 0,
           }}
         >
@@ -446,15 +504,15 @@ export function HeroSection() {
           <div
             style={{
               position: "absolute",
-              inset: "4px",
+              inset: "6px",
               backgroundColor: "#FDFAF5",
-              borderRadius: "14px",
+              borderRadius: "20px",
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
-              padding: "20px 24px",
-              gap: "0",
+              padding: "36px 40px",
+              boxSizing: "border-box",
             }}
           >
             {/* IZZY'S */}
@@ -462,10 +520,10 @@ export function HeroSection() {
               style={{
                 fontFamily: "var(--hero-serif, 'Playfair Display', 'Georgia', serif)",
                 fontWeight: 900,
-                fontSize: "42px",
+                fontSize: "68px",
                 color: "#1A1A1A",
-                lineHeight: 1,
-                letterSpacing: "-0.02em",
+                lineHeight: 0.95,
+                letterSpacing: "-1px",
               }}
             >
               IZZY&apos;S
@@ -476,14 +534,15 @@ export function HeroSection() {
               style={{
                 fontFamily: "var(--hero-serif, 'Playfair Display', 'Georgia', serif)",
                 fontWeight: 900,
-                fontSize: "42px",
-                lineHeight: 1,
-                letterSpacing: "-0.02em",
+                fontSize: "68px",
+                lineHeight: 0.95,
+                letterSpacing: "-1px",
                 display: "flex",
                 alignItems: "baseline",
+                marginTop: "2px",
               }}
             >
-              <span style={{ color: "#D91A6A" }}>ALTER</span>
+              <span style={{ color: "#EB47A5" }}>ALTER</span>
               <span style={{ color: "#1A1A1A" }}>&nbsp;EGO</span>
             </div>
 
@@ -492,12 +551,12 @@ export function HeroSection() {
               style={{
                 fontFamily: "var(--hero-sans, 'Inter', sans-serif)",
                 fontWeight: 300,
-                fontSize: "12.5px",
-                color: "#666666",
+                fontSize: "14px",
+                color: "#777770",
                 textAlign: "center",
-                lineHeight: 1.5,
-                marginTop: "10px",
-                maxWidth: "220px",
+                lineHeight: 1.6,
+                marginTop: "16px",
+                maxWidth: "280px",
               }}
             >
               A digital playground for the art of noticing everything.
@@ -507,37 +566,42 @@ export function HeroSection() {
 
         {/* ══ RIGHT: QUOTE CARD ══════════════════════════════════ */}
         <motion.div
-          initial={{ opacity: 0, y: 20, rotate: 3.5 }}
-          animate={{ opacity: 1, y: 0, rotate: 3.5 }}
+          initial={{ opacity: 0, y: 20, rotate: 4 }}
+          animate={{ opacity: 1, y: 0, rotate: 4 }}
           transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-          whileHover={{ rotate: 1.5, y: -6, transition: { type: "spring", stiffness: 300, damping: 20 } }}
+          whileHover={{ rotate: 1.5, y: -6, scale: 1.02, transition: { type: "spring", stiffness: 300, damping: 20 } }}
           style={{
             position: "relative",
-            width: "170px",
-            height: "160px",
+            width: "200px",
+            height: "185px",
             flexShrink: 0,
-            backgroundColor: "#EDE8E0",
-            borderRadius: "14px",
-            boxShadow: "2px 3px 10px rgba(0,0,0,0.08)",
+            backgroundColor: "#EDE8DF",
+            borderRadius: "16px",
+            boxShadow: "3px 5px 14px rgba(0,0,0,0.12)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            padding: "18px 16px",
+            padding: "18px 20px",
             overflow: "visible",
+            boxSizing: "border-box",
           }}
         >
           {/* Decorative tiny icons inside the card */}
-          <div style={{ position: "absolute", top: "10px", right: "12px" }}>
-            <TinySparkle color="#C4BAE8" />
+          {/* Sparkle top-right */}
+          <div style={{ position: "absolute", top: "14px", right: "14px" }}>
+            <TinySparkle color="#B8AEE8" size={14} />
           </div>
-          <div style={{ position: "absolute", bottom: "12px", right: "10px" }}>
-            <TinyKey color="#B8AEE0" />
+          {/* Key outline bottom-left */}
+          <div style={{ position: "absolute", bottom: "14px", left: "14px", transform: "rotate(20deg)" }}>
+            <TinyKey color="#B8AEE8" />
           </div>
-          <div style={{ position: "absolute", bottom: "14px", left: "10px" }}>
-            <TinySparkle color="#9B8FD4" />
+          {/* Pen nib bottom-right */}
+          <div style={{ position: "absolute", bottom: "14px", right: "14px" }}>
+            <TinyPen color="#B8AEE8" />
           </div>
-          <div style={{ position: "absolute", top: "10px", left: "12px" }}>
-            <TinyPen color="#C4BAE8" />
+          {/* Sparkle left-center */}
+          <div style={{ position: "absolute", top: "80px", left: "12px" }}>
+            <TinySparkle color="#9B8FD4" size={10} />
           </div>
 
           {/* Quote text */}
@@ -545,9 +609,10 @@ export function HeroSection() {
             style={{
               fontFamily: "var(--hero-italic, 'Lora', 'Playfair Display', 'Georgia', serif)",
               fontStyle: "italic",
-              fontSize: "14.5px",
-              color: "#1A1A1A",
-              lineHeight: 1.55,
+              fontSize: "17px",
+              fontWeight: 400,
+              color: "#2A2520",
+              lineHeight: 1.65,
               textAlign: "center",
               margin: 0,
               position: "relative",
@@ -558,7 +623,6 @@ export function HeroSection() {
           </p>
         </motion.div>
       </div>
-
     </section>
   );
 }
