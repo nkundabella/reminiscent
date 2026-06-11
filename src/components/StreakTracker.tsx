@@ -249,8 +249,8 @@ export function StreakTracker({ posts = [] }: StreakTrackerProps) {
 
             <div className="grid grid-cols-1 gap-6">
               {selectedPosts.length > 0 ? (
-                selectedPosts.map((post) => (
-                  <Link key={post._id} href={`/blog/${post.slug}`} className="group">
+                selectedPosts.map((post, idx) => (
+                  <Link key={post._id || `post-${idx}`} href={`/blog/${post.slug}`} className="group">
                     <div className="bg-aura-background/40 hover:bg-aura-background p-6 rounded-2xl border border-aura-foreground/10 transition-all hover:scale-[1.01] hover:shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-6">
                       <div className="flex-1">
                         <h4 className="font-serif text-2xl font-bold text-aura-foreground group-hover:text-aura-pink transition-colors mb-2">
