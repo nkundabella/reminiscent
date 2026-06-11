@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Instrument_Serif, Great_Vibes, Playfair_Display, Lora } from "next/font/google";
+import { Inter, Instrument_Serif, Great_Vibes, Playfair_Display, Lora, DM_Serif_Display, Caveat } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Navbar } from "@/components/Navbar";
@@ -30,9 +30,19 @@ const lora = Lora({
   subsets: ["latin"],
   variable: "--font-lora"
 });
+const dmSerif = DM_Serif_Display({
+  weight: ["400"],
+  subsets: ["latin"],
+  variable: "--font-dm-serif"
+});
+const caveat = Caveat({
+  weight: ["400", "700"],
+  subsets: ["latin"],
+  variable: "--font-caveat"
+});
 
 export const metadata: Metadata = {
-  title: "Izzy's Singular Aura",
+  title: "Diary of a Wimpy Kid",
   description: "A personal editorial archive",
 };
 
@@ -44,7 +54,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${inter.variable} ${instrument.variable} ${greatVibes.variable} ${playfair.variable} ${lora.variable} font-sans antialiased text-aura-foreground bg-aura-background`}
+        className={`${inter.variable} ${instrument.variable} ${greatVibes.variable} ${playfair.variable} ${lora.variable} ${dmSerif.variable} ${caveat.variable} font-sans antialiased text-aura-foreground bg-aura-background`}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <div className="noise-overlay pointer-events-none fixed inset-0 z-50 h-full w-full opacity-40 mix-blend-overlay"></div>

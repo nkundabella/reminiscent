@@ -14,9 +14,9 @@
     --aura-cream: #fbf8f1;
     --aura-dark: #0d0d0f;
     /* Hero section font stacks */
-    --hero-serif: var(--font-playfair), 'Georgia', serif;
-    --hero-italic: var(--font-lora), var(--font-playfair), 'Georgia', serif;
-    --hero-sans: var(--font-inter), 'DM Sans', 'Inter', sans-serif;
+    --hero-serif: var(--font-dm-serif), serif;
+    --hero-italic: var(--font-caveat), cursive;
+    --hero-sans: var(--font-inter), sans-serif;
   }
 
   .dark {
