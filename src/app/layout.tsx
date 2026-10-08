@@ -54,6 +54,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
+        suppressHydrationWarning
         className={`${inter.variable} ${instrument.variable} ${greatVibes.variable} ${playfair.variable} ${lora.variable} ${dmSerif.variable} ${caveat.variable} font-sans antialiased text-aura-foreground bg-aura-background`}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
