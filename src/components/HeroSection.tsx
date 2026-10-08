@@ -376,7 +376,7 @@ function PolaroidUpload() {
             color: C.ink,
           }}
         >
-          Smiles.
+          Ikigai.
         </div>
 
         <div

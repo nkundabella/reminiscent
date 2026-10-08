@@ -53,5 +53,12 @@ export const post = {
       of: [{ type: "string" }],
       description: "Optional tags for filtering on the archive page.",
     },
+    {
+      name: "isPrivate",
+      title: "Private Post",
+      type: "boolean",
+      description: "Private posts are hidden from the public archive and homepage. Only visible in the Studio.",
+      initialValue: false,
+    },
   ],
 };

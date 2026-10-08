@@ -17,9 +17,10 @@ interface Post {
   excerpt?: string;
   mainImageUrl?: string;
   tags?: string[];
+  isPrivate?: boolean;
 }
 
-const POSTS_QUERY = `*[_type == "post"] | order(publishedAt desc) {
+const POSTS_QUERY = `*[_type == "post" && isPrivate != true] | order(publishedAt desc) {
   _id,
   _updatedAt,
   title,
@@ -27,7 +28,8 @@ const POSTS_QUERY = `*[_type == "post"] | order(publishedAt desc) {
   publishedAt,
   "mainImageUrl": mainImage.asset->url,
   "excerpt": array::join(string::split((pt::text(body)), "")[0..150], "") + "...",
-  tags
+  tags,
+  isPrivate
 }`;
 
 export default function BlogPage() {

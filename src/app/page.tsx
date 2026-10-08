@@ -11,7 +11,7 @@ export default function Home() {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const posts = await client.fetch(`*[_type == "post"] | order(publishedAt desc)[0...4] {
+      const posts = await client.fetch(`*[_type == "post" && isPrivate != true] | order(publishedAt desc)[0...4] {
         _id,
         title,
         slug,

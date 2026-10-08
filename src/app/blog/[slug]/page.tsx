@@ -18,6 +18,7 @@ interface Post {
   title: string;
   publishedAt: string;
   body: any[];
+  isPrivate?: boolean;
   mainImage?: {
     asset: {
       metadata: {
@@ -50,6 +51,7 @@ const POST_QUERY = `*[_type == "post" && slug.current == $slug][0] {
   title,
   publishedAt,
   body,
+  isPrivate,
   mainImage {
     ...,
     asset->{
@@ -65,7 +67,7 @@ const POST_QUERY = `*[_type == "post" && slug.current == $slug][0] {
     authorSessionId,
     _createdAt
   },
-  "similarPosts": *[_type == "post" && slug.current != $slug] | order(publishedAt desc)[0...3] {
+  "similarPosts": *[_type == "post" && slug.current != $slug && isPrivate != true] | order(publishedAt desc)[0...3] {
     _id,
     title,
     slug,
@@ -86,7 +88,7 @@ export default async function PostPage(props: { params: Promise<{ slug: string }
   const { slug } = await props.params;
   const post = await client.fetch<Post>(POST_QUERY, { slug });
 
-  if (!post) {
+  if (!post || post.isPrivate) {
     notFound();
   }
 
