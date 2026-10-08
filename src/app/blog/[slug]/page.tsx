@@ -1,11 +1,13 @@
 import { client } from "@/sanity/client";
 import { PortableText } from "@portabletext/react";
 import Link from "next/link";
-import { ArrowLeft, Edit3, Calendar, Clock } from "lucide-react";
+import { ArrowLeft, Edit3, Calendar, Clock, Lock } from "lucide-react";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import imageUrlBuilder from "@sanity/image-url";
 import { CommentsSection } from "@/components/CommentsSection";
+import { cookies } from "next/headers";
+import { PrivatePostGate } from "@/components/PrivatePostGate";
 
 const builder = imageUrlBuilder(client);
 function urlFor(source: any) {
@@ -88,8 +90,15 @@ export default async function PostPage(props: { params: Promise<{ slug: string }
   const { slug } = await props.params;
   const post = await client.fetch<Post>(POST_QUERY, { slug });
 
-  if (!post || post.isPrivate) {
+  if (!post) {
     notFound();
+  }
+
+  const cookieStore = await cookies();
+  const isOwner = cookieStore.get("alter_ego_owner")?.value === "authenticated";
+
+  if (post.isPrivate && !isOwner) {
+    return <PrivatePostGate postTitle={post.title} />;
   }
 
   const components = {
@@ -143,13 +152,18 @@ export default async function PostPage(props: { params: Promise<{ slug: string }
         {isPortrait ? (
           <div className="relative">
             {/* Portrait Layout: Floating Image with words on the right */}
-            <div className="mb-8">
+            <div className="mb-8 flex flex-wrap items-center gap-3">
               <Link 
                 href={`/studio/intent/edit/id=${post._id};type=post`}
-                className="inline-flex items-center gap-2 bg-aura-dark text-aura-cream px-6 py-3 rounded-full border border-aura-foreground/20 hover:scale-105 transition-all shadow-xl font-bold text-sm mb-12"
+                className="inline-flex items-center gap-2 bg-aura-dark text-aura-cream px-6 py-3 rounded-full border border-aura-foreground/20 hover:scale-105 transition-all shadow-xl font-bold text-sm"
               >
                 <Edit3 className="w-4 h-4" /> EDIT THIS POST
               </Link>
+              {post.isPrivate && (
+                <div className="inline-flex items-center gap-2 bg-amber-500/10 text-amber-600 border border-amber-500/30 px-4 py-2.5 rounded-full font-black text-xs uppercase tracking-widest">
+                  <Lock className="w-3.5 h-3.5" /> Private Entry &bull; Only Visible to You
+                </div>
+              )}
             </div>
 
             <div className="flow-root">
@@ -220,12 +234,19 @@ export default async function PostPage(props: { params: Promise<{ slug: string }
               </h1>
 
               {/* Edit Button for the post */}
-              <Link 
-                href={`/studio/intent/edit/id=${post._id};type=post`}
-                className="inline-flex items-center gap-2 bg-aura-dark text-aura-cream px-6 py-3 rounded-full border border-aura-foreground/20 hover:scale-105 transition-all shadow-xl font-bold text-sm mb-12"
-              >
-                <Edit3 className="w-4 h-4" /> EDIT THIS POST
-              </Link>
+              <div className="flex flex-wrap items-center gap-3 mb-12">
+                <Link 
+                  href={`/studio/intent/edit/id=${post._id};type=post`}
+                  className="inline-flex items-center gap-2 bg-aura-dark text-aura-cream px-6 py-3 rounded-full border border-aura-foreground/20 hover:scale-105 transition-all shadow-xl font-bold text-sm"
+                >
+                  <Edit3 className="w-4 h-4" /> EDIT THIS POST
+                </Link>
+                {post.isPrivate && (
+                  <div className="inline-flex items-center gap-2 bg-amber-500/10 text-amber-600 border border-amber-500/30 px-4 py-2.5 rounded-full font-black text-xs uppercase tracking-widest">
+                    <Lock className="w-3.5 h-3.5" /> Private Entry &bull; Only Visible to You
+                  </div>
+                )}
+              </div>
 
               {post.mainImage && (
                 <div className="relative w-full aspect-[16/9] mb-16 shadow-2xl overflow-hidden border-2 border-aura-foreground/10">
