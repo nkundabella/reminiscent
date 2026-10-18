@@ -1,10 +1,466 @@
 {
   "projectId": "iu3nxf0t",
   "dataset": "production",
-  "exportedAt": "2026-06-02T09:58:52.842Z",
-  "postCount": 6,
-  "exportedPosts": 6,
+  "exportedAt": "2026-10-18T18:36:03.476Z",
+  "postCount": 7,
+  "exportedPosts": 7,
   "posts": [
+    {
+      "_createdAt": "2026-10-08T06:54:37Z",
+      "_id": "25ad1621-36d5-4f2e-bd5e-55d4112e6f83",
+      "_updatedAt": "2026-10-08T07:57:11Z",
+      "body": [
+        {
+          "_key": "f683f3fa7bff",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "52388a35db16",
+              "_type": "span",
+              "marks": [],
+              "text": "I have had, let me call it, a lot of leadership roles ever since I joined A-level. Which, honestly, I sort of expected."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "58131ee45246",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "ba2a5876a8c7",
+              "_type": "span",
+              "marks": [],
+              "text": "All my sisters, and I mean ALL my sisters, used to tell me stories about their A-level experiences, and those stories always seemed to go one of two ways. The struggles of being a student leader, or the absolute benefits and good reputation you'd somehow have just because you were a leader."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "92baf61dcd09",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "527e55a4fac4",
+              "_type": "span",
+              "marks": [],
+              "text": "So young me quite instinctively accepted that that would be my fate too. I think I just assumed we were literally the same in all aspects. If they did it, then I would too."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "c969a1b591c2",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "bd201a3d40b1",
+              "_type": "span",
+              "marks": [],
+              "text": "Except my personality was telling me something very, very different."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "61514bd8a4fb",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "1dfa870002a3",
+              "_type": "span",
+              "marks": [],
+              "text": "I kid you not, in O-level, I believe I had two genuine friends whom I loved down seriously. I am not complaining at all. I am just saying I suffered in big groups. I was THE observer."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "45079795f1da",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "ea26cb1ddc75",
+              "_type": "span",
+              "marks": [],
+              "text": "I remember not too long ago, during shomage, that wonderfully boring period after the term's final exams when everyone had absolutely nothing to do. I had nothing to do too, so I entered this empty classroom and tried to force myself to sleep because they used to close our dorms, those evil people. I digress."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "0450745907ba",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "9a037908b1ae",
+              "_type": "span",
+              "marks": [],
+              "text": "Anyway, some girls, includinggg those two friends of mine, entered the room. And I got so happy. But they were with other people who were, you know, their friends. And even though I had my head down, I was clearly wide awake, so I listened to their conversation, understanding some bits here and there, wanting to join entirely but… unable to."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "35b7f146abed",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "f97b67c96757",
+              "_type": "span",
+              "marks": [],
+              "text": "Then, out of nowhere, I got this leap of faith. Or maybe just random energy. So I stuck my head up. Those dear girls saw me. And they called me to join. And you know what I did? I seriously shook my head in disagreement y'all 💀 Wow."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "91510745ba70",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "266c3544ea67",
+              "_type": "span",
+              "marks": [],
+              "text": "Then I put my head back down and acted like I was sleepy. Dumb me. They went on talking and talking for hours while I just sat and or “slept” there, well, silently crying."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "4151282017d0",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "7f937d40e8d3",
+              "_type": "span",
+              "marks": [],
+              "text": "And when I think about it now, it sounds so ridiculous. It was such a simple thing, no? Just sit up. Just walk over. Just join your friends. But I was a little scaredy-cat, and my overthinking self had already built an entire wall inside my head around something so small."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "6179375cc54e",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "63b5f87050b1",
+              "_type": "span",
+              "marks": [],
+              "text": "Anyway, that was some backstory. It gets wesaaa as we go further into the past, but maybe that shall be discussed another day."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "bbf78af5e249",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "30390b373b9d",
+              "_type": "span",
+              "marks": [],
+              "text": "What matters is that the second I left O-level, for very reasonable reasonss, I felt this huge splurge of joy. And I carried that joy straight into A-level. I was happy. Really happy. I mean, the always-happy girl."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "1e7dd07978a1",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "82d604cd0a9c",
+              "_type": "span",
+              "marks": [],
+              "text": "And that led to a lot of weirdd weird things, but for the most part, it was a good thing. I became more social. I started talking to more people. I became involved in things. I guess nobody, not even myself, could have guessed the kind of person I had been before. Oddly, sometimes I still wonder if it was all pretend. Like maybe I had somehow become this different person and just lied to myself so well that I started believing it."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "8f63765f068b",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "8e9db7b37e30",
+              "_type": "span",
+              "marks": [],
+              "text": "Because suddenly I was the coordinator of this and this, president of this and this and this, this of this and that of that. Like, you name it. And I thought that was what I was supposed to do."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "5a42b4a4cc9a",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "b62de19f4717",
+              "_type": "span",
+              "marks": [],
+              "text": "I wanted to be a good leader. Not just someone with a title. I genuinely wanted to make an evident change. I wanted the things I was part of to actually become better because I was there."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "16dbdf26632c",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "3fa413578c19",
+              "_type": "span",
+              "marks": [],
+              "text": "But as my A-level slowly comes to an end, I have reached a point where I have to admit something I really did not want to admit."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "e71f8d5a6533",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "3fa413578c19",
+              "_type": "span",
+              "marks": [],
+              "text": "I didn't. I seriously didn't."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "ee6765d0ff47",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "b93ae2c5a638",
+              "_type": "span",
+              "marks": [],
+              "text": "At least not in the way I had hoped I would. And I can't even lie to myself about it anymore. I know what I did. I know the meetings I attended, the things I organised, the responsibilities I carried, the people I worked with. I know there were moments where I did good."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "638c114cadda",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "7b8f14912b03",
+              "_type": "span",
+              "marks": [],
+              "text": "But inside, I always felt like I was failing some invisible standard. And the truth is, I suffered. More than I think I ever knew how to explain."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "ee2d18ee41eb",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "7b8f14912b03",
+              "_type": "span",
+              "marks": [],
+              "text": "I overthought everything. How are we going to organise this? How do I deal with everyone? What if they don't like what I'm promoting? What if they think I'm annoying? What if I make the wrong decision? What if I say the wrong thing? What if I mess this up? What if they notice that I actually don't know what I'm doing? What if, what if, what if."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "e681ea7162f3",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "4d6b71d1e597",
+              "_type": "span",
+              "marks": [],
+              "text": "And somehow all that thinking was supposed to help me. But it didn't. Sometimes it just made me do nothing. I think that is one of the most painful things to admit. Because I cared so much that sometimes I became incapable of moving."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "4348c28cb88b",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "56a76ed58e89",
+              "_type": "span",
+              "marks": [],
+              "text": "I asked for help, I think. But maybe I asked the wrong people. Maybe I asked people who made me more afraid instead of people who made me more grounded. Maybe I let other people's opinions become way too powerful. "
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "44e6e68e346f",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "56a76ed58e89",
+              "_type": "span",
+              "marks": [],
+              "text": "I became immensely scared of people. Of their judgement. Of disappointing them. Of making one wrong move that everyone would remember forever. And I kept carrying all of that inside my head until it became this huge hole I couldn't seem to climb out of."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "0eabcaf6c5a8",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "d21fb74b4f3a",
+              "_type": "span",
+              "marks": [],
+              "text": "Today, I let go of a few of my responsibilities. I still have others that are demanding. And somehow, it is still the same. I still overthink. I still worry. I still question every move. And sometimes I genuinely wonder, will I ever get out of this? Or am I just going to be like this forever? "
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "7de47cb5ff2a",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "d21fb74b4f3a",
+              "_type": "span",
+              "marks": [],
+              "text": "Why can't I just be sharp? Why can't I be audacious? Why can't I just do things without thinking about them seventeen times first? Why can't I be like the others? I mean, I think I've tried hard enough. Haven't I? And sometimes I genuinely don't know what life is supposed to mean when you spend so much of it inside your own head. "
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "f60bbf9f662a",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "d21fb74b4f3a",
+              "_type": "span",
+              "marks": [],
+              "text": "I believe that after this “life”, there is a place where none of this exists. No overthinking. No tears. No carrying burdens you were never meant to carry forever. Heaven. And I believe I'll be there with Jesus. So I continue to strive to live a life worthy of entering that kingdom. "
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "36026598bccb",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "d21fb74b4f3a",
+              "_type": "span",
+              "marks": [],
+              "text": "But even that makes me wonder. Will I go there like this? With all this negativity? This pride? All this weakness? With all this hatred I sometimes have for.. myself? With all the things I know are wrong with me? It genuinely baffles me."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "658e46a51cb3",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "af50ed388368",
+              "_type": "span",
+              "marks": [],
+              "text": "I don't even know where I'm supposed to go from here. I don't know how to become the version of myself I keep imagining. I don't know whether I need to become stronger, less sensitive, more confident, less afraid, less inside my head, or simply stop trying to be someone I am not. Maybe that is the part I haven't figured out yet. I just know that I am tired. And maybe, for now, this is all I know how to do with it. Write it down. Put it somewhere outside of me. For who knows what reason."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "b69a5199f75d",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "85d96f7cb957",
+              "_type": "span",
+              "marks": [],
+              "text": "Maybe one day I'll read this again and laugh at how dramatic I was. Maybe I'll read it and finally understand myself. Maybe I'll realise that I wasn't actually failing. Maybe I was just trying to carry everything in the wrong way. I don't know. I really don't. Je ne sais pas, as my French-speaking version says. But this is where I am right now."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "7cadd134c8ba",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "dba9ba640294",
+              "_type": "span",
+              "marks": [],
+              "text": "And maybe that is enough for today."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "15d72635f13b",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "2d62d0feac0e",
+              "_type": "span",
+              "marks": [],
+              "text": "Love, Isa\n08.10.26"
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "mainImage": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-8bfe88ca0433bddb9125b3f82640039d0e1cccf2-535x661-png",
+          "_type": "reference"
+        }
+      },
+      "polaroidCaption": null,
+      "publishedAt": "2026-10-08T06:54:11.799Z",
+      "slug": {
+        "_type": "slug",
+        "current": "sunshine-all-the-time-makes-a-desert"
+      },
+      "tags": null,
+      "title": "Sunshine all the time makes a desert."
+    },
     {
       "_createdAt": "2026-05-12T20:41:08Z",
       "_id": "8f9608a1-7385-4f53-b48d-789e18a96638",

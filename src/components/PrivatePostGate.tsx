@@ -31,6 +31,9 @@ export function PrivatePostGate({ postTitle }: PrivatePostGateProps) {
 
       const data = await res.json();
       if (res.ok && data.success) {
+        if (typeof window !== "undefined") {
+          localStorage.setItem("alter_ego_owner", "true");
+        }
         // Refresh the server component so the post renders
         router.refresh();
       } else {

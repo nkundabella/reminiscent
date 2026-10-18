@@ -4,7 +4,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowUpRight, Edit3, Lock, Unlock, KeyRound, X, Loader2, ShieldCheck } from "lucide-react";
-import { client } from "@/sanity/client";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -71,8 +70,24 @@ export default function BlogPage() {
 
   // Fetch posts whenever owner status changes
   useEffect(() => {
-    const query = isOwner ? ALL_POSTS_QUERY : PUBLIC_POSTS_QUERY;
-    client.fetch<Post[]>(query).then(setAllPosts);
+    let isCancelled = false;
+    const fetchPosts = async () => {
+      try {
+        const res = await fetch("/api/posts");
+        if (!res.ok) throw new Error(`HTTP error ${res.status}`);
+        const data = await res.json();
+        if (!isCancelled && data.posts) {
+          setAllPosts(data.posts);
+        }
+      } catch (err) {
+        console.error("Failed to load blog posts:", err);
+      }
+    };
+
+    fetchPosts();
+    return () => {
+      isCancelled = true;
+    };
   }, [isOwner]);
 
   // Derive list of unique tags for filter UI

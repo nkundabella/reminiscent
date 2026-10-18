@@ -10,36 +10,42 @@ export default function Home() {
   const [polaroids, setPolaroids] = useState<any[]>([]);
 
   useEffect(() => {
+    let isCancelled = false;
     const fetchPosts = async () => {
-      const posts = await client.fetch(`*[_type == "post" && isPrivate != true] | order(publishedAt desc)[0...4] {
-        _id,
-        title,
-        slug,
-        publishedAt,
-        polaroidCaption,
-        "image": mainImage.asset->url
-      }`);
+      try {
+        const res = await fetch("/api/posts?limit=4");
+        if (!res.ok) throw new Error(`HTTP error ${res.status}`);
+        const data = await res.json();
+        const posts = data.posts || [];
 
-      const layouts = [
-        { rotate: -4, x: -20, y: 10 },
-        { rotate: 3, x: 10, y: -10 },
-        { rotate: -2, x: 30, y: 20 },
-        { rotate: 5, x: -10, y: -20 },
-      ];
+        const layouts = [
+          { rotate: -4, x: -20, y: 10 },
+          { rotate: 3, x: 10, y: -10 },
+          { rotate: -2, x: 30, y: 20 },
+          { rotate: 5, x: -10, y: -20 },
+        ];
 
-      const mappedPosts = posts.map((post: any, i: number) => ({
-        id: post._id,
-        title: post.polaroidCaption || post.title,
-        slug: post.slug.current,
-        date: new Date(post.publishedAt).toLocaleDateString("en-US", { month: "short", day: "numeric" }),
-        image: post.image || "https://images.unsplash.com/photo-1518998053401-a41c1eb9133b?w=800&q=80",
-        ...layouts[i % layouts.length]
-      }));
+        const mappedPosts = posts.map((post: any, i: number) => ({
+          id: post._id,
+          title: post.polaroidCaption || post.title,
+          slug: typeof post.slug === "object" ? post.slug?.current : post.slug,
+          date: new Date(post.publishedAt).toLocaleDateString("en-US", { month: "short", day: "numeric" }),
+          image: post.image || "https://images.unsplash.com/photo-1518998053401-a41c1eb9133b?w=800&q=80",
+          ...layouts[i % layouts.length]
+        }));
 
-      setPolaroids(mappedPosts);
+        if (!isCancelled) {
+          setPolaroids(mappedPosts);
+        }
+      } catch (err) {
+        console.error("Failed to load polaroid posts:", err);
+      }
     };
 
     fetchPosts();
+    return () => {
+      isCancelled = true;
+    };
   }, []);
 
   return (

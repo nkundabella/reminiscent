@@ -1,12 +1,24 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 const DEFAULT_PASSCODE = "admin123";
 
 export async function GET() {
   const cookieStore = await cookies();
   const isUnlocked = cookieStore.get("alter_ego_owner")?.value === "authenticated";
-  return NextResponse.json({ authenticated: isUnlocked });
+  return NextResponse.json(
+    { authenticated: isUnlocked },
+    {
+      headers: {
+        "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+        Pragma: "no-cache",
+        Expires: "0",
+      },
+    }
+  );
 }
 
 export async function POST(req: NextRequest) {
