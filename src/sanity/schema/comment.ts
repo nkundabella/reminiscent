@@ -4,6 +4,13 @@ export const comment = {
   type: "document",
   fields: [
     {
+      name: "authorName",
+      title: "Author Name / Alias",
+      type: "string",
+      description: "Display name or anonymous alias of the commenter",
+      initialValue: "Anonymous Explorer",
+    },
+    {
       name: "message",
       title: "Message",
       type: "text",

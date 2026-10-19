@@ -71,5 +71,4 @@ yarn-error.log*
 next-env.d.ts
 
 config.bat
-.env
 node_modules

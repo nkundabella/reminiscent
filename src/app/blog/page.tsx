@@ -311,14 +311,16 @@ export default function BlogPage() {
                   </div>
                 </Link>
 
-                {/* Edit button for dev mode */}
-                <Link
-                  href={`/studio/intent/edit/id=${post._id};type=post`}
-                  className="absolute -top-4 -right-4 bg-aura-dark text-aura-cream p-2 rounded-full border border-aura-foreground/20 opacity-0 group-hover:opacity-100 transition-all hover:scale-110 z-20 shadow-xl"
-                  title="Edit in Studio"
-                >
-                  <Edit3 className="w-4 h-4" />
-                </Link>
+                {/* Edit button for owner only */}
+                {isOwner && (
+                  <Link
+                    href={`/studio/intent/edit/id=${post._id};type=post`}
+                    className="absolute -top-4 -right-4 bg-aura-dark text-aura-cream p-2 rounded-full border border-aura-foreground/20 opacity-0 group-hover:opacity-100 transition-all hover:scale-110 z-20 shadow-xl"
+                    title="Edit in Studio"
+                  >
+                    <Edit3 className="w-4 h-4" />
+                  </Link>
+                )}
               </motion.div>
             </div>
           ))}
@@ -331,9 +333,11 @@ export default function BlogPage() {
                   ? "No private posts found."
                   : "No posts match the selected filter..."}
               </p>
-              <Link href="/studio" className="text-aura-blue underline mt-4 block">
-                Go to Studio to add or manage posts
-              </Link>
+              {isOwner && (
+                <Link href="/studio" className="text-aura-blue underline mt-4 block">
+                  Go to Studio to add or manage posts
+                </Link>
+              )}
             </div>
           )}
         </div>
