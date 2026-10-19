@@ -36,6 +36,7 @@ interface Post {
     _id: string;
     message: string;
     authorSessionId?: string;
+    authorName?: string;
     _createdAt: string;
   }[];
   similarPosts?: {
@@ -67,6 +68,7 @@ const POST_QUERY = `*[_type == "post" && slug.current == $slug][0] {
     _id,
     message,
     authorSessionId,
+    authorName,
     _createdAt
   },
   "similarPosts": *[_type == "post" && slug.current != $slug && isPrivate != true] | order(publishedAt desc)[0...3] {
@@ -153,12 +155,14 @@ export default async function PostPage(props: { params: Promise<{ slug: string }
           <div className="relative">
             {/* Portrait Layout: Floating Image with words on the right */}
             <div className="mb-8 flex flex-wrap items-center gap-3">
-              <Link 
-                href={`/studio/intent/edit/id=${post._id};type=post`}
-                className="inline-flex items-center gap-2 bg-aura-dark text-aura-cream px-6 py-3 rounded-full border border-aura-foreground/20 hover:scale-105 transition-all shadow-xl font-bold text-sm"
-              >
-                <Edit3 className="w-4 h-4" /> EDIT THIS POST
-              </Link>
+              {isOwner && (
+                <Link 
+                  href={`/studio/intent/edit/id=${post._id};type=post`}
+                  className="inline-flex items-center gap-2 bg-aura-dark text-aura-cream px-6 py-3 rounded-full border border-aura-foreground/20 hover:scale-105 transition-all shadow-xl font-bold text-sm"
+                >
+                  <Edit3 className="w-4 h-4" /> EDIT THIS POST
+                </Link>
+              )}
               {post.isPrivate && (
                 <div className="inline-flex items-center gap-2 bg-amber-500/10 text-amber-600 border border-amber-500/30 px-4 py-2.5 rounded-full font-black text-xs uppercase tracking-widest">
                   <Lock className="w-3.5 h-3.5" /> Private Entry &bull; Only Visible to You
@@ -223,14 +227,16 @@ export default async function PostPage(props: { params: Promise<{ slug: string }
                 {post.title}
               </h1>
 
-              {/* Edit Button for the post */}
+              {/* Edit Button for the post (Owner Only) */}
               <div className="flex flex-wrap items-center gap-3 mb-12">
-                <Link 
-                  href={`/studio/intent/edit/id=${post._id};type=post`}
-                  className="inline-flex items-center gap-2 bg-aura-dark text-aura-cream px-6 py-3 rounded-full border border-aura-foreground/20 hover:scale-105 transition-all shadow-xl font-bold text-sm"
-                >
-                  <Edit3 className="w-4 h-4" /> EDIT THIS POST
-                </Link>
+                {isOwner && (
+                  <Link 
+                    href={`/studio/intent/edit/id=${post._id};type=post`}
+                    className="inline-flex items-center gap-2 bg-aura-dark text-aura-cream px-6 py-3 rounded-full border border-aura-foreground/20 hover:scale-105 transition-all shadow-xl font-bold text-sm"
+                  >
+                    <Edit3 className="w-4 h-4" /> EDIT THIS POST
+                  </Link>
+                )}
                 {post.isPrivate && (
                   <div className="inline-flex items-center gap-2 bg-amber-500/10 text-amber-600 border border-amber-500/30 px-4 py-2.5 rounded-full font-black text-xs uppercase tracking-widest">
                     <Lock className="w-3.5 h-3.5" /> Private Entry &bull; Only Visible to You
@@ -269,7 +275,7 @@ export default async function PostPage(props: { params: Promise<{ slug: string }
         </div>
 
         {/* Comments Section */}
-        <CommentsSection postId={post._id} comments={post.comments || []} />
+        <CommentsSection postId={post._id} comments={post.comments || []} isOwner={isOwner} />
 
         {/* Other Posts Section */}
         {post.similarPosts && post.similarPosts.length > 0 && (
