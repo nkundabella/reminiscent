@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Star } from "lucide-react";
 import Link from "next/link";
-import { client } from "@/sanity/client";
 import { HeroSection } from "@/components/HeroSection";
 
 export default function Home() {

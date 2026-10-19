@@ -4,12 +4,12 @@ import Link from "next/link";
 import { ArrowLeft, Edit3, Calendar, Clock, Lock } from "lucide-react";
 import { notFound } from "next/navigation";
 import Image from "next/image";
-import imageUrlBuilder from "@sanity/image-url";
+import { createImageUrlBuilder } from "@sanity/image-url";
 import { CommentsSection } from "@/components/CommentsSection";
 import { cookies } from "next/headers";
 import { PrivatePostGate } from "@/components/PrivatePostGate";
 
-const builder = imageUrlBuilder(client);
+const builder = createImageUrlBuilder(client);
 function urlFor(source: any) {
   return builder.image(source);
 }
